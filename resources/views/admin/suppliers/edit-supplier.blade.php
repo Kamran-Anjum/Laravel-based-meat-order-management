@@ -1,0 +1,301 @@
+@extends('layouts.adminLayout.admin-design')
+@section('content')
+        <!-- ============================================================== -->
+        <!-- Page wrapper  -->
+        <!-- ============================================================== -->
+        <div class="page-wrapper">
+            <!-- ============================================================== -->
+            <!-- Bread crumb and right sidebar toggle -->
+            <!-- ============================================================== -->
+            <div class="page-breadcrumb">
+                <div class="row">
+                    <div class="col-lg-3 col-md-4 col-xs-12 align-self-center">
+                        <h5 class="font-medium text-uppercase mb-0">Edit Supplier</h5>
+                    </div>
+                    <div class="col-lg-9 col-md-8 col-xs-12 align-self-center">
+                        <!-- <button class="btn btn-danger text-white float-right ml-3 d-none d-md-block">Buy Ample Admin</button> -->
+                        <nav aria-label="breadcrumb" class="mt-2 float-md-right float-left">
+                            <ol class="breadcrumb mb-0 justify-content-end p-0">
+                                <li class="breadcrumb-item"><a href="{{ url('admin/dashboard') }}">Home</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Edit Supplier</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <!-- ============================================================== -->
+            <!-- End Bread crumb and right sidebar toggle -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- Container fluid  -->
+            <!-- ============================================================== -->
+            <div class="page-content container-fluid">
+                <style>
+                    .select2-container--default .select2-selection--single .select2-selection__rendered {
+                        color: #444;
+                        line-height: 35px;
+                    }
+                    .select2-container .select2-selection--single {
+                        box-sizing: border-box;
+                        cursor: pointer;
+                        display: block;
+                        height: 35px;
+                        user-select: none;
+                        -webkit-user-select: none;
+                    }
+                    .select2-container--default .select2-selection--single {
+                        background-color: #fff;
+                        border: 1px solid #e9ecef;
+                        border-radius: 4px;
+                    }
+                    .select2-container--default .select2-selection--single .select2-selection__arrow b {
+                        border-color: #888 transparent transparent transparent;
+                        border-style: solid;
+                        border-width: 5px 4px 0 4px;
+                        height: 0;
+                        left: 50%;
+                        margin-left: -4px;
+                        margin-top: -2px;
+                        position: absolute;
+                        top: 60%;
+                        width: 0;
+                    }
+                    .select2-container--default .select2-selection--multiple {
+                        background-color: white;
+                        border: 1px solid #e9ecef;
+                        border-radius: 4px;
+                        cursor: text;
+                    }
+                    .select2-container--default.select2-container--focus .select2-selection--multiple {
+                        border:  1px solid rgba(0,0,0,.25);
+                        outline: 0;
+                    }
+                </style>
+                <!-- ============================================================== -->
+                <!-- Start Page Content -->
+                <!-- ============================================================== -->
+                <div class="row">
+                    <!-- Column -->
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <form enctype="multipart/form-data" method="post" action="{{ url('/admin/edit-supplier/'.$supplier->id) }}" > {{ csrf_field() }}
+                                    <div class="form-body">
+                                        <h5 class="card-title">Edit Supplier</h5>
+                                        <hr>
+
+                                        <div class="row">
+                                             <div class="col-md-4 mb-0">
+                                                <div class="form-group">                                                  
+                                                    <label  for="">Supplier Name</label>
+                                                    <input type="text" value="{{$supplier->supplier_name}}" class="form-control" name="supplier_name">
+                                                    <div class="invalid-feedback">Example invalid custom select feedback</div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4 mb-0">
+                                                <div class="form-group">                                                  
+                                                    <label  for="">Supplier Email</label>
+                                                    <input type="text" class="form-control" value="{{$supplier->email}}" name="supplier_email">
+                                                    <div class="invalid-feedback">Example invalid custom select feedback</div>
+                                                </div>
+                                            </div>
+
+                                            
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-4 mb-0">
+                                                <div class="form-group">                                                  
+                                                    <label  for="">Supplier Contact No</label>
+                                                    <input type="text" class="form-control" value="{{$supplier->contact_no}}" name="supplier_cell">
+                                                    <div class="invalid-feedback">Example invalid custom select feedback</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-8 mb-0">
+                                                <div class="form-group">                                                  
+                                                    <label  for="">Supplier Address</label>
+                                                    <input type="text" class="form-control" value="{{$supplier->address}}" name="s_address">
+                                                    <div class="invalid-feedback">Example invalid custom select feedback</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-4 mb-0">
+                                                <div class="form-group">                                                  
+                                                    <label  for="">Country</label>
+                                                    <select onchange="stateSelect(event)" class="form-control" id="product_category_id" name="country_id">
+                                                        {!! $country_dropdown !!}
+                                                    </select>                                                    
+                                                    <div class="invalid-feedback">Example invalid custom select feedback</div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4 mb-0">
+                                                <div class="form-group">                                                  
+                                                    <label  for="">State</label>
+                                                    <select id="state" readonly onchange="citySelect(event)" name="state" class="form-control select2" style="width: 100%; height:36px;" required>
+                                                        <option value="{{$supplier->state_id}}">{{$supplier->stateName}}</option>}
+                                            </select>                                                  
+                                                    <div class="invalid-feedback">Example invalid custom select feedback</div>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                      
+                                        
+                                        <div class="row">
+                                            <div class="col-md-4 mb-0">
+                                                <div class="form-group">                                                  
+                                                    <label  for="">City</label>
+                                                    <select id="city" name="city" class="form-control select2" readonly style="width: 100%; height:36px;" required>
+                                                        <option value="{{$supplier->city_id}}">{{$supplier->cityName}}</option>
+                                            </select>                                                  
+                                                    <div class="invalid-feedback">Example invalid custom select feedback</div>
+                                                </div>
+
+                                            </div>
+                                            
+                                            
+                                        </div>
+                                                                  
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-4 mb-0">
+                                                <div class="form-group">                                                  
+                                                    <label  for="">Image</label>
+                                                    <input type="file" class="form-control" name="image">
+                                                    <div class="invalid-feedback">Example invalid custom select feedback</div>
+                                                </div>
+                                            </div>
+                                        <div class="col-md-6">
+                                        <div class="form-group">
+                                            <button type="button" class="btn waves-effect waves-light btn-danger"><a class="text-white sa-confirm-delete" param-id="{{$supplier->id}}" param-route="delete-supplier-image" href="javascript:">Remove</a></button>
+{{--                                            <button type="button" class="btn waves-effect waves-light btn-danger"><a class="text-white sa-confirm-deletes" param-id="{{$supplier->id}}" param-route="delete-color-image" href="javascript:">Remove</a></button>--}}
+                                            <input name="galleryimage" type="hidden" name="" value="">
+                                            <input type="hidden" name="current_image" value="{{ $supplier->image }}">
+                                            @if(!empty( $supplier->image ))
+                                                <img src="{{ asset('images/backend-images/halalmeat/supplier/tiny/'.$supplier->image ) }}" width="80">
+                                            @endif
+                                        </div>
+                                    </div>
+                                    </div>
+                                    <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Status</label>
+                                                    <br/>
+                                                    @if($supplier->is_active == "1")
+                                                    <div class="custom-control custom-radio custom-control-inline">
+                                                        <input type="radio" value="1" id="customRadioInline1" checked="checked" name="is_active" class="custom-control-input">
+                                                        <label class="custom-control-label" for="customRadioInline1">Active</label>
+                                                    </div>
+                                                    <div class="custom-control custom-radio custom-control-inline">
+                                                        <input type="radio" value="0" id="customRadioInline2" name="is_active" class="custom-control-input">
+                                                        <label class="custom-control-label" for="customRadioInline2">Inactive</label>
+                                                    </div>
+                                                    @else
+                                                    <div class="custom-control custom-radio custom-control-inline">
+                                                        <input type="radio" value="1" id="customRadioInline1" name="is_active" class="custom-control-input">
+                                                        <label class="custom-control-label" for="customRadioInline1">Active</label>
+                                                    </div>
+                                                    <div class="custom-control custom-radio custom-control-inline">
+                                                        <input type="radio" value="0" id="customRadioInline2" checked="checked" name="is_active" class="custom-control-input">
+                                                        <label class="custom-control-label" for="customRadioInline2">Inactive</label>
+                                                </div>
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </div>
+                                        <hr>
+                                        <div class="form-actions mt-5">
+                                        <button type="submit" class="btn btn-success"> <i class="fa fa-check"></i> Edit</button>
+                                        <a href="{{ url('/admin/view-suppliers')}}"><button type="button" class="btn btn-dark">Cancel</button></a>
+                                    </div>
+                                           </form>
+
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Column -->
+                </div>
+                <!-- ============================================================== -->
+                <!-- End PAge Content -->
+                <!-- ============================================================== -->
+                <!-- ============================================================== -->
+                <!-- Right sidebar -->
+                <!-- ============================================================== -->
+                <!-- .right-sidebar -->
+                <!-- ============================================================== -->
+                <!-- End Right sidebar -->
+                <!-- ============================================================== -->
+            </div>
+            <!-- ============================================================== -->
+            <!-- End Container fluid  -->
+            <!-- ============================================================== -->
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Page wrapper  -->
+        <!-- ============================================================== -->
+@endsection
+
+<script>
+
+function stateSelect(evt){
+// debugger;
+var test=evt.target.value;
+console.log(test);
+    $('#state').empty()
+        $.ajax({
+            url: '/statename/'+test,
+            success: data => {
+                //debugger;
+                var statedd = $("#state").html();
+             //   $(citydd).empty();
+                console.log(data + statedd);
+                $("#state").append('<option value="">Select State</option>');
+                for(var option =0; option<data.length; option++)
+                {
+                var newOption = document.createElement("option");
+                newOption.value = data[option]['id'];
+                newOption.innerHTML = data[option]['name'];
+                //citydd.options.add(newOption);
+                $("#state").append('<option value='+data[option].id+'>'+ data[option].name +'</option>');
+                }
+                $("#state").prop("disabled", false);
+                $("#city").prop("disabled", false);
+            }
+        })
+}
+ 
+function citySelect(evtc){
+//debugger;
+var test= evtc.target.value;
+var e = document.getElementById("product_category_id");
+var Cid = e.options[e.selectedIndex].value;
+
+    $('#city').empty()
+        $.ajax({
+            url: '/cityname/'+Cid+'/'+test,
+            success: data => {
+                var citydd = $("#city").html();
+                console.log(data + citydd);
+                $("#city").append('<option value="">Select City</option>');
+                for(var option =0; option<data.length; option++)
+                {
+                var newOption = document.createElement("option");
+                newOption.value = data[option]['id'];
+                newOption.innerHTML = data[option]['name'];
+                //citydd.options.add(newOption);
+                $("#city").append('<option value='+data[option].id+'>'+ data[option].name +'</option>')
+                }
+                $("#city").prop("disabled", false);
+            }
+        })
+}
+
+
+
+</script>

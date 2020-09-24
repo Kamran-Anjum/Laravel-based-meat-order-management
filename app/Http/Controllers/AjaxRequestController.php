@@ -31,6 +31,27 @@ class AjaxRequestController extends Controller
         return $subcategories_dropdown;
 
     }
+    //Get Supplier Product for Purchase Order
+    public function getSupplierproductPO($id = null){
+
+        $supplier_product_ids = DB::table('supplier_products')
+                ->where(['supplier_id' => $id])->get();
+        $product_ids = [];
+
+        foreach ($supplier_product_ids as $value) {
+            $product_ids[] .= $value->product_id;
+        }
+        $products = DB::table('products')
+                ->whereIn('id',$product_ids)->get();
+                $products_dropdown = "";
+                foreach($products as $product){
+                    $products_dropdown .= "<option value='".$product->id."'>".$product->name . "</option>";      
+                     }
+        
+        
+        return $products_dropdown;
+
+    }
 
     public function getStateName($id)
 	{

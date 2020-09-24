@@ -69,6 +69,75 @@ class SupplierController extends Controller
         return view('admin.suppliers.create-supplier')->with(compact('country_dropdown'));
     }
 
+    public function editSupplier(Request $request, $id = null){
+        
+        $user = Auth::user();
+        $user_id = $user->id;
+
+        if($request->isMethod('post')){
+            $data = $request->all();
+            
+            if($request->hasFile('image')){
+
+                $image_tmp = $request->image;
+                    if($image_tmp->isValid()){
+                        $extension = $image_tmp->getClientOriginalExtension();
+                        $filename = 'supplier'.rand(1111,9999999).'.'.$extension;
+                        $large_image_path = 'images/backend-images/halalmeat/supplier/large/'.$filename;
+                        $medium_image_path = 'images/backend-images/halalmeat/supplier/medium/'.$filename;
+                        $small_image_path = 'images/backend-images/halalmeat/supplier/small/'.$filename;
+                        $tiny_image_path = 'images/backend-images/halalmeat/supplier/tiny/'.$filename;
+                        Image::make($image_tmp)->save($large_image_path);
+                        Image::make($image_tmp)->resize(600,600)->save($medium_image_path);
+                        Image::make($image_tmp)->resize(166,266)->save($small_image_path);
+                        Image::make($image_tmp)->resize(100,100)->save($tiny_image_path);
+                    }
+                }
+                else{
+                    $filename = $data['current_image'];
+                if( empty($filename)){
+                    $filename ='';
+                }
+                }
+            Supplier::where(['id'=>$id])->update
+            ([
+                'supplier_name' => $data['supplier_name'],
+                'contact_no' => $data['supplier_cell'],
+                'email' => $data['supplier_email'],
+                'country_id' => $data['country_id'],
+                'state_id' => $data['state'],
+                'city_id' => $data['city'],
+                'address' => $data['s_address'],
+                'updated_by' => $user_id,
+                'image' => $filename,
+                'is_active' => $data['is_active']
+            
+            ]);
+        return redirect('/admin/view-suppliers')->with('flash_message_success','Supplier has been Updated Successfully!'); 
+        }
+        $supplier = DB::table('suppliers as s')
+        ->where(['s.id'=>$id])
+        ->join('countries as c','s.country_id','=','c.id')
+        ->join('states as st','s.state_id','=','st.id')
+        ->join('cities as ct','s.city_id','=','ct.id')
+        ->select('s.*','ct.name as cityName','st.name as stateName','c.name as countryName')
+        ->first();
+        //dd($courseType);
+
+        $countries = DB::table('countries')->get();
+
+        $country_dropdown = "<option value=''>Select Country</option>";
+         foreach($countries as $country){
+            if($supplier->country_id == $country->id){
+            $country_dropdown .= "<option selected value='".$country->id."'>".$country->name . "</option>";
+            }
+            else{
+            $country_dropdown .= "<option value='".$country->id."'>".$country->name  . "</option>";
+            }
+         }
+        return view('admin.suppliers.edit-supplier')->with(compact('supplier','country_dropdown'));
+    }
+
     public function viewSupplierProduct($id)
     {
     	$supplier_id = $id;
@@ -120,5 +189,11 @@ class SupplierController extends Controller
     {	Supplier::where(['id' => $id])->delete();
     	Supplierproducts::where(['supplier_id'=>$id])->delete();
         return redirect()->back()->with('flash_message_success','Supplier been deleted Successfully!');
+    }
+
+    public function deletesupplierimage($id)
+    {
+        Supplier::where(['id'=>$id])->update(['image'=>'']);
+        return redirect()->back()->with('flash_message_success','Supplier image has been Deleted Successfully!');
     }
 }

@@ -140,9 +140,9 @@
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a href="{{ url('/admin/list-product')}}" class="sidebar-link">
+                            <a href="{{ url('/admin/view-pruchase-orders')}}" class="sidebar-link">
                                 <i class="mdi mdi-shopping"></i>
-                                <span class="hide-menu">Purchases/Demands</span>
+                                <span class="hide-menu">Purchase Orders</span>
                             </a>
                         </li>
 

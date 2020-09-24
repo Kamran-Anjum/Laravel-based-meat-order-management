@@ -23,6 +23,7 @@ $(document).ready(function(){
 
     $("#subcategory").select2();
     $("#suppproducts").select2();
+    $("#purchaseproduct").select2();
     
 
 //Coding For Halal Meat
@@ -35,6 +36,22 @@ $('#product_category_id').on('change', function() {
                 var citydd = $("#subcategory").html('');
                 $('#subcategory').append(data);
                 $("#subcategory").prop("disabled", false);
+                console.log(data);
+            }
+
+        }); 
+});
+
+// select supplier product for purchase order
+$('#supplierPO').on('change', function() { 
+   var supplier_id = $(this).val();
+   
+    $.ajax({
+            url: '/admin/getsupplierproductpo/'+supplier_id,
+            success: data => {
+                var citydd = $("#purchaseproduct").html('');
+                $('#purchaseproduct').append(data);
+                $("#purchaseproduct").prop("disabled", false);
                 console.log(data);
             }
 

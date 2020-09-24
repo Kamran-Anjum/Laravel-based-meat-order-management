@@ -72,8 +72,14 @@ Route::get('/admin/view-suppliers',[App\Http\Controllers\SupplierController::cla
 Route::match(['get','post'],'admin/view-supplier-products/{id}', [App\Http\Controllers\SupplierController::class,'viewSupplierProduct']);
 Route::match(['get','post'],'admin/create-supplier-product/{id}', [App\Http\Controllers\SupplierController::class,'createSupplierProduct']);
 Route::match(['get','post'],'/admin/create-supplier',[App\Http\Controllers\SupplierController::class,'createSupplier']);
+Route::match(['get','post'],'/admin/edit-supplier/{id}',[App\Http\Controllers\SupplierController::class,'editSupplier']);
+Route::get('/admin/delete-supplier-image/{id}',[App\Http\Controllers\SupplierController::class,'deletesupplierimage']);
 Route::get('/admin/delete-supplier-product/{id}',[App\Http\Controllers\SupplierController::class,'deleteSupplierProduct']);
 Route::get('/admin/delete-supplier/{id}',[App\Http\Controllers\SupplierController::class,'deleteSupplier']);
+
+//Purchase Order
+Route::get('/admin/view-pruchase-orders',[App\Http\Controllers\PurchaseorderController::class,'viewPurchaseOrders']);
+Route::match(['get','post'],'/admin/create-purchase-order',[App\Http\Controllers\PurchaseorderController::class,'createPurchaseOrder']);
 
 //Country Controller
 Route::get('/admin/view-countries', [App\Http\Controllers\CountryController::class,'viewCountry']);
@@ -98,6 +104,7 @@ Route::get('/admin/getproductsubcategories/{id}',[App\Http\Controllers\AjaxReque
 Route::get('/statename/{id}',[App\Http\Controllers\AjaxRequestController::class,'getStateName']);
 Route::get('/cityname/{cid}/{sid}',[App\Http\Controllers\AjaxRequestController::class,'getCityName']);
 Route::get('/getsupplierdetail/{id}',[App\Http\Controllers\AjaxRequestController::class,'getSupplierDetail']);
+Route::get('admin/getsupplierproductpo/{id}',[App\Http\Controllers\AjaxRequestController::class,'getSupplierproductPO']);
 
 });
 
