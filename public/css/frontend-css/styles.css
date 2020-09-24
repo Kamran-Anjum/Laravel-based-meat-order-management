@@ -1,0 +1,1778 @@
+.topBar-section{
+	 background: #000000;
+    color: white;
+    text-align: center;
+    padding: 12px 15px;
+    font-size: small;
+    cursor: pointer;
+}
+
+.topBar-section-text{
+  letter-spacing: 0.1rem;
+    font-weight: 300;
+    text-transform: uppercase;
+}
+
+/*.navbar-brand{
+	position: absolute;
+    left: 47%;
+    display: block;
+}
+*/
+@media screen and (max-width: 576px){
+.navbar{
+    padding: 0px;
+}
+}
+.navbar-brand {
+    letter-spacing: 0.2em;
+    font-weight: 500;
+    font-size: 22px;
+}
+
+.nav-link {
+	letter-spacing: 0.2em;
+	margin: 0 8px;
+	font-size: 12px;
+	font-style: normal;
+	text-transform: uppercase;
+	}
+
+  .fa-icon{
+    color: white;
+  }
+
+/*stick navbar to top on scroll*/
+.affix{
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 1030;
+  background: #ffffffeb;
+}
+
+.affix a{
+  color: #000000 !important;
+}
+
+.affix .fa-icon{
+  color: #000000 !important;
+}
+
+header:hover .fa-icon{
+  color: #000000 !important;
+}
+/*.cart-link{
+	position: absolute;
+    top: 10px;
+    right: 25px;
+}*/
+
+.left-side-menu{
+  width: 40%;
+}
+
+.right-side-menu{
+  width: 40%;
+}
+
+.sideCart {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1000;
+  top: 0;
+  right: 0;
+  background-color: #ffffff;
+  overflow-x: hidden;
+  transition: 0.5s;
+
+}
+
+.sideCart h5{
+  padding: 15px;
+}
+
+.sideCart a {
+  padding: 8px;
+  text-decoration: none;
+  font-size: small;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+
+}
+
+/* .sideCart a:hover {
+  color: #f1f1f1;
+} */
+
+.sideCart .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+@media screen and (max-height: 450px) {
+  .sideCart {padding: 15px 5px 5px 5px;}
+  .sideCart a {font-size: small;}
+}
+.cart-product-image{
+  width: 100px;
+  height: 120px;
+}
+hr{
+	margin: 1rem 0rem;
+}
+
+.product-image{
+	width: 100%;
+	height: 100%;
+  display: block;
+
+}
+
+.product-top{
+	padding: 0.5rem;
+	position: absolute;
+  right: 20px;
+  top: 0;
+}
+
+.heading{
+  font-size: smaller;
+}
+
+.btn-view{
+  font-size: small !important;
+}
+
+.product-tile .product-bottom{
+	display: -ms-flexbox;
+  display: flex;
+    -ms-flex-flow: row wrap;
+    flex-flow: row wrap;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    -ms-flex-align: stretch;
+    align-items: stretch;
+    width: 100%;
+    position: relative;
+    padding: calc(4px * 2) 0 0;
+}
+
+.product-tile .product-bottom .product-bottom-left{
+	display: -ms-flexbox;
+    display: flex;
+    -ms-flex-flow: column wrap;
+    flex-flow: column wrap;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    -ms-flex-align: stretch;
+    align-items: stretch;
+}
+
+.product-tile .product-bottom .product-bottom-right{
+	display: -ms-flexbox;
+    display: flex;
+    -ms-flex-flow: row nowrap;
+    flex-flow: row nowrap;
+    -ms-flex-pack: start;
+    justify-content: flex-start;
+    -ms-flex-align: start;
+    align-items: flex-start;
+}
+
+.product-title{
+	font-size: 12px;
+	line-height: 14px;
+	font-weight: 400;
+  padding-left: 0px;
+}
+
+.product-title a{
+	text-decoration: none;
+	color: black;
+}
+
+.product-price{
+	font-size: 12px;
+	line-height: 14px;
+	font-weight: 400;
+  padding-right: 0px;
+}
+
+.product-details{
+  font-size: 12px;
+  line-height: 14px;
+
+}
+
+.edit-toggle{
+  font-size: 0.7rem;
+  letter-spacing: 1px;
+}
+@media screen and (min-width: 768px){
+.product-tile .product-bottom {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    padding: 10px 20px;
+}
+
+.product-tile .product-bottom .product-bottom-left{
+	display: flex;
+    flex-flow: column wrap;
+    justify-content: space-between;
+    align-items: stretch;
+}
+
+.product-tile .product-bottom .product-bottom-right{
+	-ms-flex-pack: end;
+    justify-content: flex-end;
+    -ms-flex-align: end;
+    align-items: flex-end;
+}
+
+.product-tile .product-bottom .product-bottom-left .product-title{
+  padding-left: 10px;
+}
+
+.product-tile .product-bottom .product-bottom-right .product-price{
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.product-details{
+  font-size: 12px;
+  line-height: 14px;
+  padding-left: 10px;
+}
+.color-choose{
+  padding-left: 10px !important;
+}
+
+}
+
+
+/*@media screen and (max-width: 768px){
+  .color-choose{
+  padding-left: 10px;
+}
+}
+*/
+.product-color{
+  display: block;
+  width: 100%;
+}
+
+.product-color span{
+  font-size: 14px;
+  font-weight: 400;
+  color: #86939E;
+  margin-bottom: 20px;
+  display: inline-block;
+}
+
+/* Product Color */
+.color-choose{
+  display: -ms-flexbox;
+    display: flex;
+    -ms-flex-flow: row wrap;
+    flex-flow: row wrap;
+    -ms-flex-pack: start;
+    justify-content: flex-start;
+    -ms-flex-align: end;
+    align-items: flex-end;
+}
+
+
+
+
+.product-bottom .hidden{
+  display: none;
+}
+
+.product-tile:hover .product-details{
+  display: block;
+}
+
+.product-tile:hover .product-color{
+  display: block;
+}
+
+.product-color-link{
+  display: block;
+  overflow: hidden;
+  border: 1px solid #999690;
+  border-radius: 50%;
+  background: #fff;
+}
+
+.product-color-container{
+  width:8px;
+  height:8px;
+  display:block;
+}
+/*footer*/
+
+/*.footer{
+  background-color: black;
+  color: white;
+  text-align: center;
+  padding: 10px 0px;
+  margin-top: 10%;
+  /*position: absolute;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+}*/
+
+.newletter-section{
+  background: #efefef;
+  font-size: small;
+  padding-top: 10%;
+  padding-bottom: 2%;
+}
+
+.newletter-section input{
+  font-size: small;
+}
+
+.newletter-section a{
+  /*font-size: small;
+  background: black;
+  color: white;
+  border: 1px solid black;*/
+}
+
+.footer-copyright{
+      color: #a7a7a7;
+    font-weight: 500;
+}
+
+.footer-brand{
+      text-align: center;
+    margin: auto;
+    display: block;
+    font-size: x-large;
+    letter-spacing: 0.2em;
+    text-decoration: none !important;
+    color: black;
+}
+
+.footer-socials{
+  margin: auto;
+    display: block;
+    text-align: center;
+    margin: 2% 0;
+}
+
+.footer-socials a{
+  color: #727272;
+  text-decoration: none !important;
+  margin: 5px;
+}
+
+.footer-socials a:hover{
+  color: black;
+  text-decoration: none !important;
+  margin: 5px;
+}
+
+/* The container */
+.choose {
+  display: block;
+  position: relative;
+  padding-left: 20px;
+  /*margin-bottom: 12px;*/
+  cursor: pointer;
+  font-size: small;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.choose input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+  position: absolute;
+  top: 2px;
+  left: 0;
+  height: 16px;
+  width: 16px;
+  background-color: #eee;
+}
+
+/* On mouse-over, add a grey background color */
+.choose:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+.choose input:checked ~ .checkmark {
+  background-color: #000000;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.choose input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.choose .checkmark:after {
+  left: 6px;
+  top: 2px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+.product-category{
+  font-size: small;
+}
+
+.btn-filter{
+  font-size: small;
+  box-shadow: none !important;
+}
+
+.filter-block{
+  display: block;
+  margin: auto;
+  text-align: center;
+}
+
+.sort-filter {
+  display: block;
+  position: relative;
+  padding-left: 20px;
+  cursor: pointer;
+  font-size: small;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default radio button */
+.sort-filter input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+/* Create a custom radio button */
+.radio-checkmark {
+  position: absolute;
+  top: 2px;
+  left: 0;
+  height: 16px;
+  width: 16px;
+  background-color: #eee;
+  border-radius: 50%;
+}
+
+/* On mouse-over, add a grey background color */
+.sort-filter:hover input ~ .radio-checkmark {
+  background-color: #ccc;
+}
+
+/* When the radio button is checked, add a blue background */
+.sort-filter input:checked ~ .radio-checkmark {
+  background-color: #000000;
+}
+
+/* Create the indicator (the dot/circle - hidden when not checked) */
+.radio-checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the indicator (dot/circle) when checked */
+.sort-filter input:checked ~ .radio-checkmark:after {
+  display: block;
+}
+
+/* Style the indicator (dot/circle) */
+.sort-filter .radio-checkmark:after {
+  top: 4px;
+  left: 4px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: white;
+}
+
+.filter-selections{
+  font-size: small;
+}
+
+.filter-remove-btn{
+  margin: 2px 0px 0px 2px;
+  font-size: medium;
+}
+
+.color-value{
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+}
+
+.color-blue{
+  background-color: blue;
+}
+/*cart*/
+.cart-product-heading{
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  font-weight: 400;
+  color: black;
+}
+
+.cart-tagline{
+  font-size: small;
+  color: #999999;
+}
+
+.cart-product-desc{
+  font-size: 0.8rem;
+  color: #999999;
+}
+
+.cart-product-price{
+  color: #999999;
+}
+
+.remove-item{
+  text-transform: uppercase;
+  color: #999999 !important;
+}
+input,
+textarea {
+  border: 0px solid #eeeeee;
+  box-sizing: border-box;
+  margin: 0;
+  outline: none;
+  padding: 10px;
+}
+
+input[type="button"] {
+  -webkit-appearance: button;
+  cursor: pointer;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
+.btn:focus{
+  box-shadow: none;
+}
+
+/*.cart-product-detail .input-group {
+  clear: both;
+  position: relative;
+  width: 105px;
+  display: inline-block;
+  float: left;
+  border: 1px solid #99999987;
+}
+*/
+/*.cart-product-detail .input-group input[type='button'] {
+  background-color: transparent;
+  min-width: 24px;
+  width: auto;
+  transition: all 300ms ease;
+}
+
+.cart-product-detail .input-group .button-minus,
+.cart-product-detail .input-group .button-plus {
+  height: 38px;
+  padding: 0;
+  width: 38px;
+  position: relative;
+  color: #999999;
+}
+
+.cart-product-detail .input-group .quantity-field {
+  position: relative;
+  height: 38px;
+  left: -6px;
+  text-align: center;
+  width: 45px;
+  display: inline-block;
+  font-size: 13px;
+  margin: 0px;
+  resize: vertical;
+  color: #999999;
+}
+
+.button-plus {
+  left: 0px;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+  -webkit-appearance: none;
+}*/
+
+.remove-block{
+  float: right;
+  display: inline-block;
+  width: 72px;
+  text-decoration: underline;
+}
+
+ .fixedPosition
+ {
+   overflow: hidden;
+ }
+
+.cart-table td{
+  border: none;
+  font-size: small;
+  color: #999999;
+}
+
+.promo-code-input{
+  font-size: small;
+  /*border: 0px;*/
+  box-shadow: none !important;
+}
+
+.cart-footer{
+ /* position: fixed;
+  bottom: 0;*/
+  width: 350px;
+}
+
+/*Liburti button*/
+.dark-btn{
+	background: black;
+	border: 1px solid black;
+	color: white !important;
+  border-radius: 0px;
+  box-shadow: none;
+}
+.dark-outline-btn{
+	background: transparent;
+	border: 1px solid black;
+	color: black !important;
+  border-radius: 0px;
+  box-shadow: none;
+}
+
+label.btn.dark-outline-btn.active {
+    background: black;
+    color: white !important;
+}
+
+.btn.focus{
+  box-shadow: none !important;
+}
+/*.animated-btn{
+
+  line-height: 30px;
+  font-size: small;
+  text-decoration: none;
+  color: #ffffff !important;
+  border: 2px solid #ffffff;
+  letter-spacing: 2px;
+  text-align: center;
+  position: relative;
+  transition: all .35s;
+  text-transform: uppercase;
+}
+
+.animated-btn span{
+  position: relative;
+  z-index: 2;
+}
+
+.animated-btn:after{
+  position: absolute;
+  content: "";
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
+  background: #ffffff;
+  border-color: #ffffff;
+  transition: all .35s;
+}
+
+.animated-btn:hover{
+  color: #000000 !important;
+  border-color: #ffffff;
+  text-decoration: none;
+}
+
+.animated-btn:hover:after{
+  width: 100%;
+}*/
+
+
+/* animated button*/
+.animated-button {
+  border: 1px solid white;
+  width: 145px;
+  /*height: 40px;*/
+  display: block;
+  background: linear-gradient(to right, transparent 50%, white 50%);
+  background-size: 200% 100%;
+  background-position: right bottom;
+  transition: all .5s ease-out;
+}
+
+.animated-button:hover {
+  background-position: left bottom;
+  border: 1px solid white;
+}
+
+.animated-button-link:hover{
+  text-decoration: none;
+}
+.animated-button-text {
+
+    text-align: center;
+    line-height: 36px;
+    color: black;
+    transition: all .6s ease-out;
+    display: block;
+    text-transform: uppercase;
+    font-weight: normal;
+    font-size: small;
+    letter-spacing: 0.1em;
+}
+
+.animated-button-text:hover {
+  color:white;
+  /*font-weight: bold;*/
+}
+
+/*liburti button black*/
+.animated-button-black{
+  border: 1px solid black;
+  width: 100%;
+  /*height: 40px;*/
+  display: block;
+  background: linear-gradient(to right, transparent 50%, black 50%);
+  background-size: 205% 106%;
+  background-position: right bottom;
+  transition: all .5s ease-out;
+}
+
+.animated-button-black:hover {
+  background-position: left bottom;
+  border: 1px solid black;
+}
+
+.animated-button-link{
+  text-decoration: none;
+  padding: 0px !important;
+}
+
+.animated-button-link:hover{
+  text-decoration: none;
+}
+.animated-button-text-black{
+
+    text-align: center;
+    line-height: 36px;
+    color: white;
+    transition: all .6s ease-out;
+    display: block;
+    text-transform: uppercase;
+    font-weight: normal;
+    font-size: small;
+    letter-spacing: 0.1em;
+}
+
+.animated-button-text-black:hover {
+  color:black;
+  /*font-weight: bold;*/
+}
+
+/*liburti button black white*/
+.animated-button-black-white{
+  border: 1px solid white;
+  width: 100%;
+  /*height: 40px;*/
+  display: block;
+  background: linear-gradient(to right, transparent 50%, black 50%);
+  background-size: 205% 106%;
+  background-position: right bottom;
+  transition: all .5s ease-out;
+}
+
+.animated-button-black-white:hover {
+  background-position: left bottom;
+  border: 1px solid black;
+}
+
+.animated-button-link{
+  text-decoration: none;
+  padding: 0px !important;
+}
+
+.animated-button-link:hover{
+  text-decoration: none;
+}
+
+.animated-button-text-black-white{
+
+    text-align: center;
+    line-height: 36px;
+    color: white;
+    transition: all .6s ease-out;
+    display: block;
+    text-transform: uppercase;
+    font-weight: normal;
+    font-size: small;
+    letter-spacing: 0.1em;
+}
+
+.animated-button-text-black-white:hover {
+  color:black;
+  /*font-weight: bold;*/
+}
+
+.animated-button-text-black-white.active {
+    background: #ffffff;
+    /* color: white; */
+    border: 1px solid black;
+    color: black;
+}
+
+/*Index page*/
+.main-slider{
+  margin-top: -150px;
+  z-index: -1000;
+  /*height: 500px;*/
+}
+
+@media screen and (max-width: 576px){
+.main-slider{
+    margin-top: -45px;
+}
+
+.widget-heading{
+	font-size: small !important;
+}
+
+.widget-sub-heading{
+	font-size: small !important;
+}
+
+.animated-button {
+    width: 100px;
+    height: 28px;
+}
+.animated-button-text{
+	line-height: 24px;
+	font-size: 10px;
+}
+.owl-caption{
+	position: absolute;
+	left: 10px;
+	bottom: 0%;
+	color: white;
+	margin: auto !important;
+	text-align: left;
+	display: block;
+	width: 70%;
+	font-size: 10px !important;
+}
+}
+.owl-caption{
+	position: absolute;
+	left: 10px;
+	bottom: 50%;
+	color: white;
+	margin: auto !important;
+	text-align: left;
+	display: block;
+	width: 50%;
+}
+.widget-heading{
+  font-weight: 300;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.widget-sub-heading{
+  font-weight: 300;
+  letter-spacing: 1px;
+  font-size: medium;
+}
+
+/*.custom-slide{
+  height: 100vh !important;
+}*/
+.carousel-caption{
+	top: 40%;
+}
+.carousel-indicators {
+    position: absolute;
+    right: 0;
+    /*bottom: 42px;*/
+    left: auto;
+    z-index: 15;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-pack: center;
+    justify-content: end;
+    padding-left: 0;
+    margin-right: 5%;
+    margin-left: 5%;
+    list-style: none;
+}
+
+.carousel-indicators .active {
+    opacity: 1;
+    background: white;
+}
+
+.carousel-indicators li {
+    box-sizing: content-box;
+    -ms-flex: 0 1 auto;
+    flex: 0 1 auto;
+    width: 7px;
+    height: 7px;
+    margin-right: 3px;
+    margin-left: 3px;
+    text-indent: -999px;
+    cursor: pointer;
+     background-color: transparent;
+    background-clip: padding-box;
+    /* border-top: 10px solid transparent; */
+    /* border-bottom: 10px solid transparent; */
+    opacity: 1;
+    transition: opacity .6s ease;
+    border-radius: 71px;
+    border: 2px solid white;
+}
+.category-block{
+    width: 100%;
+    height: 500px;
+    background-size: cover;
+    background-position: center;
+}
+
+.category-block:hover{
+	transform: scale(1.1);
+}
+
+.category-block:hover .category-block-inner{
+	transform: none !important;
+	position: absolute;
+	bottom: 50px;
+	left: 50px;
+}
+
+.category-block-inner{
+    position: absolute;
+    bottom: 30px;
+    left: 30px;
+    color: white;
+}
+
+.menuSlider{
+  margin: 1rem auto;
+  text-align: center;
+}
+
+.menuSlider a{
+  margin: 0.5rem;
+  color: black;
+}
+
+.menuSlider a:hover{
+  margin: 0.5rem;
+  color: black;
+  font-weight: 700;
+}
+
+.full-width-owl-carousel .owl-dots .owl-dot span {
+    width: fit-content;
+    height: 10px;
+    margin: 5px 7px;
+    background: transparent;
+    display: block;
+    -webkit-backface-visibility: visible;
+    transition: opacity .2s ease;
+    border-radius: 30px;
+}
+
+.full-width-owl-carousel .owl-dots .owl-dot.active span, .owl-theme .owl-dots .owl-dot:hover span {
+     background: transparent;
+    font-weight: 700;
+    text-decoration: underline;
+}
+
+.owl-carousel .owl-nav button.owl-next{
+  position: absolute;
+  top: 120px;
+  right: 25px;
+  background: white !important;
+  padding: 3px 13px !important;
+  border-radius: 50px !important;
+}
+
+.owl-carousel .owl-nav button.owl-prev{
+  position: absolute;
+  top: 120px;
+  left: 25px;
+  background: white !important;
+  padding: 3px 13px !important;
+  border-radius: 50px !important;
+}
+/*End of Index page*/
+
+/*Product Detail Page Standard*/
+
+.breadcrumb
+{
+  background: white;
+}
+
+.breadcrumb .breadcrumb-item a{
+  color: black;
+  font-size: small;
+  text-transform: uppercase;
+}
+
+.breadcrumb .breadcrumb-item.active{
+  font-size: small;
+  text-transform: uppercase;
+}
+
+.product-detail-block{
+  font-size: small;
+}
+.standard-fittype.active{
+	color: white !important;
+	background: black;
+}
+
+.custom-fittype.active{
+	color: white !important;
+	background: black;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+    color: #000;
+    border-bottom: 2px solid;
+    border-radius: 0;
+    background-color: transparent;
+}
+
+.nav-pills .nav-link:hover{
+  color: #333;
+}
+
+.pill-text{
+  display: inline-block;
+}
+
+.desc-tab-content{
+  border: 1px solid #333;
+  padding: 10px;
+}
+
+.lSSlideOuter{
+  padding-left: 65px !important;
+  padding-right: 0px !important;
+}
+
+.lSSlideWrapper .usingCss{
+  height: 590px !important;
+}
+
+.lightSlider .lsGrab .lSSlide{
+  height: 1180px !important;
+}
+
+.lslide{
+  height: auto !important;
+}
+
+.lslide img{
+  height: 100% !important;
+  width: 100% !important;
+}
+
+
+.lSSlideOuter.vertical .lSGallery {
+    position: absolute!important;
+    left: 0;
+    top: 0;
+}
+
+.vertical ul{
+  list-style: none !important;
+}
+.lSGallery li{
+  height: auto !important;
+}
+
+.lSSlideOuter .lSPager.lSGallery li.active, .lSSlideOuter .lSPager.lSGallery li:hover {
+    border-radius: 0px;
+    border-bottom: 2px solid;
+}
+
+
+.color-choose-radio{
+  padding-left: 0px;
+}
+.color-choose-radio div {
+  display: inline-block;
+}
+
+.color-choose-radio input[type="radio"] {
+  display: none;
+}
+
+.color-choose-radio input[type="radio"] + label span img{
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  margin: -1px 4px 0 0;
+  vertical-align: middle;
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+.color-choose-radio input[type="radio"] + label span {
+  /*border: 1px solid #FFFFFF;
+  box-shadow: 0 1px 3px 0 rgba(0,0,0,0.33);*/
+}
+
+/*.color-choose-radio input[type="radio"]#monument + label span {
+  background: url("../../images/frontend-images/monument.jpg");
+}
+.color-choose-radio input[type="radio"]#dustblue + label span {
+  background: url("../../images/frontend-images/dustblue.jpg");
+}
+.color-choose-radio input[type="radio"]#pinegreen + label span {
+  background: url("../../images/frontend-images/pinegreen.jpg");
+}
+*/
+
+
+/*.color-choose input[type="radio"] #red:hover + label span .product-image {
+  background-image: url(../img/product2.jpg);
+}*/
+
+
+.color-choose-radio input[type="radio"]:checked + label span img{
+  /*background-image: url("../../images/frontend-images/check-icn.svg");*/
+  /*background-repeat: no-repeat;
+  background-position: center;*/
+  border: 2px solid black;
+}
+
+/*product-view */
+.xzoom-preview{
+  z-index: 1000;
+}
+/*product customization options*/
+.custom-option{
+  border-radius: 0px;
+}
+
+.option-card{
+  border-radius: 0 !important;
+}
+
+.card-header{
+  background-color: rgba(0, 0, 0, 0.01);
+}
+.option-icon{
+  float: left;
+  width: 36px;
+  margin-right: 10px;
+}
+
+.option-title-block{
+  display: block;
+  float: left;
+}
+
+.option-title{
+  font-size: small;
+  font-weight: 700;
+
+}
+
+.option-title-tagline{
+  font-size: x-small;
+  font-weight: 400;
+}
+
+.option-content{
+  padding: 0 2% 2% 2%;
+  background: rgba(0, 0, 0, 0.01);
+}
+
+.option-header{
+  border-bottom: 0px;
+}
+
+
+.option-content-item{
+    background: white;
+    width: calc(33.33333% + 1px);
+    /*height: 116px;*/
+    float: left;
+    border: 1px solid #EDEEF2;
+    box-sizing: border-box;
+    display: block;
+    position: relative;
+    z-index: 1;
+    cursor: pointer;
+    text-align: center;
+    padding: 10px;
+    box-sizing: border-box;
+    font-size: smaller;
+    }
+
+
+/*.option-content-item*/
+.selected{
+
+    border: 1px solid #000000;
+
+    }
+
+.option-content-icon{
+  width: 40px;
+}
+
+.option-item-container {
+  display: block;
+  position: relative;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default radio button */
+.option-item-container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+/* Create a custom radio button */
+.option-item-check {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 20px;
+  width: 20px;
+  background-color: transparent;
+  border-radius: 50%;
+}
+
+/* On mouse-over, add a grey background color */
+.option-item-container:hover input ~ .option-item-check {
+  background-color: #ccc;
+}
+
+/* When the radio button is checked, add a blue background */
+.option-item-container input:checked ~ .option-item-check {
+  background-color: black;
+}
+
+/* Create the indicator (the dot/circle - hidden when not checked) */
+.option-item-check:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the indicator (dot/circle) when checked */
+.option-item-container input:checked ~ .option-item-check:after {
+  display: block;
+}
+
+/* Style the indicator (dot/circle) */
+.option-item-container .option-item-check:after {
+  left: 8px;
+    top: 5px;
+    width: 5px;
+    height: 9px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+
+/*login page*/
+.login-form{
+  font-size: small;
+}
+.form-container{
+  margin: auto;
+  text-align: center;
+}
+
+
+
+.form-control:focus {
+    color: #495057;
+    background-color: #fff;
+    border-color: #000000;
+    outline: 0;
+    box-shadow: none;
+}
+
+.forgotPass-label{
+    font-size: small;
+    position: absolute;
+    right: 0px;
+    top: 2%;
+    text-decoration: none !important;
+}
+
+
+#recover-form-block{
+  display: none;
+}
+
+#login-link-btn{
+padding: 0;
+    font-size: small;
+    margin-top: -5px;
+    }
+
+/*checkout*/
+.order-table
+{
+  font-size: small;
+}
+
+.order-table td
+{
+  padding: 5px;
+}
+
+.product-row
+{
+  width: 100%;
+}
+
+.image-cell{
+  width: 25%;
+}
+
+.description-cell{
+  width: 75%;
+}
+
+.description-cell .order-product-title{
+  letter-spacing: 2px;
+  color: black;
+  font-weight: 600;
+}
+
+.order-remove-btn{
+  font-size: small;
+  font-weight: 400;
+}
+
+.order-table .product-row .description-cell .order-product-price{
+    margin-top: 1rem;
+    font-weight: 700;
+    float: right;
+    font-size: medium;
+}
+
+.order-table .product-row .description-cell .input-group {
+    clear: both;
+    width: 105px;
+    float: right;
+    margin-right: 4rem;
+    margin-top: -1.7rem;
+}
+
+.order-table .product-row .description-cell .input-group input[type='button'] {
+  background-color: transparent;
+  min-width: 24px;
+  width: auto;
+  transition: all 300ms ease;
+}
+
+.order-table .product-row .description-cell .input-group .button-minus,
+.order-table .product-row .description-cell .input-group .button-plus {
+  height: 28px;
+  padding: 0;
+  width: 38px;
+  position: relative;
+  color: black;
+}
+
+.order-table .product-row .description-cell .input-group .quantity-field {
+  /*position: relative; */
+    height: 28px;
+    /* left: -6px; */
+    text-align: center;
+    width: 42px;
+    display: inline-block;
+    /* font-size: 13px; */
+    margin: 0px;
+    resize: vertical;
+    color: #000000;
+    border: 1px solid black;
+    font-weight: 700;
+}
+
+.button-plus {
+  left: 0px;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+  -webkit-appearance: none;
+}
+
+.custom-option-badge{
+ padding: 2px 4px;
+    background: #EDEEF3;
+    border-radius: 2px;
+    margin-bottom: 3px;
+    font-weight: 400;
+    font-size: small;
+}
+
+.check-temrs {
+  display: inline-block;
+  position: relative;
+  padding-left: 20px;
+  /*margin-bottom: 12px;*/
+  cursor: pointer;
+  font-size: small;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.check-temrs input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.check-temrs .checkmark {
+    position: absolute;
+    top: 2px;
+    left: 0;
+    height: 16px;
+    width: 16px;
+    background-color: transparent;
+    border: 1px solid;
+}
+
+
+/* On mouse-over, add a grey background color */
+.check-temrs:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+.check-temrs input:checked ~ .checkmark {
+  background-color: #000000;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.check-temrs input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.check-temrs .checkmark:after {
+    left: 5px;
+    top: 1px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+.link{
+    color: black !important;
+    font-weight: 500;
+}
+
+.form-radio {
+  display: block;
+  position: relative;
+  padding-left: 20px;
+  cursor: pointer;
+  font-size: small;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default radio button */
+.form-radio input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+/* Create a custom radio button */
+.form-radio .radio-checkmark {
+  position: absolute;
+  top: 2px;
+  left: 0;
+  height: 16px;
+  width: 16px;
+  background-color: #eee;
+  border-radius: 50%;
+}
+
+/* On mouse-over, add a grey background color */
+.form-radio:hover input ~ .radio-checkmark {
+  background-color: #ccc;
+}
+
+/* When the radio button is checked, add a blue background */
+.form-radio input:checked ~ .radio-checkmark {
+  background-color: #000000;
+}
+
+/* Create the indicator (the dot/circle - hidden when not checked) */
+.form-radio .radio-checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the indicator (dot/circle) when checked */
+.form-radio input:checked ~ .radio-checkmark:after {
+  display: block;
+}
+
+/* Style the indicator (dot/circle) */
+.form-radio .radio-checkmark:after {
+  top: 4px;
+  left: 4px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: white;
+}
+
+/*account page*/
+.account-sidenav {
+  height: 100%;
+  width: 200px;
+  /*position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #111;*/
+  overflow-x: hidden;
+}
+
+.account-sidenav a {
+  padding-bottom: 4px;
+  text-decoration: none;
+  font-size: small;
+  color: #4a4a4a;
+  display: block;
+  text-transform: uppercase;
+
+}
+
+.account-sidenav a:hover {
+  color: #000000;
+  font-weight: 500;
+}
+
+.account-sidenav a.active {
+  color: #000000;
+  font-weight: 500;
+}
+
+.account-table{
+  font-size: small;
+}
+
+.account-table thead th  {
+    vertical-align: top;
+    border-bottom: 1px solid #dee2e6;
+    color: #6b6b6b;
+}
+
+.account-table td, .account-table th {
+    padding: .5rem;
+    vertical-align: top;
+    border-top: 1px solid #dee2e6;
+}
+
+.order-product-image {
+    width: 80px;
+    height: 100px;
+}
+
+.product-attr-table td{
+  border: none;
+  padding: 0;
+}
+
+.address-table{
+  font-size: small;
+}
+
+.address-table thead th  {
+    vertical-align: top;
+    border-bottom: 1px solid #dee2e6;
+    color: #6b6b6b;
+}
+
+.address-table td, .account-table th {
+    padding: .5rem;
+    vertical-align: top;
+    border-top: 1px solid #dee2e6;
+}
+
+.custom-alert{
+  border-radius: 0;
+    background: #e6e6e6;
+    border: 1px solid;
+}
+
+
+/*form fields*/
+.input-label{
+  display: block;
+  position: relative;
+  width: 100%;
+  padding: 0 5px;
+}
+.input-label label, .input-label > span {
+  
+  left: 0;
+  top: 0;
+  cursor: text;
+  font-size: small;
+  opacity: 1;
+  -webkit-transition: all .2s;
+          transition: all .2s;
+  top: -.5em;
+  left: 0.75rem;
+  z-index: 3;
+  line-height: 1;
+  padding: 0 1px;
+}
+.input-label label::after, .input-label > span::after {
+  content: " ";
+  display: block;
+  position: absolute;
+  background: white;
+  height: 2px;
+  top: 50%;
+  left: -.2em;
+  right: -.2em;
+  z-index: -1;
+}
+.input-label .form-control::-webkit-input-placeholder {
+  opacity: 1;
+  -webkit-transition: all .2s;
+          transition: all .2s;
+  font-size: 14px;
+}
+.input-label .form-control:placeholder-shown:not(:focus)::-webkit-input-placeholder {
+  opacity: 0;
+}
+.input-label .form-control:placeholder-shown:not(:focus) + * {
+  font-size: 14px;
+  opacity: .5;
+  top: .9em;
+}
+
+.input-group .input-label {
+  display: table-cell;
+}
+.input-group .input-label .form-control {
+  border-radius: 0.25rem;
+}
+.input-group .input-label:not(:last-child), .input-group .input-label:not(:last-child) .form-control {
+  border-bottom-right-radius: 0;
+  border-top-right-radius: 0;
+  border-right: 0;
+}
+.input-group .input-label:not(:first-child), .input-group .input-label:not(:first-child) .form-control {
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
+}
+
+.form-control:focus {
+  color: #000000;
+  /*background-color: #fff;*/
+  border-color: ##000000;
+  box-shadow: none;
+}
+
+.review-tabs li .active{
+  border-bottom: 3px solid black;
+}
+
+
+.form-label{
+    font-size: 11px;
+    text-transform: uppercase;
+    font-weight: 400;
+    font-style: normal;
+    letter-spacing: 0.2em;
+    line-height: normal;
+}
