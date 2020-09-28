@@ -299,7 +299,7 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle waves-effect waves-dark pro-pic" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <img src="{{ asset('images/backend-images/users/user-avatar.png') }}" alt="user" class="rounded-circle" width="31">
-                                <span class="ml-2 user-text font-medium">Liburti</span><span class="fas fa-angle-down ml-2 user-text"></span>
+                                <span class="ml-2 user-text font-medium">HalatMeat</span><span class="fas fa-angle-down ml-2 user-text"></span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right user-dd animated flipInY">
                                 <div class="d-flex no-block align-items-center p-3 mb-2 border-bottom">

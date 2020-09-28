@@ -79,7 +79,7 @@
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-body">
-                                <form enctype="multipart/form-data" method="post" action="{{ url('/admin/create-fabric') }}" name="add_subcategory" id="add_category"> {{ csrf_field() }}
+                                <form enctype="multipart/form-data" method="post" action="{{ url('/admin/create-purchase-order') }}" > {{ csrf_field() }}
                                     <div class="form-body">
                                         <h5 class="card-title">Add Demand Reqiured</h5>
                                         <hr>
@@ -90,7 +90,7 @@
                                             <div class="col-md-4 mb-0">
                                                 <div class="form-group">                                                  
                                                 <label  for="">Supplier</label>
-                                                <select id="supplierPO" class="form-control ">
+                                                <select name="supplier_id" id="supplierPO" class="form-control ">
                                                 	{!! $supplier_dropdown !!}
                                                 </select>
                                                                                                     
@@ -100,7 +100,7 @@
                                             <div class="col-md-4 mb-0">
                                                 <div class="form-group">                                                  
                                                     <label  for="">Product</label>
-                                                     <select id="purchaseproduct" class="form-control custom-select select2" multiple>
+                                                     <select name="products_id[]" id="purchaseproduct" class="form-control custom-select select2" multiple>
                                                 	<option>asa</option>
                                                 </select>
                                                                                        
@@ -108,40 +108,38 @@
                                                 </div>
                                             </div>
                                         </div>
-                                           <div class="row">
-                                            <div class="col-md-4 mb-0">
-                                                <div class="form-group">                                                  
-                                                    <label  for="">Product Price</label>
-                                                    <input type="number" class="form-control" name="">                                                    
-                                                    <div class="invalid-feedback">Example invalid custom select feedback</div>
-                                                </div>
-                                            </div>
-                                        
-                                            <div class="col-md-4 mb-0">
-                                                <div class="form-group">                                                  
-                                                    <label  for="">Quantity</label>
-                                                    <input type="number" class="form-control" name="">                                                    
-                                                    <div class="invalid-feedback">Example invalid custom select feedback</div>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        <div id="dynamicqty"></div>
+                                           
+                                    </div>
                                          <div class="row">
                                             <div class="col-md-4 mb-0">
                                                 <div class="form-group">                                                  
-                                                    <label  for="">Description</label>
-                                                    <textarea class="form-control" cols="4" rows="5"></textarea>                                                    
+                                                    <label  for="">Order Note</label>
+                                                    <textarea name="order_note" class="form-control" cols="4" rows="5"></textarea>                                                    
+                                                    <div class="invalid-feedback">Example invalid custom select feedback</div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4 mb-0">
+                                                <div class="form-group">                                                  
+                                                <label  for="">Priority</label>
+                                                <select name="periority" id="" class="form-control ">
+                                                    <option value="1">Low</option>
+                                                    <option value="2">Medium</option>
+                                                    <option value="3">High</option>
+                                                </select>
+                                                                                                    
                                                     <div class="invalid-feedback">Example invalid custom select feedback</div>
                                                 </div>
                                             </div>
                                       
                                         </div>
                                     
-                                    </div>
+                                    
 
                                         <hr>
                                         <div class="form-actions mt-5">
                                         <button type="submit" class="btn btn-success"> <i class="fa fa-check"></i> Add</button>
-                                        <a href="{{ url('/admin/view-fabriccategories')}}"><button type="button" class="btn btn-dark">Cancel</button></a>
+                                        <a href="{{ url('/admin/view-pruchase-orders')}}"><button type="button" class="btn btn-dark">Cancel</button></a>
                                     </div>
                                            </form>
 

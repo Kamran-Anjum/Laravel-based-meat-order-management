@@ -58,7 +58,86 @@ $('#supplierPO').on('change', function() {
         }); 
 });
 
+$('#purchaseproduct').on('change', function() { 
+   var supplie_id = $(this).val();
+   
+   var x = 1;
+   var html = '';
+   
+   for (var i = 0; i < supplie_id.length; i++) {
+       $('#dynamicqty').html('');
+       html +='<div class="row">';
+       html +='<div class="col-md-4 mb-0">';
+       html +='<div class="form-group">';
+       html +='<label  for="">Quantity Product-';
+       html += x ;
+       html +='</label><input type="number" name="quantity[]" class="form-control">';
+       html +='<div class="invalid-feedback">Example invalid custom select feedback</div></div></div>';
+       html +='</div>';
 
+       x = x+1;
+   }
+     
+   
+   $('#dynamicqty').html(html);
+    //alert(supplier_id);
+});
+
+
+
+$('#ponumber').on('change', function() { 
+   var po_id = $(this).val();
+   
+   var x = 1;
+   var html = '';
+   $.ajax({
+            url: '/admin/recievepodetail/'+po_id,
+            success: data => {
+                
+                console.log(data);
+        $('#dynamicqty').html('');
+
+        
+            data.forEach(function(item){
+            html +='<div class="row">';
+            html +='<div class="col-md-3 mb-0">';
+            html +='<div class="form-group">';
+            html +='<label  for="">Product Name</label>';
+            html +='<input type="text" readonly name="productname[]" value="';
+            html +=item['productName'];
+            html +='" class="form-control">';
+            html +='<div class="invalid-feedback">Example invalid custom select feedback</div></div></div>';
+            html +='<div class="col-md-2 mb-0">';
+            html +='<div class="form-group">';
+            html +='<label  for="">Demand Quantity</label>';
+            html +='<input type="number" readonly name="dquantity[]" value="';
+            html +=item['demand_quantity'];
+            html +='" class="form-control">';
+            html +='<div class="invalid-feedback">Example invalid custom select feedback</div></div></div>';
+            html +='<div class="col-md-2 mb-0">';
+            html +='<div class="form-group">';
+            html +='<label  for="">Recieve Quantity</label>';
+            html +='<input type="number" id="recieveqty" name="rquantity[]" class="form-control">';
+            html +='<div class="invalid-feedback">Example invalid custom select feedback</div></div></div>';
+            html +='<div class="col-md-2 mb-0">';
+            html +='<div class="form-group">';
+            html +='<label  for="">Price</label>';
+            html +='<input type="number" id="price" name="price[]" class="form-control">';
+            html +='<div class="invalid-feedback">Example invalid custom select feedback</div></div></div>';
+            html +='<div class="col-md-2 mb-0">';
+            html +='<div class="form-group">';
+            html +='<label  for="">Total Amount</label>';
+            html +='<input type="number" onclick="getTotal('
+            html +=x;
+            html +=')" id="tamount" readonly name="price[]" id="totalamount" value="0" class="form-control">';
+            html +='<div class="invalid-feedback">Example invalid custom select feedback</div></div></div>';
+            html +='</div>';
+            });
+        $('#dynamicqty').html(html);
+        }
+    });
+    
+});
 
 
 });
@@ -76,4 +155,37 @@ function getSupplierDetails(id){
             $("#ScheduleTable").DataTable();
         }
     });
+}
+
+function getPODetails(id){
+    var id = id;
+    //alert(id);
+    $.ajax({
+        url: '/admin/getpodetail/'+id,
+        success: data => {
+            console.log(data[1]);
+
+            $('#Suppinfo tbody').html('');
+            $('#productinfo tbody').html('');
+            
+            
+            $('#Suppinfo tbody').html(data[0]);
+            $("#Suppinfo").DataTable();
+
+            $('#productinfo tbody').html(data[1]);
+            $("#productinfo").DataTable();
+        }
+    });
+}
+
+function getTotal(id) {
+
+alert(id);
+
+    /*$('#tamount').each(function(index){
+    alert(id);
+});*/
+   /*var supplie_id = document.getElementById("price").value;
+    alert(supplier_id);*/
+
 }

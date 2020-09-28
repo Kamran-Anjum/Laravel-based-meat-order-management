@@ -52,19 +52,20 @@ class AjaxRequestController extends Controller
         return $products_dropdown;
 
     }
-
+    //Get State Names
     public function getStateName($id)
 	{
 		$states = State::where(['country_id'=>$id, 'is_active'=>1])->get();
 		return $states;
 	}
-
+    //Get Cities Name
 	public function getCityName($cid, $id)
 	{
 		$cities = City::where(['country_id'=>$cid, 'states_id'=>$id, 'is_active'=>1])->get();
 		return $cities;
 	}
 
+    //Get Supplier Details
 	public function getSupplierDetail($id = null){
 
         $suppliers = DB::table('suppliers as sc')
@@ -78,6 +79,51 @@ class AjaxRequestController extends Controller
             ->first();
             $supp_detail = "<tr class='gradeX'><td><strong>Supplier Name:  </strong>".$suppliers->supplier_name."</td></tr><tr class='gradeX'><td><strong>Supplier Contact No:  </strong>".$suppliers->contact_no."</td></tr><tr class='gradeX'><td><strong>Supplier Email:  </strong>".$suppliers->email."</td></tr><tr class='gradeX'><td><strong>Supplier Address:  </strong>".$suppliers->address."</td></tr><tr class='gradeX'><td><strong>Supplier City:  </strong>".$suppliers->cityname."</td></tr><tr class='gradeX'><td><strong>Supplier State:  </strong>".$suppliers->statename."</td></tr><tr class='gradeX'><td><strong>Supplier Country:  </strong>".$suppliers->country."</td></tr><tr class='gradeX'><td><strong>Supplier Created By:  </strong>".$suppliers->userName."</td></tr><tr class='gradeX'><td><strong>Status:  </strong>Active</td></tr><tr class='gradeX'><td><strong>Supplier Image:  </strong><img src='http://127.0.0.1:8000/images/backend-images/halalmeat/supplier/tiny/".$suppliers->image."'</td></tr><tr class='gradeX'><td><strong>Created At:  </strong>".$suppliers->created_at."</td></tr>";
         return $supp_detail;
+
+    }
+
+    //Get Post Order Details
+    public function getPODetail($id = null){
+
+        $purchase_orders = DB::table('purchase_order as po')
+            ->where(['po.id'=> $id])
+            ->join('suppliers as sc','po.supplier_id','=','sc.id')
+            //->join('purchase_order_detail as pod','po.id','=','pod.p_order_id')
+            //->join('products as p','pod.product_id','=','p.id')
+            ->join('countries as c','sc.country_id','=','c.id')
+            ->join('states as s','sc.state_id','=','s.id')
+            ->join('cities as ct','sc.city_id','=','ct.id')
+            ->join('users as u','po.created_by', '=', 'u.id')
+            ->select('po.*','sc.*','ct.name as cityname','s.name as statename','c.name as country','u.name as userName')
+            ->first();
+
+        $po_detail = DB::table('purchase_order_detail as pod')
+        ->where(['pod.p_order_id'=> $id])
+        ->join('products as p','pod.product_id','=','p.id')
+        ->select('pod.*','p.name as productName')
+        ->get();
+
+            $supp_detail = "<h3>Supplier Info</h3><tr class='gradeX'><td><strong>Supplier Name:  </strong>".$purchase_orders->supplier_name."</td><td><strong>Supplier Contact No:  </strong>".$purchase_orders->contact_no."</td></tr><tr class='gradeX'><td><strong>Supplier Email:  </strong>".$purchase_orders->email."</td><td><strong>Supplier Image:  </strong><img width='50' height='50' src='http://127.0.0.1:8000/images/backend-images/halalmeat/supplier/tiny/".$purchase_orders->image."'</td></tr><tr class='gradeX'><td><strong>Supplier Address:  </strong></td><td>".$purchase_orders->address."</td></tr><tr class='gradeX'><td><strong>Supplier City:  </strong>".$purchase_orders->cityname."</td><td><strong>Supplier State:  </strong>".$purchase_orders->statename."</td></tr><tr class='gradeX'><td><strong>Supplier Country:  </strong>".$purchase_orders->country."</td><td><strong>Status:  </strong>Active</td></tr><tr class='gradeX'><td><strong>Supplier Created By:  </strong>".$purchase_orders->userName."</td><td><strong>Created At:  </strong>".$purchase_orders->created_at."</td></tr>";
+
+            $prod_detail = "<h2>Product Info</h2><tr><th>Product Name</th><th>Demand QTY</th><th>Rec. QTY</th><th>Price</th><th>Amount</th></tr>";
+
+            foreach ($po_detail as $product) {
+                $prod_detail .= "<tr><td>".$product->productName."</td><td>".$product->demand_quantity."</td><td>".$product->recieved_quantity."</td><td>".$product->price."</td><td>".$product->total_amount."</td></tr>";
+            }
+        return array($supp_detail,$prod_detail);
+
+    }
+
+    public function getRecievePO($id = null){
+
+        $po_detail = DB::table('purchase_order_detail as pod')
+        ->where(['pod.p_order_id'=> $id])
+        ->join('products as p','pod.product_id','=','p.id')
+        ->select('pod.*','p.name as productName')
+        ->get();
+
+            
+        return $po_detail;
 
     }
 }

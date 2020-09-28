@@ -10,7 +10,7 @@
                         <li class="sidebar-item">
                             <a class="sidebar-link has-arrow waves-effect waves-dark profile-dd" href="javascript:void(0)" aria-expanded="false">
                                 <img src="{{ asset('images/backend-images/users/user-avatar.png') }}" class="rounded-circle ml-2" width="30">
-                                <span class="hide-menu">Liburti </span>
+                                <span class="hide-menu">HalalMeat </span>
                             </a>
                             <ul aria-expanded="false" class="collapse  first-level">
                                 <li class="sidebar-item">
@@ -140,10 +140,30 @@
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a href="{{ url('/admin/view-pruchase-orders')}}" class="sidebar-link">
+                            <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
                                 <i class="mdi mdi-shopping"></i>
-                                <span class="hide-menu">Purchase Orders</span>
+                                <span class="hide-menu">Purchase Orders Setup</span>
                             </a>
+                            <ul aria-expanded="false" class="collapse  first-level">
+<!--                                 <li class="sidebar-item">
+                                    <a href="{{ url('admin/sizeattribute/list-sizeattribute') }}" class="sidebar-link">
+                                        <i class="mdi mdi-adjust"></i>
+                                        <span class="hide-menu">Size Attribute</span>
+                                    </a>
+                                </li> -->
+                                <li class="sidebar-item">
+                                    <a href="{{ url('/admin/view-pruchase-orders')}}" class="sidebar-link">
+                                        <i class="mdi mdi-adjust"></i>
+                                        <span class="hide-menu">Purchase Order</span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-item">
+                                    <a href="{{ url('/admin/recieve-pruchase-orders') }}" class="sidebar-link">
+                                        <i class="mdi mdi-adjust"></i>
+                                        <span class="hide-menu">Recieve Purchase Order</span>
+                                    </a>
+                                </li>
+                            </ul>
                         </li>
 
                         <li class="sidebar-item">
