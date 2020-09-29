@@ -86,7 +86,7 @@
                                                 <td>
                                                     <div class="button-group">
                                                         <button type="button" class="btn waves-effect waves-light btn-primary"><a class="text-white" href="{{ url('admin/edit-category/'.$category->id) }}">Edit</a></button>
-                                                        <button type="button" class="btn waves-effect waves-light btn-danger"><a class="text-white sa-confirm-delete" param-id="{{ $category->id }}" param-route="delete-fabric" href="javascript:">Remove</a></button>
+                                                        <button type="button" class="btn waves-effect waves-light btn-danger"><a class="text-white sa-confirm-delete" param-id="{{ $category->id }}" param-route="delete-category" href="javascript:">Remove</a></button>
 
                                                     </div>
                                                 </td>

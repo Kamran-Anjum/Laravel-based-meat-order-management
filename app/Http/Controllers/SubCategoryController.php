@@ -48,5 +48,38 @@ class SubCategoryController extends Controller
     	return view('admin.products.subcategories.create-subcategories')->with(compact('category_dropdown'));
     }
 
+    public function editSubCategory(Request $request, $id =null)
+    {
+        if($request->isMethod('post')){
+            $data = $request->all();
+            Subcategory::where(['id'=>$id])->update
+            ([
+                'category_id' => $data['category_id'],
+                'name' => $data['sub_cat_name'],
+            ]);
+
+            return redirect('/admin/view-subcategories')->with('flash_message_success','Sub-Category has been Updated Successfully!');
+        }
+        $subcategories = Subcategory::where(['id'=>$id])->first();
+        $categories = DB::table('categories')->get();
+
+        $categories_dropdown = "<option value=''>Select Category</option>";
+         foreach($categories as $category){
+            if($subcategories->category_id == $category->id){
+            $categories_dropdown .= "<option selected value='".$category->id."'>".$category->name . "</option>";
+            }
+            else{
+            $categories_dropdown .= "<option value='".$category->id."'>".$category->name  . "</option>";
+            }
+         }
+        return view('admin.products.subcategories.edit-subcategories')->with(compact('categories_dropdown','subcategories'));
+    }
+
+    public function deleteSubCategory($id = null)
+    {
+        Subcategory::where(['id'=>$id])->delete();
+        return redirect()->back()->with('flash_message_success','Sub-Category has been deleted Successfully!');
+    }
+
     
 }

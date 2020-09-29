@@ -68,10 +68,16 @@ class PurchaseorderController extends Controller
         return view('admin.purchaseorder.create-purchase-order')->with(compact('supplier_dropdown'));
     }
 
-    public function recievePurchaseOrders()
+    public function recievePurchaseOrders(Request $request)
     {
     	$user = Auth::User();
     	if (!empty($user)) {
+            if($request->isMethod('post'))
+            {
+                $data = $request->all();
+                dd($data);
+            }
+
     		$purchase_orders = DB::table('purchase_order as po')
     		->join('suppliers as s','po.supplier_id','=','s.id')
     		->select('po.*','s.supplier_name as suppName')

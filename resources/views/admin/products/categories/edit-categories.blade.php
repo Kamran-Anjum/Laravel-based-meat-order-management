@@ -10,14 +10,14 @@
             <div class="page-breadcrumb">
                 <div class="row">
                     <div class="col-lg-3 col-md-4 col-xs-12 align-self-center">
-                        <h5 class="font-medium text-uppercase mb-0">List Required Demand</h5>
+                        <h5 class="font-medium text-uppercase mb-0">Edit Category</h5>
                     </div>
                     <div class="col-lg-9 col-md-8 col-xs-12 align-self-center">
                         <!-- <button class="btn btn-danger text-white float-right ml-3 d-none d-md-block">Buy Ample Admin</button> -->
                         <nav aria-label="breadcrumb" class="mt-2 float-md-right float-left">
                             <ol class="breadcrumb mb-0 justify-content-end p-0">
                                 <li class="breadcrumb-item"><a href="{{ url('admin/dashboard') }}">Home</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">List Required Demand</li>
+                                <li class="breadcrumb-item active" aria-current="page">Edit Category</li>
                             </ol>
                         </nav>
                     </div>
@@ -79,62 +79,33 @@
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-body">
-                                <form enctype="multipart/form-data" method="post" action="{{ url('/admin/recieve-pruchase-orders') }}" > {{ csrf_field() }}
+                                <form enctype="multipart/form-data" method="post" action="{{ url('/admin/edit-category/'.$categories->id) }}" > {{ csrf_field() }}
                                     <div class="form-body">
-                                        <h5 class="card-title">Recieve Purchase Order</h5>
+                                        <h5 class="card-title">Edit Category</h5>
                                         <hr>
 
                                         <div class="row">
-                                            
-                                      
                                             <div class="col-md-4 mb-0">
                                                 <div class="form-group">                                                  
-                                                <label  for="">P.O #</label>
-                                                <select name="po_id" id="ponumber" class="form-control ">
-                                                	{!! $po_dropdown !!}
-                                                </select>
-                                                                                                    
+                                                    <label  for="">Name</label>
+                                                    <input value="{{$categories->name}}" type="text" class="form-control" name="cat_name">
                                                     <div class="invalid-feedback">Example invalid custom select feedback</div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div id="dynamicqty"></div>
-                                           
+                                                                  
                                     </div>
-                                    <div id="dynamic"></div>
-                                         <!-- <div class="row">
-                                            <div class="col-md-4 mb-0">
-                                                <div class="form-group">                                                  
-                                                    <label  for="">Order Note</label>
-                                                    <textarea name="order_note" class="form-control" cols="4" rows="5"></textarea>                                                    
-                                                    <div class="invalid-feedback">Example invalid custom select feedback</div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4 mb-0">
-                                                <div class="form-group">                                                  
-                                                <label  for="">Priority</label>
-                                                <select name="periority" id="" class="form-control ">
-                                                    <option value="1">Low</option>
-                                                    <option value="2">Medium</option>
-                                                    <option value="3">High</option>
-                                                </select>
-                                                                                                    
-                                                    <div class="invalid-feedback">Example invalid custom select feedback</div>
-                                                </div>
-                                            </div>
-                                      
-                                        </div> -->
-                                    
-                                    
 
                                         <hr>
                                         <div class="form-actions mt-5">
-                                        <button type="submit" class="btn btn-success"> <i class="fa fa-check"></i> Add</button>
-                                        <a href="{{ url('/admin/view-pruchase-orders')}}"><button type="button" class="btn btn-dark">Cancel</button></a>
+                                        <button type="submit" class="btn btn-success"> <i class="fa fa-check"></i> Edit</button>
+                                        <a href="{{ url('/admin/view-categories')}}"><button type="button" class="btn btn-dark">Cancel</button></a>
                                     </div>
                                            </form>
 
                                     </div>
+                                   
+                             
                             </div>
                         </div>
                     </div>

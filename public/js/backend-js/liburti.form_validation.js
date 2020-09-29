@@ -90,50 +90,96 @@ $('#ponumber').on('change', function() {
    
    var x = 1;
    var html = '';
+   var htmlm = '';
    $.ajax({
             url: '/admin/recievepodetail/'+po_id,
             success: data => {
                 
-                console.log(data);
+                //console.log(data);
+                var product = data[0];
+                var po = data[1];
+                var po_drop = data[2];
         $('#dynamicqty').html('');
 
         
-            data.forEach(function(item){
+            for (var i = 0; i < product.length; i++){
             html +='<div class="row">';
-            html +='<div class="col-md-3 mb-0">';
+            html +='<div class="col-md-2 mb-0">';
             html +='<div class="form-group">';
             html +='<label  for="">Product Name</label>';
             html +='<input type="text" readonly name="productname[]" value="';
-            html +=item['productName'];
+            html +=product[i]['productName'];
+            html +='" class="form-control">';
+            html +='<input type="hidden" readonly name="productid[]" value="';
+            html +=product[i]['productid'];
+            html +='" class="form-control">';
+            html +='<input type="hidden" readonly name="pod_id[]" value="';
+            html +=product[i]['id'];
             html +='" class="form-control">';
             html +='<div class="invalid-feedback">Example invalid custom select feedback</div></div></div>';
             html +='<div class="col-md-2 mb-0">';
             html +='<div class="form-group">';
             html +='<label  for="">Demand Quantity</label>';
             html +='<input type="number" readonly name="dquantity[]" value="';
-            html +=item['demand_quantity'];
+            html +=product[i]['demand_quantity'];
             html +='" class="form-control">';
             html +='<div class="invalid-feedback">Example invalid custom select feedback</div></div></div>';
             html +='<div class="col-md-2 mb-0">';
             html +='<div class="form-group">';
-            html +='<label  for="">Recieve Quantity</label>';
-            html +='<input type="number" id="recieveqty" name="rquantity[]" class="form-control">';
-            html +='<div class="invalid-feedback">Example invalid custom select feedback</div></div></div>';
-            html +='<div class="col-md-2 mb-0">';
-            html +='<div class="form-group">';
             html +='<label  for="">Price</label>';
-            html +='<input type="number" id="price" name="price[]" class="form-control">';
+            html +='<input type="number" id="price'+i+'" name="price[]" class="form-control">';
             html +='<div class="invalid-feedback">Example invalid custom select feedback</div></div></div>';
             html +='<div class="col-md-2 mb-0">';
             html +='<div class="form-group">';
-            html +='<label  for="">Total Amount</label>';
-            html +='<input type="number" onclick="getTotal('
-            html +=x;
-            html +=')" id="tamount" readonly name="price[]" id="totalamount" value="0" class="form-control">';
+            html +='<label  for="">Rec. Quantity</label>';
+            html +='<input type="number" id="recieveqty'+i+'" name="rquantity[]" class="form-control">';
+            html +='<div class="invalid-feedback">Example invalid custom select feedback</div></div></div>';
+            html +='<div class="col-md-2 mb-0">';
+            html +='<div class="form-group">';
+            html +='<label  for="">Product Amount</label>';
+            html +='<input type="number" onclick="getvalues('
+            html +=i;
+            html +=')" id="tamount'+i+'" readonly name="tamount[]" id="totalamount" value="0" class="form-control">';
             html +='<div class="invalid-feedback">Example invalid custom select feedback</div></div></div>';
             html +='</div>';
-            });
+            };
+
+            htmlm +='<div class="row">';
+            htmlm +='<div class="col-md-3 mb-0">';
+            htmlm +='<div class="form-group">';
+            htmlm +='<label  for="">Order Note</label>';
+            htmlm +='<textarea readonly name="order_note" class="form-control cols="4" rows="5">';
+            htmlm +=po['order_note'];
+            htmlm +='</textarea>';
+            htmlm +='<div class="invalid-feedback">Example invalid custom select feedback</div>'
+            htmlm +='</div>';
+            htmlm +='</div>';
+            htmlm +='<div class="col-md-2 mb-0">';
+            htmlm +='<div class="form-group">';
+            htmlm +='<label  for="">Periority Status</label>';
+            htmlm +='<input name="prority" class="form-control" type="text" value="'
+            htmlm +=po['prStatus'];
+            htmlm +='" readonly>';
+            htmlm +='<div class="invalid-feedback">Example invalid custom select feedback</div>'
+            htmlm +='</div>';
+            htmlm +='</div>';
+            htmlm +='<div class="col-md-3 mb-0">';
+            htmlm +='<div class="form-group">';
+            htmlm +='<label  for="">Status</label>';
+            htmlm +='<select name="status" class="form-control" >';
+            htmlm +=data[2];
+            htmlm +='</select>';
+            htmlm +='<div class="invalid-feedback">Example invalid custom select feedback</div>'
+            htmlm +='</div>';
+            htmlm +='</div>';
+            htmlm +='<div class="col-md-2 mb-0">';
+            htmlm +='<div class="form-group">';
+            htmlm +='<label  for="">Total Amount</label>';
+            htmlm +='<input type="number" id="totalamount" onclick="gettotal()" readonly name="totalamount[]" value="0" class="form-control">';
+            htmlm +='<div class="invalid-feedback">Example invalid custom select feedback</div></div></div>';
+            htmlm +='</div>';
         $('#dynamicqty').html(html);
+        $('#dynamic').html(htmlm);
         }
     });
     
@@ -178,14 +224,25 @@ function getPODetails(id){
     });
 }
 
-function getTotal(id) {
+function getvalues(id){
+var recqty = document.getElementById('recieveqty'+id).value;
+var price = document.getElementById('price'+id).value;
+var total = price * recqty;
 
-alert(id);
+document.getElementById('tamount'+id).value = total;
 
-    /*$('#tamount').each(function(index){
-    alert(id);
-});*/
-   /*var supplie_id = document.getElementById("price").value;
-    alert(supplier_id);*/
+    //alert(inps);
+}
 
+function gettotal(){
+var inps = document.getElementsByName('tamount[]');
+var sum = 0;
+for (var i = 0; i <inps.length; i++) {
+var inp=inps[i];
+     sum += +inp.value;
+    //alert("tamount["+i+"].value="+inp.value);
+}
+
+document.getElementById('totalamount').value = sum;
+    //alert(sum);
 }

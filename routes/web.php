@@ -56,10 +56,14 @@ Route::get('/admin/delete-role-permissions/{id}',[App\Http\Controllers\Role_has_
 //Category Controller
 Route::get('/admin/view-categories',[App\Http\Controllers\CategoryController::class,'viewCategories']);
 Route::match(['get','post'],'/admin/create-category',[App\Http\Controllers\CategoryController::class,'createCategories']);
+Route::match(['get','post'],'/admin/edit-category/{id}',[App\Http\Controllers\CategoryController::class,'editCategory']);
+Route::get('/admin/delete-category/{id}',[App\Http\Controllers\CategoryController::class,'deleteCategory']);
 
 //Sub Category Controller
 Route::get('/admin/view-subcategories',[App\Http\Controllers\SubCategoryController::class,'viewSubCategories']);
 Route::match(['get','post'],'/admin/create-subcategory',[App\Http\Controllers\SubCategoryController::class,'createSubCategories']);
+Route::match(['get','post'],'/admin/edit-sub-category/{id}',[App\Http\Controllers\SubCategoryController::class,'editSubCategory']);
+Route::get('/admin/delete-sub-category/{id}',[App\Http\Controllers\SubCategoryController::class,'deleteSubCategory']);
 
 //Product Controller
 Route::get('/admin/view-products',[App\Http\Controllers\ProductController::class,'viewProducts']);

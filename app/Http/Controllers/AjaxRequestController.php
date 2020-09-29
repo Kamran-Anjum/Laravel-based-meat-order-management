@@ -103,7 +103,7 @@ class AjaxRequestController extends Controller
         ->select('pod.*','p.name as productName')
         ->get();
 
-            $supp_detail = "<h3>Supplier Info</h3><tr class='gradeX'><td><strong>Supplier Name:  </strong>".$purchase_orders->supplier_name."</td><td><strong>Supplier Contact No:  </strong>".$purchase_orders->contact_no."</td></tr><tr class='gradeX'><td><strong>Supplier Email:  </strong>".$purchase_orders->email."</td><td><strong>Supplier Image:  </strong><img width='50' height='50' src='http://127.0.0.1:8000/images/backend-images/halalmeat/supplier/tiny/".$purchase_orders->image."'</td></tr><tr class='gradeX'><td><strong>Supplier Address:  </strong></td><td>".$purchase_orders->address."</td></tr><tr class='gradeX'><td><strong>Supplier City:  </strong>".$purchase_orders->cityname."</td><td><strong>Supplier State:  </strong>".$purchase_orders->statename."</td></tr><tr class='gradeX'><td><strong>Supplier Country:  </strong>".$purchase_orders->country."</td><td><strong>Status:  </strong>Active</td></tr><tr class='gradeX'><td><strong>Supplier Created By:  </strong>".$purchase_orders->userName."</td><td><strong>Created At:  </strong>".$purchase_orders->created_at."</td></tr>";
+            $supp_detail = "<h3>Supplier Info</h3><tr class='gradeX'><td><strong>Supplier Name:  </strong>".$purchase_orders->supplier_name."</td><td><strong>Supplier Contact No:  </strong>".$purchase_orders->contact_no."</td></tr>";
 
             $prod_detail = "<h2>Product Info</h2><tr><th>Product Name</th><th>Demand QTY</th><th>Rec. QTY</th><th>Price</th><th>Amount</th></tr>";
 
@@ -119,11 +119,22 @@ class AjaxRequestController extends Controller
         $po_detail = DB::table('purchase_order_detail as pod')
         ->where(['pod.p_order_id'=> $id])
         ->join('products as p','pod.product_id','=','p.id')
-        ->select('pod.*','p.name as productName')
+        ->select('pod.*','p.name as productName','p.id as productid')
         ->get();
 
-            
-        return $po_detail;
+        $po = DB::table('purchase_order as po')
+        ->where(['po.id'=> $id])
+        ->join('purchase_order_status as pos','po.status','=','pos.id')
+        ->join('po_priority_status as pop','po.pr_status','=','pop.id')
+        ->select('po.*','pos.name as status','pos.id as posId','pop.name as prStatus')
+        ->first();
+
+        $po_status = DB::table('purchase_order_status')->whereNotIn('id',[1])->get();
+        $pos_dropdown = "<option selected >Select Current Status </option>";
+            foreach ($po_status as $statuses) {
+                $pos_dropdown .= "<option value='".$statuses->id."'>".$statuses->name . "</option>";
+            }
+        return array($po_detail, $po, $pos_dropdown);
 
     }
 }
