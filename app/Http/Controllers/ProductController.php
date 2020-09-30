@@ -12,6 +12,7 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductSubcategory;
 use App\Models\ProductDetail;
+use App\Models\ProductStock;
 use Image;
 
 class ProductController extends Controller
@@ -25,6 +26,32 @@ class ProductController extends Controller
     	->get();
 
     	return view('admin.products.view-products')->with(compact('products'));
+    }
+
+    public function viewProductDetails($id){
+
+        $products = DB::table('products as p')
+        ->where(['p.id'=> $id])
+        ->join('categories as c','p.category_id','=','c.id')
+        ->select('p.*','c.name as catName')
+        ->first();
+        $product_total_stocks = ProductStock::where(['product_id'=> $id])->first();
+        $stock_detail = DB::table('purchase_order_detail as pod')
+        ->where(['pod.product_id'=> $id])
+        ->join('purchase_order as po','pod.p_order_id','=','po.id')
+        ->join('suppliers as s','po.supplier_id','=','s.id')
+        ->join('products as p','pod.product_id','=','p.id')
+        ->select('pod.*','po.id as ponumber','s.supplier_name as suppName','p.name as productName')
+        ->get();
+
+        //dd($stock_detail);
+        if (!empty($product_total_stocks)) {
+            return view('admin.products.view-product-detail')->with(compact('products','product_total_stocks','stock_detail'));
+        }
+        else{
+            return redirect('admin/view-products')->with('flash_message_error','Product have no Stock Please Recieve atleast one purchae order for this Product');
+        }
+        
     }
 
     public function createProduct(Request $request){

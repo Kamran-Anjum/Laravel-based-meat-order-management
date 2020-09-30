@@ -48,6 +48,7 @@ return array(
     'App\\Models\\Country' => $baseDir . '/app/Models/Country.php',
     'App\\Models\\Product' => $baseDir . '/app/Models/Product.php',
     'App\\Models\\ProductDetail' => $baseDir . '/app/Models/ProductDetail.php',
+    'App\\Models\\ProductStock' => $baseDir . '/app/Models/ProductStock.php',
     'App\\Models\\ProductSubcategory' => $baseDir . '/app/Models/ProductSubcategory.php',
     'App\\Models\\PurchaseOrder' => $baseDir . '/app/Models/PurchaseOrder.php',
     'App\\Models\\PurchaseOrderDetail' => $baseDir . '/app/Models/PurchaseOrderDetail.php',

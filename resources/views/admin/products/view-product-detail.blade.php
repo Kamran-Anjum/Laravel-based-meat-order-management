@@ -10,7 +10,7 @@
             <div class="page-breadcrumb">
                 <div class="row">
                     <div class="col-lg-4 col-md-4 col-xs-12 align-self-center">
-                        <h5 class="font-medium text-uppercase mb-0">List Products</h5>
+                        <h5 class="font-medium text-uppercase mb-0">Product Details</h5>
 
                     </div>
                     <div class="col-lg-8 col-md-4 col-xs-12 align-self-center">
@@ -19,7 +19,7 @@
                         <nav aria-label="breadcrumb" class="mt-2 float-md-right float-left">
                             <ol class="breadcrumb mb-0 justify-content-end p-0">
                                 <li class="breadcrumb-item"><a href="{{ url('admin/dashboard') }}">Home</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">List Products</li>
+                                <li class="breadcrumb-item active" aria-current="page">Products Details</li>
                             </ol>
                         </nav>
                     </div>
@@ -57,11 +57,58 @@
                 <!-- ============================================================== -->
                 <!-- basic table -->
                 <div class="row">
+            <!-- Column -->
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                                <h5 class="card-title">About Products</h5>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <label class="control-label"><strong>Product Name</strong></label>
+                                        <p>{{$products->name}}</p>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="control-label"><strong>Category Name</strong></label>
+                                        <p>{{$products->catName}}</p>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <img width="100" height="100" src=" {{ asset('/images/backend-images/halalmeat/products/large/'.$products->image ) }}">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <label class="control-label"><strong>SKU Number</strong></label>
+                                        <p>{{$products->sku_number}}</p>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="control-label"><strong>Base Price</strong></label>
+                                        <p>{{$products->base_price}}</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <label class="control-label"><strong>Available Stock</strong></label>
+                                        <p>{{$product_total_stocks->balanced_qty}}</p>
+                                    </div>
+                                    <div class="col-md-4">
+                                    <label class="control-label"><strong>Sell Stock</strong>
+                                        <p>{{$product_total_stocks->sale_qty}}</p>
+                                    </div>
+                                    
+                                </div>
+                                <hr>
+                    </div>
+                </div>
+            </div>
+            <!-- Column -->
+        </div>
+                <div class="row">
                     <div class="col-12">
                         <div class="material-card card">
                             <div class="card-body">
-<!--                                 <h4 class="card-title">Zero Configuration</h4>
-                                <h6 class="card-subtitle">DataTables has most features enabled by default, so all you
+                                <h4 class="card-title">Stock History</h4>
+                               <!--  <h6 class="card-subtitle">DataTables has most features enabled by default, so all you
                                     need to do to use it with your own tables is to call the construction
                                     function:<code> $().DataTable();</code>. You can refer full documentation from here
                                     <a href="https://datatables.net/">Datatables</a></h6> -->
@@ -70,58 +117,55 @@
                                         <thead>
                                             <tr>
                                                 <th>S.No</th>
-                                                <th>SKU No.</th>
-                                                <th>Name</th>
-                                                <th>Category</th>
-                                                <th>Sub-Category</th>
-                                                <th>Base Price</th>                                               
-                                                <th>Image</th>
-                                                <th>Created By</th>
-                                                <th>Action</th>
+                                                <th>P.O #.</th>
+                                                <th>Supplier Name</th>
+                                                <th>Product Name</th>
+                                                <th>Demand Qty</th>
+                                                <th>Recieve Qty</th>                           
+                                                <th>Recieved By</th>
+                                                
                                             </tr>
                                         </thead>
                                         <tbody>
-                                        <?php $i = 0; ?>
-                                        @foreach($products as $product)
+                                        <?php $i = 1; ?>
+                                        @foreach($stock_detail as $stock)
                                             <tr>
                                             
                                                
-                                                <td>{{$product->id}}</td>
-                                                <td>{{$product->sku_number}}</td>
-                                                <td>{{$product->name}}</td>
-                                                <td>{{$product->catname}}</td>
-                                                <td>{{$product->name}}</td>
-                                                <td>Rs.{{$product->base_price}}</td>
-                                                <td><img width="50" height="50" src=" {{ asset('/images/backend-images/halalmeat/products/tiny/'.$product->image ) }}"></td>
-                                                <td>{{$product->userName}}</td>
+                                                <td>{{$i}}</td>
+                                                <td>{{$stock->ponumber}}</td>
+                                                <td>{{$stock->suppName}}</td>
+                                                <td>{{$stock->productName}}</td>
+                                                <td>{{$stock->demand_quantity}}</td>
+                                                <td>{{$stock->recieved_quantity}}</td>
+                                                @if(!empty($stock->recieved_by))
+                                                <?php $user = DB::table('users')->where(['id'=> $stock->recieved_by])->first(); ?>
+                                                <td>{{$user->name}}</td>
+                                                @else
+                                                <td>Still Not Recieved</td>
+                                                @endif
                                                 <!-- <td>$320,800</td> -->
-                                                <td>
-                                                    <div class="button-group">
-                                                        <button type="button" class="btn waves-effect waves-light btn-info"><a class="text-white" href="{{ url('/admin/view-product-details/'.$product->id)}}">ViewStock</a></button>
-                                                        <button type="button" class="btn waves-effect waves-light btn-primary"><a class="text-white" href="{{ url('admin/edit-fabric/'.$product->id) }}">Edit</a></button>
-                                                        <button type="button" class="btn waves-effect waves-light btn-danger"><a class="text-white sa-confirm-delete" param-id="{{ $product->id }}" param-route="delete-fabric" href="javascript:">Remove</a></button>
-
-                                                    </div>
-                                                </td>
 
                                             </tr>
+                                            <?php $i = $i+1; ?> 
                                         @endforeach
                                              
                                         </tbody>
                                         <tfoot>
                                             <tr>
                                                 <th>S.No</th>
-                                                <th>SKU No.</th>
-                                                <th>Name</th>
-                                                <th>Category</th>
-                                                <th>Sub-Category</th>
-                                                <th>Base Price</th>                                               
-                                                <th>Image</th>
-                                                <th>Created By</th>
-                                                <th>Action</th>
+                                                <th>P.O #.</th>
+                                                <th>Supplier Name</th>
+                                                <th>Product Name</th>
+                                                <th>Demand Qty</th>
+                                                <th>Recieve Qty</th>                           
+                                                <th>Recieved By</th>
+                                                
 
                                             </tr>
                                         </tfoot>
+
+
                                     </table>
                                 </div>
                             </div>

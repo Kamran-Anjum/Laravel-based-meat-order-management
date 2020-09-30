@@ -8,6 +8,9 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 use App\Models\PurchaseOrder;
 use App\Models\PurchaseOrderDetail;
+use App\Models\ProductStock;
+use App\Models\ProductStockRecieve;
+use App\Models\Product;
 use Auth;
 use Image;
 
@@ -75,10 +78,60 @@ class PurchaseorderController extends Controller
             if($request->isMethod('post'))
             {
                 $data = $request->all();
-                dd($data);
+                //dd($data);
+
+                PurchaseOrder::where(['id'=>$data['po_id']])->update
+                    ([
+                    'total_amount' => $data['totalamount'],
+                    'updated_by' => $user->id,
+                    'status' => $data['status'],
+            
+                    ]);
+
+                for ($i=0; $i <count($data['pod_id']) ; $i++) { 
+                PurchaseOrderDetail::where(['id'=>$data['pod_id'][$i]])->update
+                ([
+                    'price' => $data['price'][$i],
+                    'recieved_quantity' => $data['rquantity'][$i],
+                    'total_amount' => $data['tamount'][$i],
+                    'recieved_by' => $user->id,
+            
+                ]);
+
+                }
+                //$check = [];
+                for ($i=0; $i <count($data['productid']) ; $i++) { 
+                        
+                        $products = DB::table('product_stocks')
+                        ->where(['product_id'=> $data['productid'][$i]])
+                        ->first();
+
+                        if (!empty($products)) {
+                            //$check[] .= "not empty";
+                            $recqty = $data['rquantity'][$i] + $products->recieve_qty;
+                            $balqty = $data['rquantity'][$i] + $products->balanced_qty;
+                            ProductStock::where(['product_id'=>$data['productid'][$i]])->update
+                            ([
+                                'recieve_qty' => $recqty,
+                                'balanced_qty' => $balqty,
+            
+                            ]);
+                        }
+                        else{
+                            $add_product_stock = new ProductStock();
+                            $add_product_stock->product_id = $data['productid'][$i];
+                            $add_product_stock->recieve_qty = $data['rquantity'][$i];
+                            $add_product_stock->sale_qty = 0;
+                            $add_product_stock->balanced_qty = $data['rquantity'][$i];
+                            $add_product_stock->save();
+                        }
+                }
+                //dd($check);
+                return redirect('/admin/view-pruchase-orders')->with('flash_message_success','P.O #'.$data['po_id'].' Recieved Successfully!');
             }
 
     		$purchase_orders = DB::table('purchase_order as po')
+            ->where(['status'=> 1])
     		->join('suppliers as s','po.supplier_id','=','s.id')
     		->select('po.*','s.supplier_name as suppName')
     		->get();

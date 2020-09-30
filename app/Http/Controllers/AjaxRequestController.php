@@ -103,7 +103,7 @@ class AjaxRequestController extends Controller
         ->select('pod.*','p.name as productName')
         ->get();
 
-            $supp_detail = "<h3>Supplier Info</h3><tr class='gradeX'><td><strong>Supplier Name:  </strong>".$purchase_orders->supplier_name."</td><td><strong>Supplier Contact No:  </strong>".$purchase_orders->contact_no."</td></tr>";
+            $supp_detail = "<h3>PO # ".$id."</h3><h3>Supplier Info</h3><tr class='gradeX'><td><strong>Supplier Name:  </strong>".$purchase_orders->supplier_name."</td><td><strong>Supplier Contact No:  </strong>".$purchase_orders->contact_no."</td></tr>";
 
             $prod_detail = "<h2>Product Info</h2><tr><th>Product Name</th><th>Demand QTY</th><th>Rec. QTY</th><th>Price</th><th>Amount</th></tr>";
 

@@ -86,7 +86,7 @@
 
                                         <div class="row">
                                             
-                                      
+                                        <!-- Liburti js file on ajax calling other feilds -->
                                             <div class="col-md-4 mb-0">
                                                 <div class="form-group">                                                  
                                                 <label  for="">P.O #</label>
@@ -102,28 +102,7 @@
                                            
                                     </div>
                                     <div id="dynamic"></div>
-                                         <!-- <div class="row">
-                                            <div class="col-md-4 mb-0">
-                                                <div class="form-group">                                                  
-                                                    <label  for="">Order Note</label>
-                                                    <textarea name="order_note" class="form-control" cols="4" rows="5"></textarea>                                                    
-                                                    <div class="invalid-feedback">Example invalid custom select feedback</div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4 mb-0">
-                                                <div class="form-group">                                                  
-                                                <label  for="">Priority</label>
-                                                <select name="periority" id="" class="form-control ">
-                                                    <option value="1">Low</option>
-                                                    <option value="2">Medium</option>
-                                                    <option value="3">High</option>
-                                                </select>
-                                                                                                    
-                                                    <div class="invalid-feedback">Example invalid custom select feedback</div>
-                                                </div>
-                                            </div>
-                                      
-                                        </div> -->
+                                         
                                     
                                     
 

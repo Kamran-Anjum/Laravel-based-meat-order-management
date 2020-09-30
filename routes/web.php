@@ -68,6 +68,7 @@ Route::get('/admin/delete-sub-category/{id}',[App\Http\Controllers\SubCategoryCo
 //Product Controller
 Route::get('/admin/view-products',[App\Http\Controllers\ProductController::class,'viewProducts']);
 Route::match(['get','post'],'/admin/create-product',[App\Http\Controllers\ProductController::class,'createProduct']);
+Route::match(['get','post'],'admin/view-product-details/{id}', [App\Http\Controllers\ProductController::class,'viewProductDetails']);
 
 
 

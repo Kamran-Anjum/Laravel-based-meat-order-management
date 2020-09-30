@@ -175,7 +175,7 @@ $('#ponumber').on('change', function() {
             htmlm +='<div class="col-md-2 mb-0">';
             htmlm +='<div class="form-group">';
             htmlm +='<label  for="">Total Amount</label>';
-            htmlm +='<input type="number" id="totalamount" onclick="gettotal()" readonly name="totalamount[]" value="0" class="form-control">';
+            htmlm +='<input type="number" id="totalamount" onclick="gettotal()" readonly name="totalamount" value="0" class="form-control">';
             htmlm +='<div class="invalid-feedback">Example invalid custom select feedback</div></div></div>';
             htmlm +='</div>';
         $('#dynamicqty').html(html);
