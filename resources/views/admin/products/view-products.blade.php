@@ -98,7 +98,7 @@
                                                 <td>
                                                     <div class="button-group">
                                                         <button type="button" class="btn waves-effect waves-light btn-info"><a class="text-white" href="{{ url('/admin/view-product-details/'.$product->id)}}">ViewStock</a></button>
-                                                        <button type="button" class="btn waves-effect waves-light btn-primary"><a class="text-white" href="{{ url('admin/edit-fabric/'.$product->id) }}">Edit</a></button>
+                                                        <button type="button" class="btn waves-effect waves-light btn-primary"><a class="text-white" href="{{ url('admin/edit-product/'.$product->id) }}">Edit</a></button>
                                                         <button type="button" class="btn waves-effect waves-light btn-danger"><a class="text-white sa-confirm-delete" param-id="{{ $product->id }}" param-route="delete-fabric" href="javascript:">Remove</a></button>
 
                                                     </div>

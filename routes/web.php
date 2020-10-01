@@ -68,7 +68,12 @@ Route::get('/admin/delete-sub-category/{id}',[App\Http\Controllers\SubCategoryCo
 //Product Controller
 Route::get('/admin/view-products',[App\Http\Controllers\ProductController::class,'viewProducts']);
 Route::match(['get','post'],'/admin/create-product',[App\Http\Controllers\ProductController::class,'createProduct']);
+Route::match(['get','post'],'admin/edit-product/{id}', [App\Http\Controllers\ProductController::class,'editProduct']);
 Route::match(['get','post'],'admin/view-product-details/{id}', [App\Http\Controllers\ProductController::class,'viewProductDetails']);
+Route::get('/admin/delete-product-image/{id}',[App\Http\Controllers\ProductController::class,'deleteproductimage']);
+
+Route::get('/admin/delete-gallery-image/{id}',[App\Http\Controllers\ProductController::class,'deletegalleryimage']);
+
 
 
 
@@ -84,6 +89,7 @@ Route::get('/admin/delete-supplier/{id}',[App\Http\Controllers\SupplierControlle
 
 //Purchase Order
 Route::get('/admin/view-pruchase-orders',[App\Http\Controllers\PurchaseorderController::class,'viewPurchaseOrders']);
+Route::get('/admin/poinvoice/{id}',[App\Http\Controllers\PurchaseorderController::class,'createPDF']);
 Route::match(['get','post'],'/admin/create-purchase-order',[App\Http\Controllers\PurchaseorderController::class,'createPurchaseOrder']);
 Route::match(['get','post'],'/admin/recieve-pruchase-orders/', [App\Http\Controllers\PurchaseorderController::class,'recievePurchaseOrders']);
 

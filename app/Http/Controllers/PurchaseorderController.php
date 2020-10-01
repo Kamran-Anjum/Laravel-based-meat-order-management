@@ -13,6 +13,7 @@ use App\Models\ProductStockRecieve;
 use App\Models\Product;
 use Auth;
 use Image;
+use PDF;
 
 class PurchaseorderController extends Controller
 {
@@ -25,7 +26,8 @@ class PurchaseorderController extends Controller
     		//->join('purchase_order_detail as pod','po.id','=','pod.p_order_id')
     		//->join('products as p','pod.product_id','=','p.id')
     		->join('users as u','po.created_by', '=', 'u.id')
-    		->select('po.*','s.supplier_name as suppName','u.name as userName')
+            ->join('purchase_order_status as pos','po.status','=','pos.id')
+    		->select('po.*','s.supplier_name as suppName','u.name as userName','pos.name as status')
     		->get();
     	return view('admin.purchaseorder.view-purchase-orders')->with(compact('purchase_orders'));
     	}
@@ -148,5 +150,26 @@ class PurchaseorderController extends Controller
     		return redirect('/admin');
     	}
     	
+    }
+
+    // Generate PDF
+    public function createPDF($id) {
+      // retreive all records from db
+      $purchase_orders = DB::table('purchase_order as po')
+      ->where(['po.id'=>$id])
+            ->join('suppliers as s','po.supplier_id','=','s.id')
+            //->join('purchase_order_detail as pod','po.id','=','pod.p_order_id')
+            //->join('products as p','pod.product_id','=','p.id')
+            ->join('users as u','po.created_by', '=', 'u.id')
+            ->join('purchase_order_status as pos','po.status','=','pos.id')
+            ->select('po.*','s.supplier_name as suppName','u.name as userName','pos.name as status')
+            ->get();
+
+      // share data to view
+      view()->share('purchase_orders',$purchase_orders);
+      $pdf = PDF::loadView('admin.purchaseorder.invoice', $purchase_orders);
+
+      // download PDF file with download method
+      return $pdf->stream('invoice_po_'.$id.'.pdf');
     }
 }

@@ -60,4 +60,9 @@ public function dashboard(){
                 return redirect('/logout');
     }
 
+    public function logout(){
+        Session::flush();
+        return redirect('/admin')->with('flash_message_success','Logged out Successfully');
+    }
+
 }

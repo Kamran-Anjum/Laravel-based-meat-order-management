@@ -132,4 +132,171 @@ class ProductController extends Controller
     	}
     	return view('admin.products.create-product')->with(compact('category_dropdown'));
     }
+
+    public function editProduct(Request $request, $id =null)
+    {
+        
+        $user = Auth::user();
+        $user_id = $user->id;
+
+        if($request->isMethod('post')){
+            $data = $request->all();
+            //dd($data);
+            if($request->hasFile('image')){
+
+                $image_tmp = $request->image;
+                    if($image_tmp->isValid()){
+                        $extension = $image_tmp->getClientOriginalExtension();
+                        $filename = 'product'.rand(1111,9999999).'.'.$extension;
+                        $large_image_path = 'images/backend-images/halalmeat/products/large/'.$filename;
+                        $medium_image_path = 'images/backend-images/halalmeat/products/medium/'.$filename;
+                        $small_image_path = 'images/backend-images/halalmeat/products/small/'.$filename;
+                        $tiny_image_path = 'images/backend-images/halalmeat/products/tiny/'.$filename;
+                        Image::make($image_tmp)->save($large_image_path);
+                        Image::make($image_tmp)->resize(600,600)->save($medium_image_path);
+                        Image::make($image_tmp)->resize(166,266)->save($small_image_path);
+                        Image::make($image_tmp)->resize(100,100)->save($tiny_image_path);
+                    }
+                }
+                else{
+                    $filename = $data['current_image'];
+                if( empty($filename)){
+                    $filename ='';
+                }
+                }
+            Product::where(['id'=>$id])->update
+            ([
+                'category_id' => $data['product_category_id'],
+                'sku_number' => $data['sku_number'],
+                'name' => $data['product_name'],
+                'base_price' => $data['base_price'],
+                'description' => $data['description'],
+                'image' => $filename,
+                'is_active' => $data['is_active']
+            
+            ]);
+            if($request->hasFile('gallery_images')){
+                    $files=$request->gallery_images;
+                    foreach($files as $file){
+                        $productdetail = new ProductDetail();
+    //                    $image_tmp = Input::file('image');
+                        if($file->isValid()){
+                            $image_tmp=$file;
+                            $extensions = $image_tmp->getClientOriginalExtension();
+                            $filenames = 'product_gallery'.rand(1111,9999999).'.'.$extensions;
+                            $large_image_path = 'images/backend-images/halalmeat/gallery-products/large/'.$filenames;
+                            $medium_image_path = 'images/backend-images/halalmeat/gallery-products/medium/'.$filenames;
+                            $small_image_path = 'images/backend-images/halalmeat/gallery-products/small/'.$filenames;
+                            $tiny_image_path = 'images/backend-images/halalmeat/gallery-products/tiny/'.$filenames;
+                            Image::make($image_tmp)->save($large_image_path);
+                            Image::make($image_tmp)->resize(600,600)->save($medium_image_path);
+                            Image::make($image_tmp)->resize(166,266)->save($small_image_path);
+                            Image::make($image_tmp)->resize(100,100)->save($tiny_image_path);
+                            $productdetail->gallery_image = $filenames;
+    //
+                        }
+                        $productdetail->product_id= $id;
+                        $productdetail->save();
+                    }
+    //                dd($filenames);
+                }
+
+            $productsubcategoris=ProductSubcategory::where(['product_id'=>$id])->get();
+            foreach ($productsubcategoris as $productsubcategory){
+                $productsubcategoryarray[]= $productsubcategory->product_id;
+            }
+
+            if (isset($data['subcategory'] )&& isset($productsubcategoryarray)){
+
+                $this->editProductSubCategory($data['subcategory'],$id,$user_id,$productsubcategoryarray);
+
+            }
+            else{
+
+                $this->editProductSubCategory($data['subcategorytypeedit'],$id);
+            }
+
+        return redirect('/admin/view-products')->with('flash_message_success','Product has been Updated Successfully!'); 
+        }
+        $products = DB::table('products as p')
+        ->where(['p.id'=>$id])
+        ->join('users as u','p.created_by','=','u.id')
+        ->select('p.*','u.name as userName')
+        ->first();
+
+        $product_details = DB::table('product_details')->where(['product_id'=>$id])->get();
+        //dd($courseType);
+
+        $categories = DB::table('categories as c')
+        ->where(['p.id'=>$id])
+        ->join('products as p','c.id','=','p.category_id')
+        ->select('c.*')->first();
+
+        $categories_dropdown = "<option value=''>Select Category</option>";
+        // foreach($categories as $category){
+            if($products->category_id == $categories->id){
+            $categories_dropdown .= "<option selected value='".$categories->id."'>".$categories->name . "</option>";
+            }
+            else{
+            $categories_dropdown .= "<option value='".$categories->id."'>".$categories->name  . "</option>";
+            }
+        // }
+
+        // sub CATEGORY DROPDOWN
+
+        $subcategories=DB::table('subcategories')
+            ->where('category_id','=',$products->category_id)
+            ->get();
+
+
+        $productsubcategories = DB::table('product_sub_categories')
+            ->where('product_id','=',$products->id)
+            ->get();
+        foreach ($productsubcategories as $productsubcategory){
+            $productsubcategoryarray1[] = $productsubcategory->subcategory_id;
+        }
+        $subcategories_dropdown = "";
+        foreach($subcategories as $subcategory){
+            if(isset($productsubcategoryarray1)) {
+                if (in_array($subcategory->id, $productsubcategoryarray1)) {
+//                    echo "here"; die;
+                    $subcategories_dropdown .= "<option selected value='" . $subcategory->id . "'>" . $subcategory->name . "</option>";
+                } else {
+                    $subcategories_dropdown .= "<option value='" . $subcategory->id . "'>" . $subcategory->name . "</option>";
+                }
+            }
+            else{
+                $subcategories_dropdown .= "<option value='" . $subcategory->id . "'>" . $subcategory->name . "</option>";
+            }
+        }
+        return view('admin.products.edit-product')->with(compact('products','product_details','categories_dropdown','subcategories_dropdown'));
+    }
+
+    public function deleteproductimage($id)
+    {
+        Product::where(['id'=>$id])->update(['image'=>'']);
+        return redirect()->back()->with('flash_message_success','Product image has been Deleted Successfully!');
+    }
+    public function deletegalleryimage($id)
+    {
+        ProductDetail::where(['id'=>$id])->delete();
+        return redirect()->back()->with('flash_message_success','Product Gallery image has been Deleted Successfully!');
+    }
+
+    public function editProductSubCategory($filterdata, $proid)
+    {
+
+                for($i=0; $i<count($filterdata); $i++)
+                {
+                    $assignablesubcategory = $filterdata[$i];
+                    $produtsubcategory = new ProductSubcategory();
+                    $produtsubcategory->product_id = $proid;
+                    $produtsubcategory->subcategory_id = $assignablesubcategory;
+                    $produtsubcategory->save();
+                
+            }
+                $ct =ProductSubcategory::join('subcategories as sbc', 'product_sub_categories.subcategory_id', '=', 'sbc.id')
+                ->where(['product_sub_categories.product_id'=>$proid])
+                ->whereNotIn('product_sub_categories.subcategory_id', $filterdata)->delete();
+    }
 }
