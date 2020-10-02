@@ -77,6 +77,7 @@
                                                 <th>Base Price</th>                                               
                                                 <th>Image</th>
                                                 <th>Created By</th>
+                                                <th>Status</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
@@ -94,12 +95,17 @@
                                                 <td>Rs.{{$product->base_price}}</td>
                                                 <td><img width="50" height="50" src=" {{ asset('/images/backend-images/halalmeat/products/tiny/'.$product->image ) }}"></td>
                                                 <td>{{$product->userName}}</td>
+                                                @if($product->is_active == '1')
+                                                <td>Active</td>
+                                                @else
+                                                <td>De-Active</td>
+                                                @endif
                                                 <!-- <td>$320,800</td> -->
                                                 <td>
                                                     <div class="button-group">
                                                         <button type="button" class="btn waves-effect waves-light btn-info"><a class="text-white" href="{{ url('/admin/view-product-details/'.$product->id)}}">ViewStock</a></button>
                                                         <button type="button" class="btn waves-effect waves-light btn-primary"><a class="text-white" href="{{ url('admin/edit-product/'.$product->id) }}">Edit</a></button>
-                                                        <button type="button" class="btn waves-effect waves-light btn-danger"><a class="text-white sa-confirm-delete" param-id="{{ $product->id }}" param-route="delete-fabric" href="javascript:">Remove</a></button>
+                                                        <!-- <button type="button" class="btn waves-effect waves-light btn-danger"><a class="text-white sa-confirm-delete" param-id="{{ $product->id }}" param-route="delete-fabric" href="javascript:">Remove</a></button> -->
 
                                                     </div>
                                                 </td>
@@ -118,6 +124,7 @@
                                                 <th>Base Price</th>                                               
                                                 <th>Image</th>
                                                 <th>Created By</th>
+                                                <th>Status</th>
                                                 <th>Action</th>
 
                                             </tr>

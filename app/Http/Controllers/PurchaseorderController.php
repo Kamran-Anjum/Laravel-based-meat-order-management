@@ -27,7 +27,8 @@ class PurchaseorderController extends Controller
     		//->join('products as p','pod.product_id','=','p.id')
     		->join('users as u','po.created_by', '=', 'u.id')
             ->join('purchase_order_status as pos','po.status','=','pos.id')
-    		->select('po.*','s.supplier_name as suppName','u.name as userName','pos.name as status')
+            ->join('po_priority_status as pps','pr_status','=','pps.id')
+    		->select('po.*','s.supplier_name as suppName','u.name as userName','pos.name as status','pps.name as prStatus')
     		->get();
     	return view('admin.purchaseorder.view-purchase-orders')->with(compact('purchase_orders'));
     	}
@@ -49,7 +50,8 @@ class PurchaseorderController extends Controller
             $PO->supplier_id = $data['supplier_id'];
             $PO->created_by = $user_id;
             $PO->order_note = $data['order_note'];
-            $PO->status = $data['periority'];
+            $PO->status = 1;
+            $PO->pr_status = $data['periority'];
             $PO->save();
             $po_id = $PO->id;
 
@@ -87,6 +89,7 @@ class PurchaseorderController extends Controller
                     'total_amount' => $data['totalamount'],
                     'updated_by' => $user->id,
                     'status' => $data['status'],
+                    'recieve_note' => $data['recieve_note'],
             
                     ]);
 

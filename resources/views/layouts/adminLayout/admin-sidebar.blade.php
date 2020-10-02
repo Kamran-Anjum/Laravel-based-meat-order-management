@@ -30,7 +30,7 @@
                         </li>
                         <!-- First menu  start -->
                         <li class="sidebar-item">
-                            <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
+                            <a class="sidebar-link has-arrow waves-effect waves-dark" href="#" aria-expanded="false">
                                 <i class="mdi mdi-credit-card-multiple"></i>
                                 <span class="hide-menu">Orders</span> 
                                 <span class="badge badge-inverse badge-pill ml-auto mr-3 font-medium px-2 py-1"></span>
@@ -143,12 +143,12 @@
                             </ul>
                         </li>
 
-                        <li class="sidebar-item">
+                        <!-- <li class="sidebar-item">
                             <a href="#" class="sidebar-link">
                                 <i class="mdi mdi-shopping"></i>
                                 <span class="hide-menu">Departments</span>
                             </a>
-                        </li>
+                        </li> -->
                         <li class="sidebar-item">
                             <a href="#" class="sidebar-link">
                                 <i class="mdi mdi-shopping"></i>
@@ -156,7 +156,7 @@
                             </a>
                         </li>
 
-                        <li class="sidebar-item">
+                        <!-- <li class="sidebar-item">
                             <a href="{{ url('/admin/view-countries')}}" class="sidebar-link">
                                 <i class="mdi mdi-av-timer"></i>
                                 <span class="hide-menu">Countries</span>
@@ -175,7 +175,7 @@
                                 <i class="mdi mdi-av-timer"></i>
                                 <span class="hide-menu">Cities</span>
                             </a>
-                        </li>
+                        </li> -->
 
                     </ul>
                 </nav>

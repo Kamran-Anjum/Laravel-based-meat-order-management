@@ -145,25 +145,7 @@ $('#ponumber').on('change', function() {
             };
 
             htmlm +='<div class="row">';
-            htmlm +='<div class="col-md-3 mb-0">';
-            htmlm +='<div class="form-group">';
-            htmlm +='<label  for="">Order Note</label>';
-            htmlm +='<textarea readonly name="order_note" class="form-control cols="4" rows="5">';
-            htmlm +=po['order_note'];
-            htmlm +='</textarea>';
-            htmlm +='<div class="invalid-feedback">Example invalid custom select feedback</div>'
-            htmlm +='</div>';
-            htmlm +='</div>';
-            htmlm +='<div class="col-md-2 mb-0">';
-            htmlm +='<div class="form-group">';
-            htmlm +='<label  for="">Periority Status</label>';
-            htmlm +='<input name="prority" class="form-control" type="text" value="'
-            htmlm +=po['prStatus'];
-            htmlm +='" readonly>';
-            htmlm +='<div class="invalid-feedback">Example invalid custom select feedback</div>'
-            htmlm +='</div>';
-            htmlm +='</div>';
-            htmlm +='<div class="col-md-3 mb-0">';
+            htmlm +='<div class="col-md-4 mb-0">';
             htmlm +='<div class="form-group">';
             htmlm +='<label  for="">Status</label>';
             htmlm +='<select name="status" class="form-control" >';
@@ -172,11 +154,43 @@ $('#ponumber').on('change', function() {
             htmlm +='<div class="invalid-feedback">Example invalid custom select feedback</div>'
             htmlm +='</div>';
             htmlm +='</div>';
-            htmlm +='<div class="col-md-2 mb-0">';
+/*            htmlm +='<div class="col-md-1 mb-0">';
+            htmlm +='</div>';*/
+            htmlm +='<div class="col-md-3 mb-0">';
+            htmlm +='<div class="form-group">';
+            htmlm +='<label  for="">Periority Status</label>';
+            htmlm +='<input name="prority" class="form-control" type="text" value="'
+            htmlm +=po['prStatus'];
+            htmlm +='" readonly>';
+            htmlm +='<div class="invalid-feedback">Example invalid custom select feedback</div>'
+            htmlm +='</div>';
+            htmlm +='</div>';
+            
+            
+            htmlm +='<div class="col-md-3 mb-0">';
             htmlm +='<div class="form-group">';
             htmlm +='<label  for="">Total Amount</label>';
             htmlm +='<input type="number" id="totalamount" onclick="gettotal()" readonly name="totalamount" value="0" class="form-control">';
             htmlm +='<div class="invalid-feedback">Example invalid custom select feedback</div></div></div>';
+            htmlm +='</div>';
+            htmlm +='<div class="row">';
+            htmlm +='<div class="col-md-5 mb-0">';
+            htmlm +='<div class="form-group">';
+            htmlm +='<label  for="">Order Note</label>';
+            htmlm +='<textarea readonly name="order_note" class="form-control cols="4" rows="5">';
+            htmlm +=po['order_note'];
+            htmlm +='</textarea>';
+            htmlm +='<div class="invalid-feedback">Example invalid custom select feedback</div>'
+            htmlm +='</div>';
+            htmlm +='</div>';
+            htmlm +='<div class="col-md-5 mb-0">';
+            htmlm +='<div class="form-group">';
+            htmlm +='<label  for="">Recieve Note</label>';
+            htmlm +='<textarea name="recieve_note" class="form-control cols="4" rows="5">';
+            htmlm +='</textarea>';
+            htmlm +='<div class="invalid-feedback">Example invalid custom select feedback</div>'
+            htmlm +='</div>';
+            htmlm +='</div>';
             htmlm +='</div>';
         $('#dynamicqty').html(html);
         $('#dynamic').html(htmlm);

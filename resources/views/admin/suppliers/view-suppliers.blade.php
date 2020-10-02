@@ -75,6 +75,7 @@
                                                 <th>Email</th>                                
                                                 <th>Image</th>
                                                 <th>Created By</th>
+                                                <th>Status</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
@@ -90,6 +91,11 @@
                                                 <td>{{$supplier->email}}</td>
                                                 <td><img width="50" height="50" src=" {{ asset('images/backend-images/halalmeat/supplier/tiny/'.$supplier->image ) }}"></td>
                                                 <td>{{$supplier->userName}}</td>
+                                                @if($supplier->is_active == '1')
+                                                <td>Active</td>
+                                                @else
+                                                <td>De-Active</td>
+                                                @endif
                                                 <!-- <td>$320,800</td> -->
                                                 <td>
                                                     <div class="button-group">
@@ -97,7 +103,7 @@
                                                         <button type="button" class="btn waves-effect waves-light btn-info" data-toggle="modal" value="" data-target="#exampleModal" onclick="getSupplierDetails({{ $supplier->id }})">Supplier Detail</button>
                                                         <button type="button" class="btn waves-effect waves-light btn-primary"><a class="text-white" href="{{ url('/admin/view-supplier-products/'.$supplier->id)}}">View Product</a></button>
                                                         <button type="button" class="btn waves-effect waves-light btn-warning"><a class="text-white" href="{{ url('admin/edit-supplier/'.$supplier->id) }}">Edit</a></button>
-                                                        <button type="button" class="btn waves-effect waves-light btn-danger"><a class="text-white sa-confirm-delete" param-id="{{ $supplier->id }}" param-route="delete-supplier" href="javascript:">Remove</a></button>
+                                                        <!-- <button type="button" class="btn waves-effect waves-light btn-danger"><a class="text-white sa-confirm-delete" param-id="{{ $supplier->id }}" param-route="delete-supplier" href="javascript:">Remove</a></button> -->
 
                                                     </div>
                                                 </td>
@@ -114,6 +120,7 @@
                                                 <th>Email</th>                                     
                                                 <th>Image</th>
                                                 <th>Created By</th>
+                                                <th>Status</th>
                                                 <th>Action</th>
 
                                             </tr>

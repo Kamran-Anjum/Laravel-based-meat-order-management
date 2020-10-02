@@ -95,7 +95,7 @@
                                                 <td>{{$purchase_order->suppName}}</td>
                                                 
                                                 <td>{{$purchase_order->total_amount}}</td>
-                                                <td>Normal Periority</td>
+                                                <td>{{$purchase_order->prStatus}}</td>
                                                 <td>{{$purchase_order->userName}}</td>
                                                 <td>{{$purchase_order->status}}</td>
                                                 
