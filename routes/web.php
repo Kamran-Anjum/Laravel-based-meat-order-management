@@ -13,6 +13,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Auth::routes();
+Route::group(['middleware' => ['auth']], function() {
+   Route::match(['get','post'],'/admin',[App\Http\Controllers\AdminController::class,'adminlogin']);
+});
 // Admin login controller
 Route::match(['get','post'],'/admin',[App\Http\Controllers\AdminController::class,'adminlogin']);
 Route::match(['get','post'],'/production',[App\Http\Controllers\ProductionController::class,'productionlogin']);
@@ -74,7 +77,13 @@ Route::get('/admin/delete-product-image/{id}',[App\Http\Controllers\ProductContr
 
 Route::get('/admin/delete-gallery-image/{id}',[App\Http\Controllers\ProductController::class,'deletegalleryimage']);
 
-
+//Customers Controller
+Route::get('/admin/view-customers',[App\Http\Controllers\CustomerController::class,'viewCustomers']);
+Route::match(['get','post'],'/admin/create-customer',[App\Http\Controllers\CustomerController::class,'createCustomer']);
+Route::match(['get','post'],'admin/edit-customer/{id}', [App\Http\Controllers\CustomerController::class,'editCustomer']);
+Route::match(['get','post'],'admin/view-customer-details/{id}', [App\Http\Controllers\CustomerController::class,'viewCustomerDetails']);
+Route::get('/admin/delete-customer-image/{id}',[App\Http\Controllers\CustomerController::class,'deletecustomerimage']);
+Route::get('/admin/comming-soon/',[App\Http\Controllers\CustomerController::class,'commingsoon']);
 
 
 //Suppliers Controller
@@ -92,6 +101,7 @@ Route::get('/admin/view-pruchase-orders',[App\Http\Controllers\PurchaseorderCont
 Route::get('/admin/poinvoice/{id}',[App\Http\Controllers\PurchaseorderController::class,'createPDF']);
 Route::match(['get','post'],'/admin/create-purchase-order',[App\Http\Controllers\PurchaseorderController::class,'createPurchaseOrder']);
 Route::match(['get','post'],'/admin/recieve-pruchase-orders/', [App\Http\Controllers\PurchaseorderController::class,'recievePurchaseOrders']);
+Route::match(['get','post'],'/admin/edit-purchase-order/{id}',[App\Http\Controllers\PurchaseorderController::class,'editPurchaseOrders']);
 
 
 //Country Controller
@@ -120,6 +130,7 @@ Route::get('/getsupplierdetail/{id}',[App\Http\Controllers\AjaxRequestController
 Route::get('admin/getpodetail/{id}',[App\Http\Controllers\AjaxRequestController::class,'getPODetail']);
 Route::get('admin/getsupplierproductpo/{id}',[App\Http\Controllers\AjaxRequestController::class,'getSupplierproductPO']);
 Route::get('admin/recievepodetail/{id}',[App\Http\Controllers\AjaxRequestController::class,'getRecievePO']);
+Route::get('admin/getpoproductdata/{id}/{poid}',[App\Http\Controllers\AjaxRequestController::class,'getPOproducts']);
 
 });
 

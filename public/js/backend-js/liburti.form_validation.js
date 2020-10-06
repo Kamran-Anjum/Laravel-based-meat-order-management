@@ -24,6 +24,7 @@ $(document).ready(function(){
     $("#subcategory").select2();
     $("#suppproducts").select2();
     $("#purchaseproduct").select2();
+    $("#purchaseproducted").select2();
     
 
 //Coding For Halal Meat
@@ -58,6 +59,7 @@ $('#supplierPO').on('change', function() {
         }); 
 });
 
+//Add Purchase Order
 $('#purchaseproduct').on('change', function() { 
    var supplie_id = $(this).val();
    
@@ -69,9 +71,15 @@ $('#purchaseproduct').on('change', function() {
        html +='<div class="row">';
        html +='<div class="col-md-4 mb-0">';
        html +='<div class="form-group">';
+       html +='<label  for="">Price Product-';
+       html += x ;
+       html +='</label><input required type="number" name="price[]" class="form-control">';
+       html +='<div class="invalid-feedback">Example invalid custom select feedback</div></div></div>';
+       html +='<div class="col-md-4 mb-0">';
+       html +='<div class="form-group">';
        html +='<label  for="">Quantity Product-';
        html += x ;
-       html +='</label><input type="number" name="quantity[]" class="form-control">';
+       html +='</label><input required type="number" name="quantity[]" class="form-control">';
        html +='<div class="invalid-feedback">Example invalid custom select feedback</div></div></div>';
        html +='</div>';
 
@@ -82,6 +90,79 @@ $('#purchaseproduct').on('change', function() {
    $('#dynamicqty').html(html);
     //alert(supplier_id);
 });
+
+//Edit Purchase Order
+$('#purchaseproducted').on('change', function() { 
+   var productids = $(this).val();
+   var poid = document.getElementById('poid').value;
+   //alert(productids);
+   var x = 1;
+   var html = '';
+
+   $.ajax({
+        url: '/admin/getpoproductdata/'+productids+'/'+poid,
+        success: data => {
+        $('#dynamicqtyed').html('');
+        console.log(data);
+
+            
+
+
+            data.forEach(function(item){
+            html +='<div class="row">';
+            html +='<div class="col-md-4 mb-0">';
+            html +='<div class="form-group">';
+            html +='<label  for="">Price Product-';
+            html += x ;
+            html +='</label>';
+            html +='<input required type="number" name="price[]" value="';
+            html +=item['price'];
+            html +='" class="form-control">';
+            html +='<input type="hidden" name="pod_id[]" value="';
+            html +=item['id'];
+            html +='" class="form-control">';
+            html +='<div class="invalid-feedback">Example invalid custom select feedback</div></div></div>';
+            html +='<div class="col-md-4 mb-0">';
+            html +='<div class="form-group">';
+            html +='<label  for="">Quantity Product-';
+            html += x ;
+            html +='</label><input required type="number" name="quantity[]" value="';
+            html +=item['demand_quantity'];
+            html +='" class="form-control">';
+            html +='<div class="invalid-feedback">Example invalid custom select feedback</div></div></div>';
+            html +='</div>';
+
+            x = x+1;
+            });
+            if (data.length < productids.length) {
+            html +='<div class="row">';
+            html +='<div class="col-md-4 mb-0">';
+            html +='<div class="form-group">';
+            html +='<label  for="">Price Product-';
+            html += x ;
+            html +='</label>';
+            html +='<input required type="number" name="price[]" class="form-control">';
+            html +='<input type="hidden" name="pod_id[]"class="form-control">';
+            html +='<div class="invalid-feedback">Example invalid custom select feedback</div></div></div>';
+            html +='<div class="col-md-4 mb-0">';
+            html +='<div class="form-group">';
+            html +='<label  for="">Quantity Product-';
+            html += x ;
+            html +='</label><input required type="number" name="quantity[]" class="form-control">';
+            html +='<div class="invalid-feedback">Example invalid custom select feedback</div></div></div>';
+            html +='</div>';
+            }
+            
+            $('#dynamicqtyed').html(html);
+        }
+
+    });
+     
+   
+   
+    //alert(supplier_id);
+});
+
 
 
 

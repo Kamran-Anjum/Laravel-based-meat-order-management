@@ -60,10 +60,12 @@ class PurchaseorderController extends Controller
             	$POD->p_order_id = $po_id;
             	$POD->product_id = $data['products_id'][$i];
             	$POD->demand_quantity = $data['quantity'][$i];
+                $POD->price = $data['price'][$i];
+                $POD->total_amount = $data['quantity'][$i] * $data['price'][$i];
             	$POD->save();
             }
             /*return redirect()->back()->with('flash_message_success','Product Added Successfully!');*/
-            return redirect('/admin/view-pruchase-orders')->with('flash_message_success','Supplier Added Successfully!');
+            return redirect('/admin/view-pruchase-orders')->with('flash_message_success','P.O Added Successfully!');
         }
         $suppliers = DB::table('suppliers')->where(['is_active' => 1])->get();
     	$supplier_dropdown = "<option disabled selected > Select Supplier</option>";
@@ -155,6 +157,146 @@ class PurchaseorderController extends Controller
     	
     }
 
+    public function editPurchaseOrders(Request $request,$id)
+    {
+        $user = Auth::User();
+        if (Auth::check()) {
+            if($request->isMethod('post'))
+            {
+                $data = $request->all();
+                //dd($data);
+                $checkpolength = PurchaseOrderDetail::where(['p_order_id'=>$id])->get();
+                if (count($checkpolength) < count($data['products_id'])) {
+                    PurchaseOrder::where(['id'=>$id])->update
+                    ([
+                    'pr_status' => $data['periority'],
+                    'order_note' => $data['order_note'],
+            
+                    ]);
+                    for ($i=0; $i <count($data['products_id']) ; $i++) { 
+                        if (isset($checkpolength[$i]["product_id"]) != $data["products_id"][$i]) {
+                            PurchaseOrderDetail::where(['id'=>$data['pod_id'][$i]])->update
+                            ([
+                                'price' => $data['price'][$i],
+                                'demand_quantity' => $data['quantity'][$i],
+                                'total_amount' => $data['quantity'][$i] * $data['price'][$i],
+            
+                            ]);
+                            $POD = new PurchaseOrderDetail();
+                            $POD->p_order_id = $data['poid'];
+                            $POD->product_id = $data['products_id'][$i];
+                            $POD->demand_quantity = $data['quantity'][$i];
+                            $POD->price = $data['price'][$i];
+                            $POD->total_amount = $data['quantity'][$i] * $data['price'][$i];
+                            $POD->save();
+                        }
+                        else{
+                            PurchaseOrderDetail::where(['id'=>$data['pod_id'][$i]])->update
+                            ([
+                                'price' => $data['price'][$i],
+                                'demand_quantity' => $data['quantity'][$i],
+                                'total_amount' => $data['quantity'][$i] * $data['price'][$i],
+            
+                            ]);
+                        }
+                    }
+                    return redirect('/admin/view-pruchase-orders')->with('flash_message_success','P.O Edited Successfully!');
+                }
+                else{
+                PurchaseOrder::where(['id'=>$id])->update
+                    ([
+                    'pr_status' => $data['periority'],
+                    'order_note' => $data['order_note'],
+            
+                    ]);
+
+                PurchaseOrderDetail::where(['p_order_id'=>$id])
+                ->whereNotIn('product_id',$data['products_id'])->delete();
+
+                
+                for ($i=0; $i <count($data['pod_id']) ; $i++) { 
+
+                PurchaseOrderDetail::where(['id'=>$data['pod_id'][$i]])->update
+                ([
+                    'price' => $data['price'][$i],
+                    'demand_quantity' => $data['quantity'][$i],
+                    'total_amount' => $data['quantity'][$i] * $data['price'][$i],
+            
+                ]);
+
+                }
+            }
+                //dd($data);
+                return redirect('/admin/view-pruchase-orders')->with('flash_message_success','P.O Edited Successfully!');
+            }
+
+            $po = DB::table('purchase_order as po')
+            ->where(['po.id'=> $id])
+            ->where(['po.status'=> 1])
+            ->join('suppliers as s','po.supplier_id','=','s.id')
+            ->join('po_priority_status as pos','po.pr_status','=','pos.id')
+            ->select('po.*', 's.supplier_name as suppName','pos.id as pr_id')
+            ->first();
+
+            $purchase_orders_detail = DB::table('purchase_order_detail')
+            ->where(['p_order_id'=> $id])
+            ->get();
+
+             $supplier_products = DB::table('supplier_products as sp')
+             ->where(['sp.supplier_id'=> $po->supplier_id])
+             ->join('products as p','sp.product_id','=','p.id')
+             ->select('p.name as prodname','sp.*')
+             ->get();
+             $proid = [];
+             foreach ($purchase_orders_detail as $value) {
+                 $proid[] .= $value->product_id;
+             }
+             //dd($proid);
+             //dd($produtcs,$purchase_orders_detail);
+             $y = 0;
+             $product_dropdown = "";
+            foreach($supplier_products as $product){
+                if (isset($proid[$y])) {
+                   if($product->product_id == $proid[$y]){
+                        $product_dropdown .= "<option selected value='".$product->product_id."'>".$product->prodname . "</option>";
+                }
+            }
+            else{
+            $product_dropdown .= "<option value='".$product->product_id."'>".$product->prodname  . "</option>";
+            }
+                
+            $y = $y+1;
+         }
+         //dd($product_dropdown);
+            $pr_statuses = DB::table('po_priority_status')->get();
+
+            $pr_statuses_dropdown = "";
+            foreach($pr_statuses as $pr_statuse){
+            if($po->pr_status == $pr_statuse->id){
+            $pr_statuses_dropdown .= "<option selected value='".$pr_statuse->id."'>".$pr_statuse->name . "</option>";
+            }
+            else{
+            $pr_statuses_dropdown .= "<option value='".$pr_statuse->id."'>".$pr_statuse->name  . "</option>";
+            }
+         }
+            
+            if(count($purchase_orders_detail) == 0){
+                return redirect('/admin/view-pruchase-orders')->with('flash_message_success','Cannot Edit "Recieved" Purchase Order');
+                
+            }
+            else{
+                //dd($purchase_orders_detail);
+                return view('admin.purchaseorder.edit-purchase-order')->with(compact('purchase_orders_detail','po','pr_statuses_dropdown','product_dropdown'));
+            }
+        
+        
+        }
+        else{
+            return redirect('/admin');
+        }
+        
+    }
+
     // Generate PDF
     public function createPDF($id) {
       // retreive all records from db
@@ -165,12 +307,13 @@ class PurchaseorderController extends Controller
             //->join('products as p','pod.product_id','=','p.id')
             ->join('users as u','po.created_by', '=', 'u.id')
             ->join('purchase_order_status as pos','po.status','=','pos.id')
-            ->select('po.*','s.supplier_name as suppName','u.name as userName','pos.name as status')
+            ->select('po.*','s.address as saddress','s.email as semail','s.supplier_name as suppName','u.name as userName','pos.name as status')
             ->get();
 
       // share data to view
       view()->share('purchase_orders',$purchase_orders);
-      $pdf = PDF::loadView('admin.purchaseorder.invoice', $purchase_orders);
+      $pdf = PDF::loadView('admin.purchaseorder.po-invoice', $purchase_orders);
+      
 
       // download PDF file with download method
       return $pdf->stream('invoice_po_'.$id.'.pdf');

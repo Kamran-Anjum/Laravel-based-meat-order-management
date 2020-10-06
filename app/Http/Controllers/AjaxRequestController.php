@@ -137,4 +137,18 @@ class AjaxRequestController extends Controller
         return array($po_detail, $po, $pos_dropdown);
 
     }
+
+    public function getPOproducts($id,$poid)
+    {   
+        
+        $ids = array_map('intval', explode(',', $id));
+        $podd = DB::table('purchase_order_detail as pod')
+            ->whereIn('pod.product_id', $ids)
+            ->where(['pod.p_order_id'=> $poid])
+            ->join('products as p','pod.product_id','=','p.id')
+            ->select('pod.*','p.name as prodName')
+            ->get();
+
+        return $podd;
+    }
 }

@@ -92,7 +92,7 @@
                                     </a>
                                 </li>
                                 <li class="sidebar-item">
-                                    <a href="{{ url('admin/view-subjects') }}" class="sidebar-link">
+                                    <a href="#" class="sidebar-link">
                                         <i class="mdi mdi-adjust"></i>
                                         <span class="hide-menu">Products Customer Prices</span>
                                     </a>
@@ -103,7 +103,7 @@
 
                         {{--       Customers Setup             --}}
                         <li class="sidebar-item">
-                            <a href="#" class="sidebar-link">
+                            <a href="{{ url('admin/view-customers') }}" class="sidebar-link">
                                 <i class="mdi mdi-av-timer"></i>
                                 <span class="hide-menu">Customer Setup</span>
                             </a>
