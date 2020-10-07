@@ -139,13 +139,13 @@ Route::get('admin/getpoproductdata/{id}/{poid}',[App\Http\Controllers\AjaxReques
 
 
 
-Route::get('/', function () {
+/*Route::get('/', function () {
     return view('welcome');
-});
+});*/
 
 
 // Routes For Admin/Backend
 
 
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/', [App\Http\Controllers\AdminController::class,'adminlogin']);

@@ -123,17 +123,18 @@
                                         <div class="row">
                                             <div class="col-md-4 mb-0">
                                                 <div class="form-group">                                                  
-                                                    <label  for="">Contry ID</label>
-                                                    <select onchange="stateSelect(event)" class="form-control" id="product_category_id" name="country_id">
-                                                        {!! $country_dropdown !!}
+                                                    <label  for="">Contry</label>
+                                                    <select class="form-control" readonly id="product_category_id" name="country_id">
+                                                        <option selected value="1">Norway</option>
                                                     </select>                                                    
                                                     <div class="invalid-feedback">Example invalid custom select feedback</div>
                                                 </div>
                                             </div>
                                             <div class="col-md-4 mb-0">
                                                 <div class="form-group">                                                  
-                                                    <label  for="">State</label>
-                                                    <select id="state" onchange="citySelect(event)" name="state" class="form-control select2" disabled="" style="width: 100%; height:36px;" required>
+                                                    <label  for="">City</label>
+                                                    <select name="city" class="form-control select2"  style="width: 100%; height:36px;" required>
+                                                       {!! $country_dropdown !!}
                                             </select>                                                  
                                                     <div class="invalid-feedback">Example invalid custom select feedback</div>
                                                 </div>
@@ -144,7 +145,7 @@
                                       
                                         
                                         <div class="row">
-                                            <div class="col-md-4 mb-0">
+                                            <!-- <div class="col-md-4 mb-0">
                                                 <div class="form-group">                                                  
                                                     <label  for="">City</label>
                                                     <select id="city" name="city" class="form-control select2" disabled="" style="width: 100%; height:36px;" required>
@@ -152,10 +153,10 @@
                                                     <div class="invalid-feedback">Example invalid custom select feedback</div>
                                                 </div>
 
-                                            </div>
+                                            </div> -->
                                             <div class="col-md-4 mb-0">
                                                 <div class="form-group">                                                  
-                                                    <label  for="">Image</label>
+                                                    <label  for="">Logo Image</label>
                                                     <input type="file" class="form-control" name="image">
                                                     <div class="invalid-feedback">Example invalid custom select feedback</div>
                                                 </div>

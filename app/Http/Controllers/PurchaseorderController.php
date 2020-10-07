@@ -238,8 +238,10 @@ class PurchaseorderController extends Controller
             ->select('po.*', 's.supplier_name as suppName','pos.id as pr_id')
             ->first();
 
-            $purchase_orders_detail = DB::table('purchase_order_detail')
-            ->where(['p_order_id'=> $id])
+            $purchase_orders_detail = DB::table('purchase_order_detail as pod')
+            ->where(['pod.p_order_id'=> $id])
+            ->join('products as p','pod.product_id','=','p.id')
+             ->select('p.name as prodname','pod.*')
             ->get();
 
              $supplier_products = DB::table('supplier_products as sp')
@@ -260,10 +262,15 @@ class PurchaseorderController extends Controller
                    if($product->product_id == $proid[$y]){
                         $product_dropdown .= "<option selected value='".$product->product_id."'>".$product->prodname . "</option>";
                 }
+                else{
+                $product_dropdown .= "<option value='".$product->product_id."'>".$product->prodname  . "</option>";
+                }
             }
             else{
-            $product_dropdown .= "<option value='".$product->product_id."'>".$product->prodname  . "</option>";
-            }
+                $product_dropdown .= "<option selected value='".$product->product_id."'>".$product->prodname  . "</option>";
+                }
+
+            
                 
             $y = $y+1;
          }

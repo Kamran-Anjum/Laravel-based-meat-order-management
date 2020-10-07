@@ -124,22 +124,13 @@
                                             <div class="col-md-4 mb-0">
                                                 <div class="form-group">                                                  
                                                     <label  for="">Country</label>
-                                                    <select onchange="stateSelect(event)" class="form-control" id="product_category_id" name="country_id">
-                                                        {!! $country_dropdown !!}
+                                                    <select class="form-control" id="product_category_id" readonly name="country_id">
+                                                        <option value="1">Norway</option>
                                                     </select>                                                    
                                                     <div class="invalid-feedback">Example invalid custom select feedback</div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-4 mb-0">
-                                                <div class="form-group">                                                  
-                                                    <label  for="">State</label>
-                                                    <select id="state" readonly onchange="citySelect(event)" name="state" class="form-control select2" style="width: 100%; height:36px;" required>
-                                                        <option value="{{$supplier->state_id}}">{{$supplier->stateName}}</option>}
-                                            </select>                                                  
-                                                    <div class="invalid-feedback">Example invalid custom select feedback</div>
-                                                </div>
-
-                                            </div>
+                                            
 
                                         </div>
                                       
@@ -149,7 +140,7 @@
                                                 <div class="form-group">                                                  
                                                     <label  for="">City</label>
                                                     <select id="city" name="city" class="form-control select2" readonly style="width: 100%; height:36px;" required>
-                                                        <option value="{{$supplier->city_id}}">{{$supplier->cityName}}</option>
+                                                        {!! $city_dropdown !!}
                                             </select>                                                  
                                                     <div class="invalid-feedback">Example invalid custom select feedback</div>
                                                 </div>

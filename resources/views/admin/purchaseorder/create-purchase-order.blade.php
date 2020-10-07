@@ -89,7 +89,7 @@
                                       
                                             <div class="col-md-4 mb-0">
                                                 <div class="form-group">                                                  
-                                                <label  for="">Supplier</label>
+                                                <label  for="">Select Supplier</label>
                                                 <select name="supplier_id" id="supplierPO" class="form-control ">
                                                 	{!! $supplier_dropdown !!}
                                                 </select>
@@ -99,9 +99,9 @@
                                             </div>
                                             <div class="col-md-4 mb-0">
                                                 <div class="form-group">                                                  
-                                                    <label  for="">Product</label>
+                                                    <label  for="">Select Products</label>
                                                      <select name="products_id[]" id="purchaseproduct" class="form-control custom-select select2" multiple>
-                                                	<option>asa</option>
+                                                	<option disabled>Select Supplier First</option>
                                                 </select>
                                                                                        
                                                     <div class="invalid-feedback">Example invalid custom select feedback</div>

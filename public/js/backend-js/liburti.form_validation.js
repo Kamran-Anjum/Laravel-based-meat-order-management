@@ -61,25 +61,31 @@ $('#supplierPO').on('change', function() {
 
 //Add Purchase Order
 $('#purchaseproduct').on('change', function() { 
-   var supplie_id = $(this).val();
+   var supplie_id = $(this).val(); 
+ var selected = $('#purchaseproduct option:selected').toArray().map(item => item.text);
    
    var x = 1;
    var html = '';
    
-   for (var i = 0; i < supplie_id.length; i++) {
+   for (var i = 0; i < selected.length; i++) {
        $('#dynamicqty').html('');
        html +='<div class="row">';
        html +='<div class="col-md-4 mb-0">';
        html +='<div class="form-group">';
-       html +='<label  for="">Price Product-';
-       html += x ;
-       html +='</label><input required type="number" name="price[]" class="form-control">';
+       html +='<label  for="">Product Name</label>';
+       html +='<input readonly required type="text"  value="';
+       html +=selected[i];
+       html +='" class="form-control">';
        html +='<div class="invalid-feedback">Example invalid custom select feedback</div></div></div>';
        html +='<div class="col-md-4 mb-0">';
        html +='<div class="form-group">';
-       html +='<label  for="">Quantity Product-';
-       html += x ;
-       html +='</label><input required type="number" name="quantity[]" class="form-control">';
+       html +='<label  for="">Price</label>';
+       html +='<input required type="number" name="price[]" class="form-control">';
+       html +='<div class="invalid-feedback">Example invalid custom select feedback</div></div></div>';
+       html +='<div class="col-md-4 mb-0">';
+       html +='<div class="form-group">';
+       html +='<label  for="">Quantity</label>';
+       html +='<input required type="number" name="quantity[]" class="form-control">';
        html +='<div class="invalid-feedback">Example invalid custom select feedback</div></div></div>';
        html +='</div>';
 
@@ -94,9 +100,13 @@ $('#purchaseproduct').on('change', function() {
 //Edit Purchase Order
 $('#purchaseproducted').on('change', function() { 
    var productids = $(this).val();
+   //var selected = this.selectedIndex;
+    var selected = $('#purchaseproducted option:selected').toArray().map(item => item.text);
+    
    var poid = document.getElementById('poid').value;
-   //alert(productids);
+   //alert(selected.text);
    var x = 1;
+   var i = 0;
    var html = '';
 
    $.ajax({
@@ -105,11 +115,15 @@ $('#purchaseproducted').on('change', function() {
         $('#dynamicqtyed').html('');
         console.log(data);
 
-            
-
-
             data.forEach(function(item){
             html +='<div class="row">';
+            html +='<div class="col-md-4 mb-0">';
+            html +='<div class="form-group">';
+            html +='<label  for="">Product Name</label>';
+            html +='<input readonly required type="text" name="prices[]" value="';
+            html +=item['prodName'];    
+            html +='" class="form-control">';
+            html +='<div class="invalid-feedback">Example invalid custom select feedback</div></div></div>';
             html +='<div class="col-md-4 mb-0">';
             html +='<div class="form-group">';
             html +='<label  for="">Price Product-';
@@ -131,11 +145,20 @@ $('#purchaseproducted').on('change', function() {
             html +='" class="form-control">';
             html +='<div class="invalid-feedback">Example invalid custom select feedback</div></div></div>';
             html +='</div>';
-
+            i = i+1;
             x = x+1;
             });
             if (data.length < productids.length) {
             html +='<div class="row">';
+            html +='<div class="col-md-4 mb-0">';
+            html +='<div class="form-group">';
+            html +='<label  for="">Product Name';
+            html += x ;
+            html +='</label>';
+            html +='<input readonly type="text" name="price[]" value="';
+            html +=selected[i];
+            html +='" class="form-control">';
+            html +='<div class="invalid-feedback">Example invalid custom select feedback</div></div></div>';
             html +='<div class="col-md-4 mb-0">';
             html +='<div class="form-group">';
             html +='<label  for="">Price Product-';

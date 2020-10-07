@@ -67,6 +67,7 @@ class ProductController extends Controller
             $product->base_price     = $data['base_price'];
             $product->description = $data['description'];
     		$product->created_by = $user->id;
+            $product->is_active = $data['is_active'];
             if($request->hasFile('image')){
 
                 $image_tmp = $request->image;

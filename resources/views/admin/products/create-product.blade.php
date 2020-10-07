@@ -159,6 +159,23 @@
                                             </div>
 
                                         </div>
+
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Status</label>
+                                                    <br/>
+                                                    <div class="custom-control custom-radio custom-control-inline">
+                                                        <input type="radio" value="1" id="customRadioInline1" checked="checked" name="is_active" class="custom-control-input">
+                                                        <label class="custom-control-label" for="customRadioInline1">Active</label>
+                                                    </div>
+                                                    <div class="custom-control custom-radio custom-control-inline">
+                                                        <input type="radio" value="0" id="customRadioInline2" name="is_active" class="custom-control-input">
+                                                        <label class="custom-control-label" for="customRadioInline2">Inactive</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                         
                                                                   
                                     </div>

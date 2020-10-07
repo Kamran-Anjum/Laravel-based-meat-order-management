@@ -59,7 +59,7 @@ class SupplierController extends Controller
             /*return redirect()->back()->with('flash_message_success','Product Added Successfully!');*/
             return redirect('/admin/view-suppliers')->with('flash_message_success','Supplier Added Successfully!');
         }
-        $countries = DB::table('countries')->get();
+        $countries = DB::table('cities')->get();
     	$country_dropdown = "<option disabled selected > Select Category</option>";
 
     	foreach ($countries as $country) {
@@ -105,7 +105,6 @@ class SupplierController extends Controller
                 'contact_no' => $data['supplier_cell'],
                 'email' => $data['supplier_email'],
                 'country_id' => $data['country_id'],
-                'state_id' => $data['state'],
                 'city_id' => $data['city'],
                 'address' => $data['s_address'],
                 'updated_by' => $user_id,
@@ -117,25 +116,22 @@ class SupplierController extends Controller
         }
         $supplier = DB::table('suppliers as s')
         ->where(['s.id'=>$id])
-        ->join('countries as c','s.country_id','=','c.id')
-        ->join('states as st','s.state_id','=','st.id')
-        ->join('cities as ct','s.city_id','=','ct.id')
-        ->select('s.*','ct.name as cityName','st.name as stateName','c.name as countryName')
+        ->select('s.*')
         ->first();
         //dd($courseType);
 
-        $countries = DB::table('countries')->get();
+        $cities = DB::table('cities')->get();
 
-        $country_dropdown = "<option value=''>Select Country</option>";
-         foreach($countries as $country){
-            if($supplier->country_id == $country->id){
-            $country_dropdown .= "<option selected value='".$country->id."'>".$country->name . "</option>";
+        $city_dropdown = "<option value=''>Select City</option>";
+         foreach($cities as $country){
+            if($supplier->city_id == $country->id){
+            $city_dropdown .= "<option selected value='".$country->id."'>".$country->name . "</option>";
             }
             else{
-            $country_dropdown .= "<option value='".$country->id."'>".$country->name  . "</option>";
+            $city_dropdown .= "<option value='".$country->id."'>".$country->name  . "</option>";
             }
          }
-        return view('admin.suppliers.edit-supplier')->with(compact('supplier','country_dropdown'));
+        return view('admin.suppliers.edit-supplier')->with(compact('supplier','city_dropdown'));
     }
 
     public function viewSupplierProduct($id)
