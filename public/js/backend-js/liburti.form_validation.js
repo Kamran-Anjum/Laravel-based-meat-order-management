@@ -102,33 +102,34 @@ $('#purchaseproducted').on('change', function() {
    var productids = $(this).val();
    //var selected = this.selectedIndex;
     var selected = $('#purchaseproducted option:selected').toArray().map(item => item.text);
-    
+    var selectedid = $('#purchaseproducted option:selected').toArray().map(item => item.value);
+    var newproduct = new Array; 
    var poid = document.getElementById('poid').value;
-   //alert(selected.text);
-   var x = 1;
-   var i = 0;
+   //alert(poid);
+   var newproductids = productids;
+   //alert(productids);
+   /*var x = 1;
+   var i = 0;*/
    var html = '';
-
+   
    $.ajax({
         url: '/admin/getpoproductdata/'+productids+'/'+poid,
         success: data => {
         $('#dynamicqtyed').html('');
         console.log(data);
-
+        
             data.forEach(function(item){
             html +='<div class="row">';
             html +='<div class="col-md-4 mb-0">';
             html +='<div class="form-group">';
             html +='<label  for="">Product Name</label>';
-            html +='<input readonly required type="text" name="prices[]" value="';
+            html +='<input readonly required type="text" value="';
             html +=item['prodName'];    
             html +='" class="form-control">';
             html +='<div class="invalid-feedback">Example invalid custom select feedback</div></div></div>';
             html +='<div class="col-md-4 mb-0">';
             html +='<div class="form-group">';
-            html +='<label  for="">Price Product-';
-            html += x ;
-            html +='</label>';
+            html +='<label  for="">Product Price</label>';
             html +='<input required type="number" name="price[]" value="';
             html +=item['price'];
             html +='" class="form-control">';
@@ -138,44 +139,64 @@ $('#purchaseproducted').on('change', function() {
             html +='<div class="invalid-feedback">Example invalid custom select feedback</div></div></div>';
             html +='<div class="col-md-4 mb-0">';
             html +='<div class="form-group">';
-            html +='<label  for="">Quantity Product-';
-            html += x ;
-            html +='</label><input required type="number" name="quantity[]" value="';
+            html +='<label  for="">Product Quantity</label>';
+            html +='<input required type="number" name="quantity[]" value="';
             html +=item['demand_quantity'];
             html +='" class="form-control">';
             html +='<div class="invalid-feedback">Example invalid custom select feedback</div></div></div>';
             html +='</div>';
-            i = i+1;
-            x = x+1;
+                for (var i = 0; i < selected.length; i++) {
+                    if (selected[i] == item['prodName']) {
+                    removeA(selected, item['prodName']);
+                    
+                    }
+                    
+                }
+                //var b = Array.from(selectedid.split(','),Number);
+                //selectedid.split(',').map(function(el){ return +el;});
+
+                for (var x = 0; x < selectedid.length; x++) {
+                    if (parseInt(selectedid[x]) == item['product_id'].toString()) {
+                    removeB(selectedid, item['product_id'].toString());
+                    
+                    }
+                }
+               /*if (newproductids[i] != item['product_id'][i]) {
+                    removeA(newproductids, item['product_id'][i]);
+                    //newproduct.push(newproduct);
+               }*/
+               
+               /*i++;*/
             });
+            /*alert(selectedid);
+            alert(selected);*/
+            for (var y = 0; y < selected.length; y++) {
             if (data.length < productids.length) {
+               
             html +='<div class="row">';
             html +='<div class="col-md-4 mb-0">';
             html +='<div class="form-group">';
-            html +='<label  for="">Product Name';
-            html += x ;
-            html +='</label>';
-            html +='<input readonly type="text" name="price[]" value="';
-            html +=selected[i];
+            html +='<label  for="">Product Name</label>';
+            html +='<input readonly type="text" value="';
+            html += selected[y];
+            html +='" class="form-control">';
+             html +='<input type="hidden" name="productidnew[]" value="';
+            html += selectedid[y];
             html +='" class="form-control">';
             html +='<div class="invalid-feedback">Example invalid custom select feedback</div></div></div>';
             html +='<div class="col-md-4 mb-0">';
             html +='<div class="form-group">';
-            html +='<label  for="">Price Product-';
-            html += x ;
-            html +='</label>';
-            html +='<input required type="number" name="price[]" class="form-control">';
-            html +='<input type="hidden" name="pod_id[]"class="form-control">';
+            html +='<label  for="">Product Price</label>';
+            html +='<input required type="number" name="pricenew[]" class="form-control">';
             html +='<div class="invalid-feedback">Example invalid custom select feedback</div></div></div>';
             html +='<div class="col-md-4 mb-0">';
             html +='<div class="form-group">';
-            html +='<label  for="">Quantity Product-';
-            html += x ;
-            html +='</label><input required type="number" name="quantity[]" class="form-control">';
+            html +='<label  for="">Product Quantity</label>';
+            html +='<input required type="number" name="quantitynew[]" class="form-control">';
             html +='<div class="invalid-feedback">Example invalid custom select feedback</div></div></div>';
             html +='</div>';
             }
-            
+            }
             $('#dynamicqtyed').html(html);
         }
 
@@ -186,7 +207,26 @@ $('#purchaseproducted').on('change', function() {
     //alert(supplier_id);
 });
 
-
+function removeA(arr) {
+    var what, a = arguments, L = a.length, ax;
+    while (L > 1 && arr.length) {
+        what = a[--L];
+        while ((ax= arr.indexOf(what)) !== -1) {
+            arr.splice(ax, 1);
+        }
+    }
+    return arr;
+}
+function removeB(arr) {
+    var what, a = arguments, L = a.length, ax;
+    while (L > 1 && arr.length) {
+        what = a[--L];
+        while ((ax= arr.indexOf(what)) !== -1) {
+            arr.splice(ax, 1);
+        }
+    }
+    return arr;
+}
 
 
 $('#ponumber').on('change', function() { 

@@ -10,14 +10,14 @@
             <div class="page-breadcrumb">
                 <div class="row">
                     <div class="col-lg-3 col-md-4 col-xs-12 align-self-center">
-                        <h5 class="font-medium text-uppercase mb-0">List Required Demand</h5>
+                        <h5 class="font-medium text-uppercase mb-0">Edit Purchase Order</h5>
                     </div>
                     <div class="col-lg-9 col-md-8 col-xs-12 align-self-center">
                         <!-- <button class="btn btn-danger text-white float-right ml-3 d-none d-md-block">Buy Ample Admin</button> -->
                         <nav aria-label="breadcrumb" class="mt-2 float-md-right float-left">
                             <ol class="breadcrumb mb-0 justify-content-end p-0">
                                 <li class="breadcrumb-item"><a href="{{ url('admin/dashboard') }}">Home</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">List Required Demand</li>
+                                <li class="breadcrumb-item active" aria-current="page">Edit Purchase Order</li>
                             </ol>
                         </nav>
                     </div>
@@ -81,7 +81,7 @@
                             <div class="card-body">
                                 <form enctype="multipart/form-data" method="post" action="{{ url('/admin/edit-purchase-order/'.$po->id) }}" > {{ csrf_field() }}
                                     <div class="form-body">
-                                        <h5 class="card-title">Add Demand Reqiured</h5>
+                                        <h5 class="card-title">Edit Purchase Order</h5>
                                         <hr>
 
                                         <div class="row">
@@ -113,8 +113,7 @@
                                                 <div class="col-md-4 mb-0">
                                                     <div class="form-group">
                                                         <label  for="">Product Name</label>
-                                                        <input value="{{$pod->prodname}}" required type="text" readonly name="price[]" class="form-control">
-                                                        <input type="hidden" name="pod_id[]" value="{{$pod->id}}">
+                                                        <input value="{{$pod->prodname}}" required type="text" readonly name="" class="form-control">
                                                         <div class="invalid-feedback">Example invalid custom select feedback</div>
                                                     </div>
                                                 </div>
@@ -164,7 +163,7 @@
 
                                         <hr>
                                         <div class="form-actions mt-5">
-                                        <button type="submit" class="btn btn-success"> <i class="fa fa-check"></i> Add</button>
+                                        <button type="submit" class="btn btn-success"> <i class="fa fa-check"></i> Edit</button>
                                         <a href="{{ url('/admin/view-pruchase-orders')}}"><button type="button" class="btn btn-dark">Cancel</button></a>
                                     </div>
                                            </form>

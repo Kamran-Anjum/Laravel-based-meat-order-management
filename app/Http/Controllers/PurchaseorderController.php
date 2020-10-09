@@ -165,6 +165,17 @@ class PurchaseorderController extends Controller
             {
                 $data = $request->all();
                 //dd($data);
+                if (isset($data['productidnew'])) {
+                for ($x=0; $x <count($data['productidnew']) ; $x++) { 
+                               $POD = new PurchaseOrderDetail();
+                                $POD->p_order_id = $data['poid'];
+                                $POD->product_id = $data['productidnew'][$x];
+                                $POD->demand_quantity = $data['quantitynew'][$x];
+                                $POD->price = $data['pricenew'][$x];
+                                $POD->total_amount = $data['quantitynew'][$x] * $data['pricenew'][$x];
+                                $POD->save();
+                            }
+                    }
                 $checkpolength = PurchaseOrderDetail::where(['p_order_id'=>$id])->get();
                 if (count($checkpolength) < count($data['products_id'])) {
                     PurchaseOrder::where(['id'=>$id])->update
@@ -173,8 +184,11 @@ class PurchaseorderController extends Controller
                     'order_note' => $data['order_note'],
             
                     ]);
+
+                    
                     for ($i=0; $i <count($data['products_id']) ; $i++) { 
-                        if (isset($checkpolength[$i]["product_id"]) != $data["products_id"][$i]) {
+                        if (isset($checkpolength[$i]["product_id"]) == $data["products_id"][$i] && isset($data['pod_id'][$i])) {
+                            
                             PurchaseOrderDetail::where(['id'=>$data['pod_id'][$i]])->update
                             ([
                                 'price' => $data['price'][$i],
@@ -182,25 +196,12 @@ class PurchaseorderController extends Controller
                                 'total_amount' => $data['quantity'][$i] * $data['price'][$i],
             
                             ]);
-                            $POD = new PurchaseOrderDetail();
-                            $POD->p_order_id = $data['poid'];
-                            $POD->product_id = $data['products_id'][$i];
-                            $POD->demand_quantity = $data['quantity'][$i];
-                            $POD->price = $data['price'][$i];
-                            $POD->total_amount = $data['quantity'][$i] * $data['price'][$i];
-                            $POD->save();
-                        }
-                        else{
-                            PurchaseOrderDetail::where(['id'=>$data['pod_id'][$i]])->update
-                            ([
-                                'price' => $data['price'][$i],
-                                'demand_quantity' => $data['quantity'][$i],
-                                'total_amount' => $data['quantity'][$i] * $data['price'][$i],
-            
-                            ]);
+                            
+                            
+                            
                         }
                     }
-                    return redirect('/admin/view-pruchase-orders')->with('flash_message_success','P.O Edited Successfully!');
+                    return redirect('/admin/view-pruchase-orders')->with('flash_message_success','P.Os Edited Successfully!');
                 }
                 else{
                 PurchaseOrder::where(['id'=>$id])->update
@@ -249,7 +250,28 @@ class PurchaseorderController extends Controller
              ->join('products as p','sp.product_id','=','p.id')
              ->select('p.name as prodname','sp.*')
              ->get();
-             $proid = [];
+
+             /*$productsubcategories = DB::table('productsubcategories')
+            ->where('products_id','=',$product->id)
+            ->get();*/
+        foreach ($purchase_orders_detail as $pod){
+            $productsubcategoryarray1[] = $pod->product_id;
+        }
+        $product_dropdown = "";
+        foreach($supplier_products as $subcategory){
+            if(isset($productsubcategoryarray1)) {
+                if (in_array($subcategory->product_id, $productsubcategoryarray1)) {
+//                    echo "here"; die;
+                    $product_dropdown .= "<option selected value='" . $subcategory->product_id . "'>" . $subcategory->prodname . "</option>";
+                } else {
+                    $product_dropdown .= "<option value='" . $subcategory->product_id . "'>" . $subcategory->prodname . "</option>";
+                }
+            }
+            else{
+                $product_dropdown .= "<option value='" . $subcategory->id . "'>" . $subcategory->prodname . "</option>";
+            }
+        }
+             /*$proid = [];
              foreach ($purchase_orders_detail as $value) {
                  $proid[] .= $value->product_id;
              }
@@ -273,7 +295,7 @@ class PurchaseorderController extends Controller
             
                 
             $y = $y+1;
-         }
+         }*/
          //dd($product_dropdown);
             $pr_statuses = DB::table('po_priority_status')->get();
 
