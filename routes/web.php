@@ -77,12 +77,17 @@ Route::get('/admin/delete-product-image/{id}',[App\Http\Controllers\ProductContr
 
 Route::get('/admin/delete-gallery-image/{id}',[App\Http\Controllers\ProductController::class,'deletegalleryimage']);
 
+//Product Customer Controller
+Route::get('/admin/view-customer-prices',[App\Http\Controllers\ProductController::class,'viewCustomerPrice']);
+Route::match(['get','post'],'/admin/create-customer-price',[App\Http\Controllers\ProductController::class,'createCustomerPrice']);
+Route::match(['get','post'],'admin/edit-customer-price/{id}', [App\Http\Controllers\ProductController::class,'editCustomerPrice']);
+
 //Customers Controller
 Route::get('/admin/view-customers',[App\Http\Controllers\CustomerController::class,'viewCustomers']);
 Route::match(['get','post'],'/admin/create-customer',[App\Http\Controllers\CustomerController::class,'createCustomer']);
 Route::match(['get','post'],'admin/edit-customer/{id}', [App\Http\Controllers\CustomerController::class,'editCustomer']);
 Route::match(['get','post'],'admin/view-customer-details/{id}', [App\Http\Controllers\CustomerController::class,'viewCustomerDetails']);
-Route::get('/admin/delete-customer-image/{id}',[App\Http\Controllers\CustomerController::class,'deletecustomerimage']);
+Route::get('/admin/delete-user-image/{id}',[App\Http\Controllers\CustomerController::class,'deletecustomerimage']);
 Route::get('/admin/comming-soon/',[App\Http\Controllers\CustomerController::class,'commingsoon']);
 
 
@@ -127,6 +132,8 @@ Route::get('/admin/getproductsubcategories/{id}',[App\Http\Controllers\AjaxReque
 Route::get('/statename/{id}',[App\Http\Controllers\AjaxRequestController::class,'getStateName']);
 Route::get('/cityname/{cid}/{sid}',[App\Http\Controllers\AjaxRequestController::class,'getCityName']);
 Route::get('/getsupplierdetail/{id}',[App\Http\Controllers\AjaxRequestController::class,'getSupplierDetail']);
+
+Route::get('/getcustomerdetail/{id}',[App\Http\Controllers\AjaxRequestController::class,'getCustomerDetail']);
 Route::get('admin/getpodetail/{id}',[App\Http\Controllers\AjaxRequestController::class,'getPODetail']);
 Route::get('admin/getsupplierproductpo/{id}',[App\Http\Controllers\AjaxRequestController::class,'getSupplierproductPO']);
 Route::get('admin/recievepodetail/{id}',[App\Http\Controllers\AjaxRequestController::class,'getRecievePO']);

@@ -13,6 +13,7 @@ use App\Models\Product;
 use App\Models\ProductSubcategory;
 use App\Models\ProductDetail;
 use App\Models\ProductStock;
+use App\Models\CustomerPrice;
 use Image;
 
 class ProductController extends Controller
@@ -299,5 +300,64 @@ class ProductController extends Controller
                 $ct =ProductSubcategory::join('subcategories as sbc', 'product_sub_categories.subcategory_id', '=', 'sbc.id')
                 ->where(['product_sub_categories.product_id'=>$proid])
                 ->whereNotIn('product_sub_categories.subcategory_id', $filterdata)->delete();
+    }
+
+    public function viewCustomerPrice(){
+
+        $customerprice = DB::table('customer_price as cp')
+        ->join('roles as r','cp.role_id','=','r.id')
+        ->join('users as u','cp.created_by', '=', 'u.id')
+        ->select('cp.*','u.name as userName','r.name as rolename')
+        ->get();
+
+        return view('admin.products.customer-price.view-price')->with(compact('customerprice'));
+    }
+    public function createCustomerPrice(Request $request)
+    {
+        $user = Auth::User();
+        if($request->isMethod('post')){
+            $data = $request->all();
+            //dd($data);
+            $customerPrice = new CustomerPrice();
+            $customerPrice->role_id = $data['customer_role'];
+            $customerPrice->price_percent = $data['price_percent'];
+            $customerPrice->created_by = $user->id;
+            $customerPrice->save();
+
+            return redirect('admin/view-customer-prices')->with('flash_message_success','Customer Price Added successfully!');
+
+        }
+
+         $roles = DB::table('roles')->whereNotIn('id',[1,2,3,4])->get();
+            $roles_dropdown = "<option disabled selected > Select Role</option>";
+            foreach ($roles as $role) {
+                $roles_dropdown .= "<option value='".$role->id."'>".$role->name . "</option>";
+            }
+
+            return view('admin.products.customer-price.create-price')->with(compact('roles_dropdown'));
+    }
+    public function editCustomerPrice($id, Request $request)
+    {
+        $user = Auth::User();
+        if($request->isMethod('post')){
+            $data = $request->all();
+            //dd($data);
+            CustomerPrice::where(['id'=>$id])->update
+            ([
+                'price_percent' => $data['price_percent']
+            
+            ]);
+
+            return redirect('admin/view-customer-prices')->with('flash_message_success','Customer Price Edit successfully!');
+
+        }
+        $customerprice = DB::table('customer_price as cp')
+        ->where(['cp.id'=>$id])
+        ->join('roles as r','cp.role_id','=','r.id')
+        ->select('cp.*','r.name as rolename')
+        ->first();
+         
+
+            return view('admin.products.customer-price.edit-price')->with(compact('customerprice'));
     }
 }

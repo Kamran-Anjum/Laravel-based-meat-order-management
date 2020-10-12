@@ -27,7 +27,7 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="button-group">
-                        <a href="{{ url('admin/comming-soon/') }}"><button type="button" class="btn waves-effect waves-light btn-success">Add New</button></a>
+                        <a href="{{ url('admin/create-customer/') }}"><button type="button" class="btn waves-effect waves-light btn-success">Add New</button></a>
                     </div>
                     </div>
                 </div>
@@ -78,12 +78,12 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                        <?php $i = 0; ?>
+                                        <?php $i = 1; ?>
                                         @foreach($users as $user)
                                             <tr>
                                             
                                                
-                                                <td>{{$user->id}}</td>
+                                                <td>{{$i}}</td>
                                                 <td>{{$user->name}}</td>
                                                 <td>{{$user->email}}</td>
                                                 <td>{{$user->roles->first()->name}}</td>
@@ -95,13 +95,13 @@
                                                 <!-- <td>$320,800</td> -->
                                                 <td>
                                                     <div class="button-group">
-                                                        <button type="button" class="btn waves-effect waves-light btn-info"><a class="text-white" href="#">Detail</a></button>
-                                                        <button type="button" class="btn waves-effect waves-light btn-primary"><a class="text-white" href="#">Edit</a></button>
+                                                        <button type="button" class="btn waves-effect waves-light btn-info" data-toggle="modal" value="" data-target="#exampleModal" onclick="getCustomerDetails({{ $user->id }})">Detail</a></button>
+                                                        <button type="button" class="btn waves-effect waves-light btn-primary"><a class="text-white" href="{{ url('admin/edit-customer/'.$user->id) }}">Edit</a></button>
                                                         <!-- <button type="button" class="btn waves-effect waves-light btn-danger"><a class="text-white sa-confirm-delete" param-id="{{ $user->id }}" param-route="delete-fabric" href="javascript:">Remove</a></button> -->
 
                                                     </div>
                                                 </td>
-
+                                                <?php $i = $i+1; ?>
                                             </tr>
                                         @endforeach
                                              
@@ -139,6 +139,95 @@
             <!-- End Container fluid  -->
             <!-- ============================================================== -->
         </div>
+        <!-- Card body -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Customer Detail</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <!--Accordion wrapper-->
+<div class="accordion md-accordion" id="accordionEx" role="tablist" aria-multiselectable="true">
+
+  <!-- Accordion card -->
+  <div class="card">
+
+    <!-- Card header -->
+    <div class="card-header" role="tab" id="headingOne1">
+      <a data-toggle="collapse" data-parent="#accordionEx" href="#collapseOne1" aria-expanded="true"
+        aria-controls="collapseOne1">
+        <h5 class="mb-0">
+          Collapsible Customer Detail<i class="fas fa-angle-down rotate-icon"></i>
+        </h5>
+      </a>
+    </div>
+
+    <!-- Card body -->
+    <div id="collapseOne1" class="collapse show" role="tabpanel" aria-labelledby="headingOne1"
+      data-parent="#accordionEx">
+      <div class="card-body">
+       <div class="table-responsive">
+                                        <table id="ScheduleTable" class="table table-striped border">
+                                            <tbody>
+                                       
+                                                <tr>
+                                                    <td><strong>Supplier Name:</strong> abc</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>Contant number:</strong> abc</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>Supplier Email:</strong> abc</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>Supplier Name:</strong> abc</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>Supplier Address:</strong> abc</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>City:</strong> abc</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>State:</strong> abc</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>Country:</strong> abc</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>Supplier Image:</strong> <img width="75" height="75" src="{{ asset('images/backend-images/favicon.png') }}"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>Created By:</strong> abc</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>Status:</strong> abc</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>Created At:</strong> abc</td>
+                                                </tr>
+                                           
+                
+                                        </tbody>
+                                        
+                                    </table>
+                                </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
         <!-- ============================================================== -->
         <!-- End Page wrapper  -->
         <!-- ============================================================== -->

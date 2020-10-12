@@ -46,6 +46,7 @@ return array(
     'App\\Models\\Category' => $baseDir . '/app/Models/Category.php',
     'App\\Models\\City' => $baseDir . '/app/Models/City.php',
     'App\\Models\\Country' => $baseDir . '/app/Models/Country.php',
+    'App\\Models\\CustomerDetails' => $baseDir . '/app/Models/CustomerDetails.php',
     'App\\Models\\Product' => $baseDir . '/app/Models/Product.php',
     'App\\Models\\ProductDetail' => $baseDir . '/app/Models/ProductDetail.php',
     'App\\Models\\ProductStock' => $baseDir . '/app/Models/ProductStock.php',

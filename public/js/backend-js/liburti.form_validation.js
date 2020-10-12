@@ -271,7 +271,9 @@ $('#ponumber').on('change', function() {
             html +='<div class="col-md-2 mb-0">';
             html +='<div class="form-group">';
             html +='<label  for="">Price</label>';
-            html +='<input type="number" id="price'+i+'" name="price[]" class="form-control">';
+            html +='<input type="number" id="price'+i+'" name="price[]" value="';
+            html +=product[i]['price'];
+            html +='" class="form-control">';
             html +='<div class="invalid-feedback">Example invalid custom select feedback</div></div></div>';
             html +='<div class="col-md-2 mb-0">';
             html +='<div class="form-group">';
@@ -350,6 +352,22 @@ function getSupplierDetails(id){
     //alert(id);
     $.ajax({
         url: '/getsupplierdetail/'+id,
+        success: data => {
+            console.log(data);
+            $('#ScheduleTable tbody').html('');
+            
+            
+            $('#ScheduleTable tbody').html(data);
+            $("#ScheduleTable").DataTable();
+        }
+    });
+}
+
+function getCustomerDetails(id){
+    var id = id;
+    //alert(id);
+    $.ajax({
+        url: '/getcustomerdetail/'+id,
         success: data => {
             console.log(data);
             $('#ScheduleTable tbody').html('');

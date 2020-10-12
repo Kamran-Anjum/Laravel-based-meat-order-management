@@ -97,15 +97,18 @@
                                                 <td>{{$purchase_order->total_amount}}</td>
                                                 <td>{{$purchase_order->prStatus}}</td>
                                                 <td>{{$purchase_order->userName}}</td>
-                                                <td>{{$purchase_order->status}}</td>
+                                                <td>{{$purchase_order->sstatus}}</td>
                                                 
                                                 <td>
                                                     <div class="button-group">
                                                         
                                                         <button type="button" class="btn waves-effect waves-light btn-primary"><a target="_blank" class="text-white" href="{{ url('/admin/poinvoice/'.$purchase_order->id)}}">PDF</a></button>
                                                         <button type="button" class="btn waves-effect waves-light btn-info" data-toggle="modal" value="" data-target="#exampleModal" onclick="getPODetails({{ $purchase_order->id }})" >P.O Detail</button>
+                                                        @if($purchase_order->status != "1")
+                                                        <button type="button" disabled class="btn waves-effect waves-light btn-warning"><a class="text-white" >Edit</a></button>
+                                                        @else
                                                         <button type="button" class="btn waves-effect waves-light btn-warning"><a class="text-white" href="{{ url('admin/edit-purchase-order/'.$purchase_order->id) }}">Edit</a></button>
-
+                                                        @endif
                                                     </div>
                                                 </td>
 

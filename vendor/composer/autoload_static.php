@@ -609,6 +609,7 @@ class ComposerStaticInitd6241ce7417791fd7a44aae8301addd0
         'App\\Models\\Category' => __DIR__ . '/../..' . '/app/Models/Category.php',
         'App\\Models\\City' => __DIR__ . '/../..' . '/app/Models/City.php',
         'App\\Models\\Country' => __DIR__ . '/../..' . '/app/Models/Country.php',
+        'App\\Models\\CustomerDetails' => __DIR__ . '/../..' . '/app/Models/CustomerDetails.php',
         'App\\Models\\Product' => __DIR__ . '/../..' . '/app/Models/Product.php',
         'App\\Models\\ProductDetail' => __DIR__ . '/../..' . '/app/Models/ProductDetail.php',
         'App\\Models\\ProductStock' => __DIR__ . '/../..' . '/app/Models/ProductStock.php',

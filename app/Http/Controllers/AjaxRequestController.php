@@ -12,6 +12,7 @@ use App\Models\Category;
 use App\Models\Subcategory;
 use App\Models\State;
 use App\Models\City;
+use App\Models\User;
 
 
 class AjaxRequestController extends Controller
@@ -72,13 +73,28 @@ class AjaxRequestController extends Controller
             ->where(['sc.id' => $id])
             ->join('countries as c','sc.country_id','=','c.id')
             ->join('states as s','sc.country_id','=','s.id')
-            ->join('cities as ct','sc.country_id','=','ct.id')
+            ->join('cities as ct','sc.city_id','=','ct.id')
             ->join('users as u','sc.created_by','=','u.id')
             ->select('sc.*','u.name as userName','c.name as country','s.name as statename','ct.name as cityname')
             // ->groupBy('sc.batch_id')
             ->first();
             $supp_detail = "<tr class='gradeX'><td><strong>Supplier Name:  </strong>".$suppliers->supplier_name."</td></tr><tr class='gradeX'><td><strong>Supplier Contact No:  </strong>".$suppliers->contact_no."</td></tr><tr class='gradeX'><td><strong>Supplier Email:  </strong>".$suppliers->email."</td></tr><tr class='gradeX'><td><strong>Supplier Address:  </strong>".$suppliers->address."</td></tr><tr class='gradeX'><td><strong>Supplier City:  </strong>".$suppliers->cityname."</td></tr><tr class='gradeX'><td><strong>Supplier Country:  </strong>".$suppliers->country."</td></tr><tr class='gradeX'><td><strong>Supplier Created By:  </strong>".$suppliers->userName."</td></tr><tr class='gradeX'><td><strong>Status:  </strong>Active</td></tr><tr class='gradeX'><td><strong>Supplier Image:  </strong><img src='https://halalmeat.testit.live/images/backend-images/halalmeat/supplier/tiny/".$suppliers->image."'</td></tr><tr class='gradeX'><td><strong>Created At:  </strong>".$suppliers->created_at."</td></tr>";
         return $supp_detail;
+
+    }
+
+    public function getCustomerDetail($id = null){
+
+        $authorizedRoles = ['internal customer', 'external customer', 'private customer','workforce'];
+
+        $users = User::whereHas('roles', static function ($query) use ($authorizedRoles) {
+                    return $query->whereIn('name', $authorizedRoles);
+                })->where(['id'=>$id])->with('roles')->first();
+
+        $ud = DB::table('customer_details')->where(['user_id'=>$id])->first();
+
+            $user_detail = "<tr class='gradeX'><td><strong>Customer Name:  </strong>".$users->name."</td></tr><tr class='gradeX'><td><strong>Customer Email:  </strong>".$users->email."</td></tr><tr class='gradeX'><td><strong>Customer Role:  </strong>".$users->roles->first()->name."</td></tr><tr class='gradeX'><td><strong>Customer Cell No:  </strong>".$ud->cell_no."</td></tr><tr class='gradeX'><td><strong>Customer Address:  </strong>".$ud->address."</td></tr><tr class='gradeX'><td><strong>Profile Image:  </strong><img src='https://halalmeat.testit.live/images/backend-images/halalmeat/customer/tiny/".$ud->profile_image."'</td></tr>";
+        return $user_detail;
 
     }
 

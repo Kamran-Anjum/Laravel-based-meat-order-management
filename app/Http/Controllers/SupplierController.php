@@ -33,7 +33,6 @@ class SupplierController extends Controller
             $supplier->contact_no = $data['supplier_cell'];
             $supplier->email = $data['supplier_email'];
             $supplier->country_id = $data['country_id'];
-            $supplier->state_id = $data['state'];
             $supplier->city_id = $data['city'];
             $supplier->address = $data['s_address'];
             $supplier->created_by = $user_id;

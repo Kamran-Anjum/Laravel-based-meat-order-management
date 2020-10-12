@@ -10,14 +10,14 @@
             <div class="page-breadcrumb">
                 <div class="row">
                     <div class="col-lg-3 col-md-4 col-xs-12 align-self-center">
-                        <h5 class="font-medium text-uppercase mb-0">Add Customer</h5>
+                        <h5 class="font-medium text-uppercase mb-0">Edit Customer</h5>
                     </div>
                     <div class="col-lg-9 col-md-8 col-xs-12 align-self-center">
                         <!-- <button class="btn btn-danger text-white float-right ml-3 d-none d-md-block">Buy Ample Admin</button> -->
                         <nav aria-label="breadcrumb" class="mt-2 float-md-right float-left">
                             <ol class="breadcrumb mb-0 justify-content-end p-0">
                                 <li class="breadcrumb-item"><a href="{{ url('admin/dashboard') }}">Home</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">Add Customer</li>
+                                <li class="breadcrumb-item active" aria-current="page">Edit Customer</li>
                             </ol>
                         </nav>
                     </div>
@@ -92,23 +92,24 @@
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-body">
-                                <form enctype="multipart/form-data" method="post" action="{{ url('/admin/create-customer') }}" > {{ csrf_field() }}
+                                <form enctype="multipart/form-data" method="post" action="{{ url('/admin/edit-customer/'.$users->id) }}" > {{ csrf_field() }}
                                     <div class="form-body">
-                                        <h5 class="card-title">Create Customer</h5>
+                                        <h5 class="card-title">Edit Customer</h5>
                                         <hr>
                                       
                                         <div class="row">
                                              <div class="col-md-4 mb-0">
                                                 <div class="form-group">                                                  
                                                     <label  for="">Name</label>
-                                                    <input required type="text" class="form-control" name="customer_name">
+                                                    <input value="{{$users->name}}" required type="text" class="form-control" name="customer_name">
+                                                    <input type="hidden" name="oldrole" value="{{$users->roles->first()->name}}">
                                                     <div class="invalid-feedback">Example invalid custom select feedback</div>
                                                 </div>
                                             </div>
                                             <div class="col-md-4 mb-0">
                                                 <div class="form-group">                                                  
                                                     <label  for="">Email</label>
-                                                    <input required type="text" class="form-control" name="customer_email">
+                                                    <input value="{{$users->email}}" required type="text" class="form-control" name="customer_email">
                                                     <div class="invalid-feedback">Example invalid custom select feedback</div>
                                                 </div>
                                             </div>
@@ -117,14 +118,14 @@
                                             <div class="col-md-4 mb-0">
                                                 <div class="form-group">                                                  
                                                     <label  for="">Address</label>
-                                                    <input required type="text" class="form-control" name="customer_address">
+                                                    <input value="{{$customer_details->address}}" required type="text" class="form-control" name="customer_address">
                                                     <div class="invalid-feedback">Example invalid custom select feedback</div>
                                                 </div>
                                             </div>
                                             <div class="col-md-4 mb-0">
                                                 <div class="form-group">                                    
                                                     <label  for="">Cell No</label>
-                                                    <input required type="text" name="customer_cell" class="form-control" >
+                                                    <input value="{{$customer_details->cell_no}}" required type="text" name="customer_cell" class="form-control" >
                                                    
                                                     <div class="invalid-feedback">Example invalid custom select feedback</div>
                                                 </div>
@@ -143,6 +144,16 @@
                                                     <div class="invalid-feedback">Example invalid custom select feedback</div>
                                                 </div>
                                             </div>
+                                             <!-- <div class="col-md-4 mb-0">
+                                                <div class="form-group">                                                  
+                                                    <label  for="">Profile Image (Optional)</label>
+                                                    <input type="file" class="form-control" name="customer_image">
+                                                    <div class="invalid-feedback">Example invalid custom select feedback</div>
+                                                </div>
+                                            </div> -->
+                                        </div>
+                                        <div class="row">
+                                              
                                              <div class="col-md-4 mb-0">
                                                 <div class="form-group">                                                  
                                                     <label  for="">Profile Image (Optional)</label>
@@ -150,8 +161,19 @@
                                                     <div class="invalid-feedback">Example invalid custom select feedback</div>
                                                 </div>
                                             </div>
+                                            <div class="col-md-6">
+                                        <div class="form-group">
+                                            <button type="button" class="btn waves-effect waves-light btn-danger"><a class="text-white sa-confirm-delete" param-id="{{$customer_details->id}}" param-route="delete-user-image" href="javascript:">Remove</a></button>
+{{--                                            <button type="button" class="btn waves-effect waves-light btn-danger"><a class="text-white sa-confirm-deletes" param-id="{{$customer_details->id}}" param-route="delete-user-image" href="javascript:">Remove</a></button>--}}
+                                    
+                                            <input type="hidden" name="current_image" value="{{ $customer_details->profile_image }}">
+                                            @if(!empty( $customer_details->profile_image ))
+                                                <img src="{{ asset('images/backend-images/halalmeat/customer/tiny/'.$customer_details->profile_image ) }}" width="80">
+                                            @endif
                                         </div>
-                                        <div class="row">
+                                    </div>
+                                        </div>
+                                        <!-- <div class="row">
                                               <div class="col-md-4 mb-0">
                                                 <div class="form-group">                                                  
                                                     <label  for="">Password</label>
@@ -166,7 +188,7 @@
                                                     <div class="invalid-feedback">Example invalid custom select feedback</div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> -->
 
                                         <div class="row">
                                             <div class="col-md-6">
@@ -190,7 +212,7 @@
 
                                         <hr>
                                         <div class="form-actions mt-5">
-                                        <button type="submit" class="btn btn-success"> <i class="fa fa-check"></i> Add</button>
+                                        <button type="submit" class="btn btn-success"> <i class="fa fa-check"></i> Edit</button>
                                         <a href="{{ url('/admin/view-customers')}}"><button type="button" class="btn btn-dark">Cancel</button></a>
                                     </div>
                                            </form>

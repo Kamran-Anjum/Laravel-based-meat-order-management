@@ -28,7 +28,7 @@ class PurchaseorderController extends Controller
     		->join('users as u','po.created_by', '=', 'u.id')
             ->join('purchase_order_status as pos','po.status','=','pos.id')
             ->join('po_priority_status as pps','pr_status','=','pps.id')
-    		->select('po.*','s.supplier_name as suppName','u.name as userName','pos.name as status','pps.name as prStatus')
+    		->select('po.*','s.supplier_name as suppName','u.name as userName','pos.name as sstatus','pps.name as prStatus')
     		->get();
     	return view('admin.purchaseorder.view-purchase-orders')->with(compact('purchase_orders'));
     	}
@@ -239,12 +239,24 @@ class PurchaseorderController extends Controller
             ->select('po.*', 's.supplier_name as suppName','pos.id as pr_id')
             ->first();
 
+            $pocheck = DB::table('purchase_order as po')
+            ->where(['po.id'=> $id])
+            ->where(['po.status'=> 1])
+            ->join('suppliers as s','po.supplier_id','=','s.id')
+            ->join('po_priority_status as pos','po.pr_status','=','pos.id')
+            ->select('po.*', 's.supplier_name as suppName','pos.id as pr_id')
+            ->get();
+
             $purchase_orders_detail = DB::table('purchase_order_detail as pod')
             ->where(['pod.p_order_id'=> $id])
             ->join('products as p','pod.product_id','=','p.id')
              ->select('p.name as prodname','pod.*')
             ->get();
-
+            if(count($pocheck) == 0){
+                return redirect('/admin/view-pruchase-orders')->with('flash_message_success','Cannot Edit "Recieved" Purchase Order');
+                
+            }
+            else{
              $supplier_products = DB::table('supplier_products as sp')
              ->where(['sp.supplier_id'=> $po->supplier_id])
              ->join('products as p','sp.product_id','=','p.id')
@@ -309,11 +321,7 @@ class PurchaseorderController extends Controller
             }
          }
             
-            if(count($purchase_orders_detail) == 0){
-                return redirect('/admin/view-pruchase-orders')->with('flash_message_success','Cannot Edit "Recieved" Purchase Order');
-                
-            }
-            else{
+            
                 //dd($purchase_orders_detail);
                 return view('admin.purchaseorder.edit-purchase-order')->with(compact('purchase_orders_detail','po','pr_statuses_dropdown','product_dropdown'));
             }
