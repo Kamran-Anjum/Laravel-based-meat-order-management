@@ -345,6 +345,74 @@ $('#ponumber').on('change', function() {
     
 });
 
+$('#customer_id').on('change', function() { 
+   $("#category").prop("disabled", false);
+});
+
+$('#category').on('change', function() { 
+   var category_id = $(this).val();
+   
+    $.ajax({
+            url: '/admin/getproductsubcategories/'+category_id,
+            success: data => {
+                var citydd = $("#sub_category").html('');
+                $('#sub_category').append(data);
+                $("#sub_category").prop("disabled", false);
+                console.log(data);
+            }
+
+        }); 
+});
+
+$('#sub_category').on('change', function() { 
+   var sub_category_id = $(this).val();
+   
+    $.ajax({
+            url: '/admin/getsubcategoryproducts/'+sub_category_id,
+            success: data => {
+                var citydd = $("#product_id").html('');
+                $('#product_id').append(data);
+                $("#product_id").prop("disabled", false);
+                console.log(data);
+            }
+
+        }); 
+});
+
+$('#product_id').on('change', function() { 
+    var customer_id = document.getElementById("customer_id").value;
+   var product_id = $(this).val();
+
+   /*alert(customer_id);
+   alert(product_id);*/
+   
+    $.ajax({
+            url: '/admin/getproduct-stock-price/'+product_id+"/"+customer_id,
+            success: data => {
+                $("#stocks").html('');
+                $("#sale_price").html('');
+                $('#stocks').attr("value", data[0]);
+                /*$('#stocks').value = data[0];*/
+                $("#stocks").prop("readonly", true);
+                $('#sale_price').attr("value", data[1]);
+                /*$('#sale_price').value = data[1];*/
+                $("#sale_price").prop("readonly", true);
+                /*alert(data[0]);
+                alert(data[1]);*/
+            }
+
+        }); 
+});
+
+ $('#qty').on('change keyup', function() {
+        var quantity = $(this).val();
+        var saleprice = document.getElementById("sale_price").value;
+
+        document.getElementById("sub_total").value = quantity * saleprice;
+        
+        //alert(quantity * saleprice);
+
+    });
 
 });
 function getSupplierDetails(id){
@@ -421,4 +489,62 @@ var inp=inps[i];
 
 document.getElementById('totalamount').value = sum;
     //alert(sum);
+}
+
+ var x = 0;
+    var category = new Array();
+    var subcategory = new Array();
+    var productid = new Array();
+    var unit = new Array();
+    var qty = new Array();
+    var saleprice = new Array();
+    var subtotal = new Array();
+    var productnames = new Array();
+    
+    function getcurrentRow(){
+    productnames[x] =  $('#product_id option:selected').toArray().map(item => item.text);
+    //productid[x] = document.getElementById("product_id").value;
+    unit[x] = document.getElementById("unit").value;
+    qty[x] = document.getElementById("qty").value;
+    saleprice[x] = document.getElementById("sale_price").value;
+    subtotal[x] = document.getElementById("sub_total").value;
+
+    alert("Element: " + productnames[x] + " Added at index " + x);
+    x++;
+    makerow();
+    /*var tdata = document.getElementById('product_id').value;
+    array[x].push(tdata);
+    x = x++;
+    console.log(array);*/
+    console.log(productid);
+    
+    
+}
+
+function makerow(){
+    var html = '';
+   
+   for (var i = 0; i < productnames.length; i++) {
+       $('#dataTable2 tbody').html('');
+       
+       html +='<tr>';
+       html +='<td><input required type="text" class="form-control" value="'
+       html +=productnames[i];
+       html +='"> </td>'
+       html +='<td><input required type="text" class="form-control" value="'
+       html +=unit[i];
+       html +='"> </td>'
+       html +='<td><input required type="text" class="form-control" value="'
+       html +=qty[i];
+       html +='"> </td>'
+       html +='<td><input required type="text" class="form-control" value="'
+       html +=saleprice[i];
+       html +='"> </td>'
+       html +='<td><input required type="text" class="form-control" value="'
+       html +=subtotal[i];
+       html +='"> </td>'
+       html +='<td><button type="button" value="Add row" class="btn waves-effect waves-light btn-danger">delete</button></td>';
+       html +='</tr>';
+   }
+   $('#dataTable2 tbody').html(html);
 }

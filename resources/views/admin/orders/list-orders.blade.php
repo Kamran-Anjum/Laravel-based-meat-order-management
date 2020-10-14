@@ -24,13 +24,13 @@
                         </nav>
                     </div>
                 </div>
-                <!-- <div class="row">
+                <div class="row">
                     <div class="col-12">
                         <div class="button-group">
-                        <button type="button" class="btn waves-effect waves-light btn-success"><a class="text-white" href="{{ url('admin/create-product') }}">Add New</a></button>
+                        <button type="button" class="btn waves-effect waves-light btn-success"><a class="text-white" href="{{ url('admin/create-order') }}">Add New</a></button>
                     </div>
                     </div>
-                </div> -->
+                </div>
                 @if(Session::has('flash_message_error'))
                     <div class="alert alert-error alert-danger alert-block">
                         <button type="button" class="close" data-dismiss="alert">×</button>
@@ -64,40 +64,33 @@
                                     <table class="table table-striped dataTable product-overview" id="zero_config">
                                         <thead>
                                             <tr>
-                                                <th>Order Number</th>
-                                                <th>Shipping Number</th>
+                                                <th>S.No</th>
                                                 <th>Name</th>
-                                                <th>Payment Status</th>
-
-                                                <th>Billing Address</th>
                                                 <th>Email</th>
-                                                <th>Amount</th>
-                                                <th>Return Request</th>
-                                                <th>Order Date</th>
+                                                <th>Cell No</th>
+                                                <th>Discount</th>
+                                                <th>Periority</th>
+                                                <th>Location</th>
+                                                <th>Status</th>
+                                                <th>Total Amount</th>
+                                                <th>Ordered By</th>
                                                 <th>Action</th>
                                                 
                                             </tr>
                                         </thead>
                                         <tbody>
-                                        @foreach($products as $product)
+                                        @foreach($orders as $product)
                                             <tr>
                                                 <td>{{$product->id}}</td>
-                                                <td>{{$product->shiporderid}}</td>
                                                 <td>{{$product->first_name}} {{$product->last_name}}</td>
-                                                @if($product->isPaid == 0)
-                                                <td>Un-Paid</td>
-                                                @else
-                                                <td>Paid</td>
-                                                @endif
-                                                <td>{{$product->address1}},{{$product->address2}}</td>
                                                 <td>{{$product->email}}</td>
-                                                <td>${{$product->total}}</td>
-                                                @if($product->requested_return == 0)
-                                                <td>No</td>
-                                                @else
-                                                <td>Yes</td>
-                                                @endif
-                                                <td>{{$product->created_at}}</td>
+                                                <td>{{$product->cell_no}}</td>
+                                                <td>${{$product->discount}}</td>
+                                                <td>{{$product->pr_status}}</td>
+                                                <td>{{$product->loc_status}}</td>
+                                                <td>{{$product->s_status}}</td>
+                                                <td>{{$product->total_amount}}</td>
+                                                <td>{{$product->order_by}}</td>
                                                 <td>
                                                     <button type="button" class="btn waves-effect waves-light btn-info"><a class="text-white" href="#">View</a></button>
                                                     <button type="button" class="btn waves-effect waves-light btn-primary"><a class="text-white" href="#">Edit</a></button>
@@ -109,15 +102,17 @@
                                         </tbody>
                                         <tfoot>
                                             <tr>
-                                                <th>Code</th>
+                                                <th>S.No</th>
                                                 <th>Name</th>
-                                                <th>Category</th>
-                                                <th>Image</th>
-                                                <th>Inventory</th>
-                                                <th>Quantity</th>
-                                                <th>Created On</th>
-                                                <th>Added By</th>
-                                                <th>Actions</th>
+                                                <th>Email</th>
+                                                <th>Cell No</th>
+                                                <th>Discount</th>
+                                                <th>Periority</th>
+                                                <th>Location</th>
+                                                <th>Status</th>
+                                                <th>Total Amount</th>
+                                                <th>Ordered By</th>
+                                                <th>Action</th>
                                             </tr>
                                         </tfoot>
                                     </table>

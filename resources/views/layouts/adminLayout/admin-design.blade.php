@@ -112,6 +112,7 @@
     <script src="{{ asset('js/backend-js/pages/forms/select2/select2.init.js') }}"></script>
     <!-- product edit image -->
     <script src="{{ asset('css/backend-css/assets/libs/magnific-popup/dist/jquery.magnific-popup.min.js') }}"></script>
+    
     <script src="{{ asset('css/backend-css/assets/libs/magnific-popup/meg.init.js') }}"></script>
    
 </html>

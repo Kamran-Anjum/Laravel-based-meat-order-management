@@ -23,13 +23,59 @@ class AjaxRequestController extends Controller
         $subcategories = DB::table('subcategories')
                 ->whereIn('category_id',array($id))->get();
 
-                $subcategories_dropdown = "";
+                $subcategories_dropdown = "<option disabled selected>Select Sub Category</option>";
                 foreach($subcategories as $subcategory){
                     $subcategories_dropdown .= "<option value='".$subcategory->id."'>".$subcategory->name . "</option>";      
                      }
         
         
         return $subcategories_dropdown;
+
+    }
+    //Get Products for sales Order
+    public function getproductsdropdown($id = null){
+
+        $subcategories = DB::table('product_sub_categories as ps')
+                ->where(['ps.subcategory_id'=>$id])
+                ->join('products as p','ps.product_id','=','p.id')
+                ->select('p.*')
+                ->get();
+
+                $products_dropdown = "<option disabled selected>Select Product</option>";
+                foreach($subcategories as $subcategory){
+                    $products_dropdown .= "<option value='".$subcategory->id."'>".$subcategory->name . "</option>";      
+                     }
+        
+        
+        return $products_dropdown;
+
+    }
+    //Get Products Stock $ Sale Price for sales Order
+    public function getproductstockprice($id, $cusid){
+
+        $stocks = DB::table('product_stocks')
+                ->where(['product_id'=>$id])
+                ->first();
+        $balance_stock = $stocks->recieve_qty - $stocks->sale_qty;
+
+        $authorizedRoles = ['internal customer', 'external customer', 'private customer','workforce'];
+        
+        $users = User::whereHas('roles', static function ($query) use ($authorizedRoles) {
+                    return $query->whereIn('name', $authorizedRoles);
+                })->where(['id'=>$cusid])->with('roles')->first();
+
+        $role_id = $users->roles->first()->id;
+        $customer_sale_price = DB::table('customer_price')
+                                ->where(['role_id'=>$role_id])
+                                ->first();
+        $products = DB::table('products')->where(['id'=>$id])->first();
+
+        $base_price_percent = $products->base_price/100*$customer_sale_price->price_percent;
+
+        $sales_price = $products->base_price + $base_price_percent;
+        
+        
+        return array($balance_stock,$sales_price);
 
     }
     //Get Supplier Product for Purchase Order

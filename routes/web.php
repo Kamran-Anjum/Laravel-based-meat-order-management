@@ -108,6 +108,10 @@ Route::match(['get','post'],'/admin/create-purchase-order',[App\Http\Controllers
 Route::match(['get','post'],'/admin/recieve-pruchase-orders/', [App\Http\Controllers\PurchaseorderController::class,'recievePurchaseOrders']);
 Route::match(['get','post'],'/admin/edit-purchase-order/{id}',[App\Http\Controllers\PurchaseorderController::class,'editPurchaseOrders']);
 
+//Order Controllers Route
+Route::get('/admin/view-orders',[App\Http\Controllers\OrderController::class,'viewOrders']);
+Route::match(['get','post'],'/admin/create-order',[App\Http\Controllers\OrderController::class,'createOrder']);
+Route::match(['get','post'],'admin/edit-order/{id}', [App\Http\Controllers\OrderController::class,'editOrder']);
 
 //Country Controller
 Route::get('/admin/view-countries', [App\Http\Controllers\CountryController::class,'viewCountry']);
@@ -129,6 +133,8 @@ Route::get('/admin/delete-cities/{id}',[App\Http\Controllers\CityController::cla
 
 //Product Ajax Routes
 Route::get('/admin/getproductsubcategories/{id}',[App\Http\Controllers\AjaxRequestController::class,'getsubcategoriesdropdown']);
+Route::get('/admin/getsubcategoryproducts/{id}',[App\Http\Controllers\AjaxRequestController::class,'getproductsdropdown']);
+Route::get('/admin/getproduct-stock-price/{id}/{cusid}',[App\Http\Controllers\AjaxRequestController::class,'getproductstockprice']);
 Route::get('/statename/{id}',[App\Http\Controllers\AjaxRequestController::class,'getStateName']);
 Route::get('/cityname/{cid}/{sid}',[App\Http\Controllers\AjaxRequestController::class,'getCityName']);
 Route::get('/getsupplierdetail/{id}',[App\Http\Controllers\AjaxRequestController::class,'getSupplierDetail']);
