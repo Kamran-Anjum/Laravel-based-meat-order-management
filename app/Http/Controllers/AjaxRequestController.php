@@ -37,7 +37,7 @@ class AjaxRequestController extends Controller
 
         $subcategories = DB::table('product_sub_categories as ps')
                 ->where(['ps.subcategory_id'=>$id])
-                ->join('products as p','ps.product_id','=','p.id')
+                ->join('products as p','p.id','=','ps.product_id')
                 ->select('p.*')
                 ->get();
 
@@ -47,7 +47,7 @@ class AjaxRequestController extends Controller
                      }
         
         
-        return $products_dropdown;
+        return array($subcategories,$products_dropdown);
 
     }
     //Get Products Stock $ Sale Price for sales Order

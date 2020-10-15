@@ -33,6 +33,7 @@ class OrderController extends Controller
 
     	if($request->isMethod('post')){
     		$data = $request->all();
+    		dd($data);
     	}
     	$authorizedRoles = ['internal customer', 'external customer', 'private customer','workforce'];
 
@@ -49,8 +50,23 @@ class OrderController extends Controller
 		foreach ($categories as $category) {
 			$categories_dropdown .= "<option value='".$category->id."'>".$category->name."</option>";
 		}
+		$cities = DB::table('cities')->get();
+		$city_dropdown = "<option selected disabled >Select City</option>";
+		foreach ($cities as $city) {
+			$city_dropdown .= "<option value='".$city->id."'>".$city->name."</option>";
+		}
+		$pr_status = DB::table('po_priority_status')->get();
+		$pr_ststus_dropdown = "<option selected disabled >Select Status</option>";
+		foreach ($pr_status as $p_status) {
+			$pr_ststus_dropdown .= "<option value='".$p_status->id."'>".$p_status->name."</option>";
+		}
+		$location = DB::table('order_location_status')->get();
+		$loc_status_dropdown = "<option selected disabled >Select Department</option>";
+		foreach ($location as $loc_status) {
+			$loc_status_dropdown .= "<option value='".$loc_status->id."'>".$loc_status->name."</option>";
+		}
 		//dd($users);
 
-    	return view('admin.orders.create-order')->with(compact('customer_dropdown','categories_dropdown'));
+    	return view('admin.orders.create-order')->with(compact('customer_dropdown','categories_dropdown','city_dropdown','pr_ststus_dropdown','loc_status_dropdown'));
     }
 }

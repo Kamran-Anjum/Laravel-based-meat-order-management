@@ -82,7 +82,7 @@
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-body">
-                                <form enctype="multipart/form-data" method="post" action="{{ url('/admin/create-fabric') }}" name="add_subcategory" id="add_category"> {{ csrf_field() }}
+                                <form enctype="multipart/form-data" method="post" action="{{ url('/admin/create-order') }}" name="add_subcategory" id="add_category"> {{ csrf_field() }}
                                     <div class="form-body">
                                         <h5 class="card-title">Create Sales Order</h5>
                                         <hr>
@@ -91,7 +91,7 @@
                                             <div class="col-md-6 mb-0">
                                                 <div class="form-group">
                                                     <label  for="">Customer Name</label>
-                                                    <select id="customer_id" class="form-control" name="fabriccategories" required>
+                                                    <select id="customer_id" name="customer_id" class="form-control" name="fabriccategories" required>
                                                         {!! $customer_dropdown !!}
                                                     </select>
                                                     <div class="invalid-feedback">Example invalid custom select feedback</div>
@@ -101,7 +101,7 @@
                                           	 <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="control-label">Sales Date</label>
-                                                    <input required type="date" class="form-control" readonly="true">
+                                                    <input value="{{ date('Y-m-d H:i:s') }}" name="order_date" type="text" class="form-control" readonly="true">
                                                 </div>
                                             </div>
                                         </div>
@@ -122,6 +122,8 @@
                                                 <th>Stock</th>
                                                 <th>Qty</th>
                                                 <th>Sale Price</th>
+                                                <th>Discount</th>
+                                                <th>Amount</th>
                                                 <th>SubTotal</th>
                                                 <th></th>
                                             </tr>
@@ -144,18 +146,24 @@
                                                     </select> 
                                                  
                                          		</td>
-                                         		<td>
+                                         		<td style="width: 5%">
                                                  <input required id="unit" type="text" readonly value="KG" class="form-control" placeholder="">  
                                          		</td>
-                                         		<td>
+                                         		<td style="width: 7%">
                                                  <input required readonly id="stocks" type="number" class="form-control" placeholder="">  
                                          		</td>
-                                         		<td>
-                                                 <input required id="qty" type="number" class="form-control" placeholder="">  
+                                         		<td style="width: 6%">
+                                                 <input  id="qty" type="number" class="form-control" placeholder="">  
                                          		</td>
                                          		<td>
                                                  <input required readonly id="sale_price" type="number" class="form-control" placeholder="">  
                                          		</td>
+                                                <td style="width: 5%">
+                                                 <input  id="discount" type="number" class="form-control" placeholder="">  
+                                                </td>
+                                                <td>
+                                                 <input  readonly id="discount_amount" type="number" class="form-control" placeholder="">  
+                                                </td>
                                          		<td>
                                                  <input required readonly value="0" id="sub_total" type="number" class="form-control" placeholder="">  
                                          		</td>
@@ -191,6 +199,8 @@
                                                 <th>Unit</th>
                                                 <th>Qty</th>
                                                 <th>Sale Price</th>
+                                                <th>Discount</th>
+                                                <th>Amount</th>
                                                 <th>SubTotal</th>
                                                 <th></th>
                                             </tr>
@@ -239,29 +249,36 @@
                                         <div class="row">
                                             <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label class="control-label">Sub Amount</label>
-                                                    <input required type="text" class="form-control"></div>
+                                                    <label class="control-label">Order Note</label>
+                                                    <textarea name="order_note" class="form-control" cols="4" rows="5"></textarea>   
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label class="control-label">Priority</label>
+                                                    <select name="pr_status" class="form-control">
+                                                        {!! $pr_ststus_dropdown !!}
+                                                    </select></div>
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label class="control-label">Discount</label>
-                                                    <input required type="text" class="form-control"></div>
+                                                    <label class="control-label">Forward To</label>
+                                                    <select class="form-control">
+                                                        {!! $loc_status_dropdown !!}
+                                                    </select>
+                                                </div>
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label class="control-label">Total Amount</label>
-                                                    <input required type="text" class="form-control"></div>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <div class="form-group">
-                                                    <label class="control-label">Expense</label>
-                                                    <input required type="text" class="form-control" ></div>
+                                                    <input name="total_price" id="total_price" readonly value="0" required type="number" class="form-control" ></div>
                                             </div>
                                             
                                         </div>
 
                                         
-                                    <div class="row">
+                                    <!-- <div class="row">
 
                                     	 <div class="col-md-4">
                                                 <div class="form-group">
@@ -278,44 +295,51 @@
                                                     <label class="control-label">Balance</label>
                                                     <input required type="text" class="form-control" ></div>
                                             </div>
-                                    </div>
+                                    </div> -->
                                   
-                                    <h5 class="card-title mt-4">Payment Details</h5>
+                                    <h5 class="card-title mt-4">Shipping Details</h5>
                                      <hr>
                                         <!--/row-->
                                     <div class="row">
                                         <div class="col-md-4">
                                                 <div class="form-group">
-                                                    <label class="control-label">Payment Status</label>
-                                                     <select class="form-control">
-                                                     	<option>asds</option>
-                                                     </select>
+                                                    <label class="control-label">Name</label>
+                                                     <input type="text" name="shipping_name" class="form-control" name="">
                                             </div>
                                         </div>
                                             <div class="col-md-4">
                                                 <div class="form-group">
-                                                    <label class="control-label">Payment Type</label>
-                                                    <select class="form-control">
-                                                    	<option>asds</option></select>
+                                                    <label class="control-label">Email</label>
+                                                    <input type="Email" name="shipping_email" class="form-control" name="">
                                                     
                                             </div>
                                         </div>
-                                            <div class="col-md-4">
+                                        <div class="col-md-4">
                                                 <div class="form-group">
-                                                    <label class="control-label">Bank Account</label>
-                                                    <input required type="text" class="form-control" >
+                                                    <label class="control-label">Cell No</label>
+                                                    <input type="text" name="shipping_cell" class="form-control" name="">
+                                                    
+                                            </div>
+                                        </div>
+                                            <div class="col-md-8">
+                                                <div class="form-group">
+                                                    <label class="control-label">Address</label>
+                                                    <input required type="text" name="shipping_address" class="form-control" >
                                                 </div>
                                             </div>
-                                            <div class="col-md-4">
+                                            <div class="col-md-2">
                                                 <div class="form-group">
-                                                    <label class="control-label">Cheque Number</label>
-                                                    <input required type="text" class="form-control" >
+                                                    <label class="control-label">Country</label>
+                                                    <input required value="Norway" readonly type="text" class="form-control" >
+
                                                 </div>
                                             </div>
-                                            <div class="col-md-4">
+                                            <div class="col-md-2">
                                                 <div class="form-group">
-                                                    <label class="control-label">Cheque Date</label>
-                                                    <input required type="date" class="form-control" >
+                                                    <label class="control-label">City</label>
+                                                    <select name="shipping_city" class="form-control">
+                                                        {!! $city_dropdown !!}
+                                                    </select>
                                                 </div>
                                             </div>
                                         
@@ -325,7 +349,7 @@
                                     </div>
                                     <div class="form-actions mt-5">
                                         <button type="submit" class="btn btn-success"> <i class="fa fa-check"></i> Add</button>
-                                        <a href="{{ url('/admin/view-fabrics')}}"><button type="button" class="btn btn-dark">Cancel</button></a>
+                                        <a href="{{ url('/admin/view-orders')}}"><button type="button" class="btn btn-dark">Cancel</button></a>
                                     </div>
                                 </form>
                             </div>

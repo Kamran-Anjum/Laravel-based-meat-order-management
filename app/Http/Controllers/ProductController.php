@@ -89,6 +89,13 @@ class ProductController extends Controller
     		$product->save();
             $product_id = $product->id;
 
+                $product_stock = new ProductStock();
+                $product_stock->product_id = $product_id;
+                $product_stock->recieve_qty = 0;
+                $product_stock->sale_qty = 0;
+                $product_stock->balanced_qty = 0;
+                $product_stock->save();
+
                 for ($i=0; $i <count($data['subcategory']) ; $i++) { 
                     
                     $subcategory = new ProductSubcategory();
@@ -96,6 +103,7 @@ class ProductController extends Controller
                     $subcategory->subcategory_id = $data['subcategory'][$i];
                     $subcategory->save();
                 }
+                
 
                 if($request->hasFile('gallery_images')){
                     $files=$request->gallery_images;

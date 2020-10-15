@@ -371,9 +371,9 @@ $('#sub_category').on('change', function() {
             url: '/admin/getsubcategoryproducts/'+sub_category_id,
             success: data => {
                 var citydd = $("#product_id").html('');
-                $('#product_id').append(data);
+                $('#product_id').append(data[1]);
                 $("#product_id").prop("disabled", false);
-                console.log(data);
+                console.log(data[0]);
             }
 
         }); 
@@ -409,6 +409,20 @@ $('#product_id').on('change', function() {
         var saleprice = document.getElementById("sale_price").value;
 
         document.getElementById("sub_total").value = quantity * saleprice;
+        
+        //alert(quantity * saleprice);
+
+    });
+
+ $('#discount').on('change keyup', function() {
+        var percent = $(this).val();
+        var saleprice = document.getElementById("sale_price").value;
+        var quantity = document.getElementById("qty").value;
+
+        var discount_amount = saleprice * quantity / 100 * percent;
+
+        document.getElementById("discount_amount").value = discount_amount;
+        document.getElementById("sub_total").value = quantity * saleprice - discount_amount;
         
         //alert(quantity * saleprice);
 
@@ -491,18 +505,37 @@ document.getElementById('totalamount').value = sum;
     //alert(sum);
 }
 
- var x = 0;
-    var category = new Array();
-    var subcategory = new Array();
+    var list = new Array();
+    var totalprice = 0;
+    /*var subcategory = new Array();
     var productid = new Array();
     var unit = new Array();
     var qty = new Array();
     var saleprice = new Array();
     var subtotal = new Array();
-    var productnames = new Array();
+    var productnames = new Array();*/
     
     function getcurrentRow(){
-    productnames[x] =  $('#product_id option:selected').toArray().map(item => item.text);
+
+    var x = [];
+
+    x[0] = $('#product_id option:selected').toArray().map(item => item.text);
+    x[1] = document.getElementById("unit").value;
+    x[2] = document.getElementById("qty").value;
+    x[3] = document.getElementById("sale_price").value;
+    x[4] = document.getElementById("discount").value;
+    x[5] = document.getElementById("discount_amount").value;
+    x[6] = document.getElementById("sub_total").value;
+    x[7] = document.getElementById("product_id").value;
+
+    list.push(x);
+
+    makerow();
+    document.getElementById("qty").value = "";
+    document.getElementById("sub_total").value = "";
+    document.getElementById("discount").value = "";
+    document.getElementById("discount_amount").value = "";
+    /*productnames[x] =  $('#product_id option:selected').toArray().map(item => item.text);
     //productid[x] = document.getElementById("product_id").value;
     unit[x] = document.getElementById("unit").value;
     qty[x] = document.getElementById("qty").value;
@@ -511,40 +544,69 @@ document.getElementById('totalamount').value = sum;
 
     alert("Element: " + productnames[x] + " Added at index " + x);
     x++;
-    makerow();
+    */
     /*var tdata = document.getElementById('product_id').value;
     array[x].push(tdata);
     x = x++;
     console.log(array);*/
-    console.log(productid);
+    //console.log(list);
     
     
 }
+var y = 0;
 
 function makerow(){
+
+    document.getElementById("total_price").value = totalprice;
+    
     var html = '';
    
-   for (var i = 0; i < productnames.length; i++) {
+   for (var i = 0; i < list.length; i++) {
        $('#dataTable2 tbody').html('');
        
        html +='<tr>';
        html +='<td><input required type="text" class="form-control" value="'
-       html +=productnames[i];
+       html +=list[i][0];
+       html +='"><input type="hidden" name="product_ids[]" value="'
+       html +=list[i][7];
+       html +='" </td>'
+       html +='<td><input required type="text" name="unit[]" class="form-control" value="'
+       html +=list[i][1];
        html +='"> </td>'
-       html +='<td><input required type="text" class="form-control" value="'
-       html +=unit[i];
+       html +='<td><input required type="text" name="quantity[]" class="form-control" value="'
+       html +=list[i][2];
        html +='"> </td>'
-       html +='<td><input required type="text" class="form-control" value="'
-       html +=qty[i];
+       html +='<td><input required type="text" name="sale_price[]" class="form-control" value="'
+       html +=list[i][3];
        html +='"> </td>'
-       html +='<td><input required type="text" class="form-control" value="'
-       html +=saleprice[i];
+       html +='<td><input required type="text" name="discount[]" class="form-control" value="'
+       html +=list[i][4]+'%';
+       html +='"></td>'
+       html +='<td><input required type="text" name="discount_amount[]" class="form-control" value="'
+       html +=list[i][5];
        html +='"> </td>'
-       html +='<td><input required type="text" class="form-control" value="'
-       html +=subtotal[i];
+       html +='<td><input required type="text" name="subtotal[]" class="form-control" value="'
+       html +=Math.trunc(list[i][6]);
        html +='"> </td>'
-       html +='<td><button type="button" value="Add row" class="btn waves-effect waves-light btn-danger">delete</button></td>';
+       html +='<td><button type="button" onclick="deletearray('
+       html +=i;
+       html +=')" class="btn waves-effect waves-light btn-danger">delete</button></td>';
        html +='</tr>';
    }
    $('#dataTable2 tbody').html(html);
+   totalprice = totalprice+Math.trunc(list[y][6]); 
+   document.getElementById("total_price").value = totalprice;
+   
+    //alert(totalprice);
+    y++;
+}
+
+function deletearray(id) {
+
+    totalprice = totalprice-Math.trunc(list[id][6]);
+    list.splice(id,1);
+    y--;
+    makerow();
+    
+    //alert(id);
 }
