@@ -175,6 +175,35 @@ class AjaxRequestController extends Controller
         return array($supp_detail,$prod_detail);
 
     }
+    //Get Sales Order Details
+    public function getSODetail($id = null){
+
+        $sale_orders = DB::table('orders as o')
+            ->where(['o.id'=> $id])
+            ->join('po_priority_status as pos','o.priority_status','=','pos.id')
+            ->join('purchase_order_status as ps','o.status','=','ps.id')
+            ->join('order_location_status as ols','o.location_status','=','ols.id')
+            ->join('users as u','o.created_by', '=', 'u.id')
+            ->join('users as ou','o.user_id','=','ou.id')
+            ->select('o.*','u.name as order_by','ou.name as customerName','ou.email as cusEmail','pos.name as pr_status','ps.name as s_status','ols.name as loc_status')
+            ->first();
+
+        $so_detail = DB::table('order_details as od')
+        ->where(['od.order_id'=> $id])
+        ->join('products as p','od.product_id','=','p.id')
+        ->select('od.*','p.name as productName')
+        ->get();
+
+            $supp_detail = "<h3>SO # ".$id."</h3><h3>Sale Order Info</h3><tr class='gradeX'><td><strong>Customer Name:  </strong>".$sale_orders->customerName."</td><td><strong>Customer Eamil:  </strong>".$sale_orders->cusEmail."</td></tr><tr class='gradeX'><td><strong>Contact:  </strong>".$sale_orders->cell_no."</td><td><strong>Customer Status:  </strong>".$sale_orders->s_status."</td></tr><tr class='gradeX'><td><strong>Shipp To:  </strong>".$sale_orders->shipping_address."</td><td><strong>Shipp From:  </strong>".$sale_orders->billing_address."</td></tr><tr class='gradeX'><td><strong>Priority:  </strong>".$sale_orders->pr_status."</td><td><strong>Location:  </strong>".$sale_orders->loc_status."</td></tr>";
+
+            $prod_detail = "<h3>ProductInfo<h3><tr><th>Name</th><th>Price</th><th>QTY</th><th>Discount</th><th>Amount</th><th>Sub Total</th></tr>";
+
+            foreach ($so_detail as $product) {
+                $prod_detail .= "<tr><td>".$product->productName."</td><td>".$product->unit_price."</td><td>".$product->quantity."</td><td>".$product->discount."</td><td>".$product->discount_amount."</td><td>".$product->total_price."</td></tr>";
+            }
+        return array($supp_detail,$prod_detail);
+
+    }
 
     public function getRecievePO($id = null){
 

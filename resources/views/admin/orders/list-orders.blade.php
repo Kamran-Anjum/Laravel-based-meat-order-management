@@ -68,7 +68,7 @@
                                                 <th>Name</th>
                                                 <th>Email</th>
                                                 <th>Cell No</th>
-                                                <th>Discount</th>
+                                                <!-- <th>Discount</th> -->
                                                 <th>Periority</th>
                                                 <th>Location</th>
                                                 <th>Status</th>
@@ -79,22 +79,21 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                        @foreach($orders as $product)
+                                        @foreach($orders as $order)
                                             <tr>
-                                                <td>{{$product->id}}</td>
-                                                <td>{{$product->first_name}} {{$product->last_name}}</td>
-                                                <td>{{$product->email}}</td>
-                                                <td>{{$product->cell_no}}</td>
-                                                <td>${{$product->discount}}</td>
-                                                <td>{{$product->pr_status}}</td>
-                                                <td>{{$product->loc_status}}</td>
-                                                <td>{{$product->s_status}}</td>
-                                                <td>{{$product->total_amount}}</td>
-                                                <td>{{$product->order_by}}</td>
-                                                <td>
-                                                    <button type="button" class="btn waves-effect waves-light btn-info"><a class="text-white" href="#">View</a></button>
+                                                <td>{{$order->id}}</td>
+                                                <td>{{$order->name}}</td>
+                                                <td>{{$order->email}}</td>
+                                                <td>{{$order->cell_no}}</td>
+                                                <!-- <td>${{$order->discount}}</td> -->
+                                                <td>{{$order->pr_status}}</td>
+                                                <td>{{$order->loc_status}}</td>
+                                                <td>{{$order->s_status}}</td>
+                                                <td>{{$order->total_amount}}</td>
+                                                <td>{{$order->order_by}}</td>
+                                                <td style="width: 12%">
+                                                    <button type="button" class="btn waves-effect waves-light btn-info" data-toggle="modal" value="" data-target="#exampleModal" onclick="getSODetails({{ $order->id }})"><a class="text-white" href="#">View</a></button>
                                                     <button type="button" class="btn waves-effect waves-light btn-primary"><a class="text-white" href="#">Edit</a></button>
-                                                    <button type="button" class="btn waves-effect waves-light btn-danger">  <a class="text-white sa-confirm-delete" param-id="{{ $product->id }}" param-route="delete-product" href="#">Remove</a></button>
 
                                                 </td>
                                             </tr>
@@ -106,7 +105,7 @@
                                                 <th>Name</th>
                                                 <th>Email</th>
                                                 <th>Cell No</th>
-                                                <th>Discount</th>
+                                                <!-- <th>Discount</th> -->
                                                 <th>Periority</th>
                                                 <th>Location</th>
                                                 <th>Status</th>
@@ -140,5 +139,104 @@
         <!-- ============================================================== -->
         <!-- End Page wrapper  -->
         <!-- ============================================================== -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog col-8" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Sale Order</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <!--Accordion wrapper-->
+<div class="accordion md-accordion" id="accordionEx" role="tablist" aria-multiselectable="true">
+
+  <!-- Accordion card -->
+  <div class="card">
+
+    <!-- Card header -->
+    <div class="card-header" role="tab" id="headingOne1">
+      <a data-toggle="collapse" data-parent="#accordionEx" href="#collapseOne1" aria-expanded="true"
+        aria-controls="collapseOne1">
+        <h5 class="mb-0">
+          Sale Order Detail<i class="fas fa-angle-down rotate-icon"></i>
+        </h5>
+      </a>
+    </div>
+
+    <!-- Card body -->
+    <div id="collapseOne1" class="collapse show" role="tabpanel" aria-labelledby="headingOne1"
+      data-parent="#accordionEx">
+      <div class="card-body">
+       <div class="table-responsive">
+                                        <table id="Suppinfo" class="table border">
+                                            <tbody>
+                                                
+                                                <!-- <tr>
+                                                    <th>Supplier Info:</th>
+                                                    <th>P.O # 23:</th>
+                                                </tr> -->
+                                                <tr>
+                                                    <td><strong>Name:</strong> abc</td>
+                                                    <td><strong>Contant number:</strong> 123</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>Email:</strong> abc</td>
+                                                    <td><strong>Supplier Image:</strong> <img width="75" height="75" src="{{ asset('images/backend-images/favicon.png') }}"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>Supplier Address:</strong></td>
+                                                    <td>dfdfgffdh</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>City:</strong> abc</td>
+                                                    <td><strong>State:</strong> abc</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>Country:</strong> abc</td>
+                                                    <td><strong>Status:</strong> abc</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>Created By:</strong> abc</td>
+                                                    <td><strong>Created At:</strong> abc</td>
+                                                </tr>
+                                                </tbody>
+                                        
+                                    </table>
+
+                                                <table id="productinfo" class="table border">
+                                            <tbody>
+                                                
+                                                <!-- <tr>
+                                                    <th>Product Name</th>
+                                                    <th>Rec. QTY</th>
+                                                    <th>Demand QTY</th>
+                                                    <th>Price</th>
+                                                    <th>Amount</th>
+                                                </tr>
+                                                <tr>
+                                                    <td>Chicken</td>
+                                                    <td>2</td>
+                                                    <td>1</td>
+                                                    <td>22</td>
+                                                    <td>22</td>
+                                                </tr> -->
+                                        </tbody>
+                                        
+                                    </table>
+                                </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
 @endsection

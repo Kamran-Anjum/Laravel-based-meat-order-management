@@ -482,6 +482,27 @@ function getPODetails(id){
     });
 }
 
+function getSODetails(id){
+    var id = id;
+    //alert(id);
+    $.ajax({
+        url: '/admin/getsodetail/'+id,
+        success: data => {
+            console.log(data[1]);
+
+            $('#Suppinfo tbody').html('');
+            $('#productinfo tbody').html('');
+            
+            
+            $('#Suppinfo tbody').html(data[0]);
+            $("#Suppinfo").DataTable();
+
+            $('#productinfo tbody').html(data[1]);
+            $("#productinfo").DataTable();
+        }
+    });
+}
+
 function getvalues(id){
 var recqty = document.getElementById('recieveqty'+id).value;
 var price = document.getElementById('price'+id).value;

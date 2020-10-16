@@ -141,6 +141,7 @@ Route::get('/getsupplierdetail/{id}',[App\Http\Controllers\AjaxRequestController
 
 Route::get('/getcustomerdetail/{id}',[App\Http\Controllers\AjaxRequestController::class,'getCustomerDetail']);
 Route::get('admin/getpodetail/{id}',[App\Http\Controllers\AjaxRequestController::class,'getPODetail']);
+Route::get('admin/getsodetail/{id}',[App\Http\Controllers\AjaxRequestController::class,'getSODetail']);
 Route::get('admin/getsupplierproductpo/{id}',[App\Http\Controllers\AjaxRequestController::class,'getSupplierproductPO']);
 Route::get('admin/recievepodetail/{id}',[App\Http\Controllers\AjaxRequestController::class,'getRecievePO']);
 Route::get('admin/getpoproductdata/{id}/{poid}',[App\Http\Controllers\AjaxRequestController::class,'getPOproducts']);

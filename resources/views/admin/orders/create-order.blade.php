@@ -101,7 +101,7 @@
                                           	 <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="control-label">Sales Date</label>
-                                                    <input value="{{ date('Y-m-d H:i:s') }}" name="order_date" type="text" class="form-control" readonly="true">
+                                                    <input name="order_date" type="date" class="form-control" required>
                                                 </div>
                                             </div>
                                         </div>
@@ -162,7 +162,7 @@
                                                  <input  id="discount" type="number" class="form-control" placeholder="">  
                                                 </td>
                                                 <td>
-                                                 <input  readonly id="discount_amount" type="number" class="form-control" placeholder="">  
+                                                 <input readonly id="discount_amount" type="number" class="form-control" placeholder="">  
                                                 </td>
                                          		<td>
                                                  <input required readonly value="0" id="sub_total" type="number" class="form-control" placeholder="">  
@@ -264,7 +264,7 @@
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label class="control-label">Forward To</label>
-                                                    <select class="form-control">
+                                                    <select name="dept_status" class="form-control">
                                                         {!! $loc_status_dropdown !!}
                                                     </select>
                                                 </div>
