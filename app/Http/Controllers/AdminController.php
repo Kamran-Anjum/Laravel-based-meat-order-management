@@ -24,6 +24,7 @@ class AdminController extends Controller
                 /*
                 Session::put('adminSession',$data['email']);
                 */
+
     				return redirect('admin/dashboard');
     			}
     			else{
@@ -44,7 +45,18 @@ public function dashboard(){
         */
        /* $user = Auth::User();
         $user->assignRole('super-admin');*/
-        return view('admin.dashboard');
+        $orders = DB::table('orders')->whereDate('created_at',date('Y-m-d'))->get();
+        $today_sales = 0;
+        foreach ($orders as $value) {
+            $today_sales = $today_sales+$value->total_amount;
+        }
+        $porders = DB::table('purchase_order')->whereDate('created_at',date('Y-m-d'))->get();
+        $today_purchase = 0;
+        foreach ($porders as $pvalue) {
+            $today_purchase = $today_purchase+$pvalue->total_amount;
+        }
+                //dd($total_amount);
+        return view('admin.dashboard')->with(compact('today_sales','today_purchase'));
     }
 
     public function addadmin(){

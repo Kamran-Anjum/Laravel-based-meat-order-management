@@ -113,4 +113,68 @@ class OrderController extends Controller
 
     	return view('admin.orders.create-order')->with(compact('customer_dropdown','categories_dropdown','city_dropdown','pr_ststus_dropdown','loc_status_dropdown'));
     }
+
+    //Edit sales order
+    public function editOrder(Request $request, $id =null)
+    {
+        if($request->isMethod('post')){
+            $data = $request->all();
+            //dd($data);
+            Order::where(['id'=>$id])->update
+            ([
+                'priority_status' => $data['pr_status'],
+                'location_status' => $data['dept_status'],
+                'status' => $data['status'],
+            ]);
+
+            return redirect('/admin/view-orders')->with('flash_message_success','Order Status has been Updated Successfully!');
+        }
+
+        $sale_order = DB::table('orders as o')->where(['o.id'=>$id])
+        ->join('users as u','o.user_id','=','u.id')
+        ->select('o.*','u.name as cusName')->first();
+
+        $order_details = DB::table('order_details as od')->where(['od.order_id'=>$id])
+        ->join('products as p','od.product_id','=','p.id')
+        ->select('od.*','p.name as prodName')
+        ->get();
+
+        $order_status = DB::table('purchase_order_status')->whereNotIn('id',[2,3])->get();
+        //dd($order_status);
+        $status_dropdown = "";
+        foreach ($order_status as $status) {
+        	if ($status->id == $sale_order->status) {
+        		$status_dropdown .= "<option selected value='".$status->id."'>".$status->name."</option>";
+        	}
+        	else{
+        		$status_dropdown .= "<option value='".$status->id."'>".$status->name."</option>";
+        	}
+        }
+        $location_status = DB::table('order_location_status')->get();
+        //dd($order_status);
+        $location_dropdown = "";
+        foreach ($location_status as $loc_status) {
+        	if ($loc_status->id == $sale_order->location_status) {
+        		$location_dropdown .= "<option selected value='".$loc_status->id."'>".$loc_status->name."</option>";
+        	}
+        	else{
+        		$location_dropdown .= "<option value='".$loc_status->id."'>".$loc_status->name."</option>";
+        	}
+        }
+        //dd($location_dropdown);
+
+        $prority_status = DB::table('po_priority_status')->get();
+        //dd($order_status);
+        $priority_dropdown = "";
+        foreach ($prority_status as $pr_status) {
+        	if ($pr_status->id == $sale_order->priority_status) {
+        		$priority_dropdown .= "<option selected value='".$pr_status->id."'>".$pr_status->name."</option>";
+        	}
+        	else{
+        		$priority_dropdown .= "<option value='".$pr_status->id."'>".$pr_status->name."</option>";
+        	}
+        }
+        //dd($priority_dropdown);
+        return view('admin.orders.edit-order')->with(compact('sale_order','status_dropdown','location_dropdown','priority_dropdown','order_details'));
+    }
 }

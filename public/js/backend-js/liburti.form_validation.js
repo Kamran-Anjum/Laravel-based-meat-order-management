@@ -631,3 +631,48 @@ function deletearray(id) {
     
     //alert(id);
 }
+function getSummary(){
+var from = document.getElementById('fdate').value;
+var to = document.getElementById('tdate').value;
+var html = '';
+    $.ajax({
+        url: '/admin/getsummary/'+from+'/'+to,
+        success: data => {
+            /*alert("Sales: "+data[0]);
+            alert("Purchase: "+data[1]);*/
+            console.log(data[2]);
+
+            html +='<div class="col-md-6 col-lg-6">';
+            html +='<div class="card">';
+            html +='<div class="card-body">';
+            html +='<h5 class="card-title text-uppercase">Sales</h5>'
+            html +='<div class="text-right">'
+            html +='<span class="text-muted">Sales</span>'
+            html +='<h2 class="mt-2 display-7"><sup><i class="ti-arrow-up text-success"></i></sup>$'+data[0]+'</h2>';
+            html +='</div>';
+            html +='</div>';
+            html +='</div>';
+            html +='</div>';
+            html +='<div class="col-md-6 col-lg-6">';
+            html +='<div class="card">';
+            html +='<div class="card-body">';
+            html +='<h5 class="card-title text-uppercase">Purchases</h5>'
+            html +='<div class="text-right">'
+            html +='<span class="text-muted">Purchases</span>'
+            html +='<h2 class="mt-2 display-7"><sup><i class="ti-arrow-up text-success"></i></sup>$'+data[1]+'</h2>';
+            html +='</div>';
+            html +='</div>';
+            html +='</div>';
+            html +='</div>';
+                    
+            $('#sortedSummary').html('');
+            
+            
+            
+            $('#sortedSummary').html(html);
+        }
+    });
+/*console.log(from);
+alert(from);
+alert(to);*/
+}

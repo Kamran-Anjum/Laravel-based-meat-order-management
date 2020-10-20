@@ -93,7 +93,7 @@
                                                 <td>{{$order->order_by}}</td>
                                                 <td style="width: 12%">
                                                     <button type="button" class="btn waves-effect waves-light btn-info" data-toggle="modal" value="" data-target="#exampleModal" onclick="getSODetails({{ $order->id }})"><a class="text-white" href="#">View</a></button>
-                                                    <button type="button" class="btn waves-effect waves-light btn-primary"><a class="text-white" href="#">Edit</a></button>
+                                                    <button type="button" class="btn waves-effect waves-light btn-primary"><a class="text-white" href="{{ url('admin/edit-order/'.$order->id) }}">Edit</a></button>
 
                                                 </td>
                                             </tr>

@@ -194,7 +194,7 @@ class AjaxRequestController extends Controller
         ->select('od.*','p.name as productName')
         ->get();
 
-            $supp_detail = "<h3>SO # ".$id."</h3><h3>Sale Order Info</h3><tr class='gradeX'><td><strong>Customer Name:  </strong>".$sale_orders->customerName."</td><td><strong>Customer Eamil:  </strong>".$sale_orders->cusEmail."</td></tr><tr class='gradeX'><td><strong>Contact:  </strong>".$sale_orders->cell_no."</td><td><strong>Customer Status:  </strong>".$sale_orders->s_status."</td></tr><tr class='gradeX'><td><strong>Shipp To:  </strong>".$sale_orders->shipping_address."</td><td><strong>Shipp From:  </strong>".$sale_orders->billing_address."</td></tr><tr class='gradeX'><td><strong>Priority:  </strong>".$sale_orders->pr_status."</td><td><strong>Location:  </strong>".$sale_orders->loc_status."</td></tr>";
+            $supp_detail = "<h3>SO # ".$id."</h3><h3>Sale Order Info</h3><tr class='gradeX'><td><strong>Customer Name:  </strong>".$sale_orders->customerName."</td><td><strong>Customer Eamil:  </strong>".$sale_orders->cusEmail."</td></tr><tr class='gradeX'><td><strong>Contact:  </strong>".$sale_orders->cell_no."</td><td><strong>Order Status:  </strong>".$sale_orders->s_status."</td></tr><tr class='gradeX'><td><strong>Shipp To:  </strong>".$sale_orders->shipping_address."</td><td><strong>Shipp From:  </strong>".$sale_orders->billing_address."</td></tr><tr class='gradeX'><td><strong>Priority:  </strong>".$sale_orders->pr_status."</td><td><strong>Location:  </strong>".$sale_orders->loc_status."</td></tr>";
 
             $prod_detail = "<h3>ProductInfo<h3><tr><th>Name</th><th>Price</th><th>QTY</th><th>Discount</th><th>Amount</th><th>Sub Total</th></tr>";
 
@@ -241,5 +241,32 @@ class AjaxRequestController extends Controller
             ->get();
 
         return $podd;
+    }
+
+    public function getSummary($from,$to)
+    {   
+
+        if ($from == $to) {
+            $sortdata = DB::table('orders')->whereDate('created_at',$from)->get();
+            $porders = DB::table('purchase_order')->whereDate('created_at',$from)->get();
+        }
+        else{
+            $sortdata = DB::table('orders')->whereBetween('created_at', [$from, $to])->get();
+            $porders = DB::table('purchase_order')->whereBetween('created_at', [$from, $to])->get();
+        }
+        
+        $sort_sales = 0;
+        foreach ($sortdata as $value) {
+            $sort_sales = $sort_sales+$value->total_amount;
+        }
+
+        
+        $sort_purchase = 0;
+        foreach ($porders as $pvalue) {
+            $sort_purchase = $sort_purchase+$pvalue->total_amount;
+        }
+        
+
+        return array($sort_sales,$sort_purchase,$sortdata);
     }
 }
