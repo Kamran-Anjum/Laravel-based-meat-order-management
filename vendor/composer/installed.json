@@ -54,6 +54,55 @@
         ]
     },
     {
+        "name": "automattic/woocommerce",
+        "version": "1.3.0",
+        "version_normalized": "1.3.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/woocommerce/wc-api-php.git",
+            "reference": "6181e20b96e95b2be8639d1e1dce76cc98856339"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/woocommerce/wc-api-php/zipball/6181e20b96e95b2be8639d1e1dce76cc98856339",
+            "reference": "6181e20b96e95b2be8639d1e1dce76cc98856339",
+            "shasum": ""
+        },
+        "require": {
+            "ext-curl": "*",
+            "ext-json": "*",
+            "php": ">= 5.4.0"
+        },
+        "require-dev": {
+            "phpunit/phpunit": "*"
+        },
+        "time": "2017-06-06T20:38:08+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Automattic\\WooCommerce\\": [
+                    "src/WooCommerce"
+                ]
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Claudio Sanches",
+                "email": "claudio.sanches@automattic.com"
+            }
+        ],
+        "description": "A PHP wrapper for the WooCommerce REST API",
+        "keywords": [
+            "api",
+            "woocommerce"
+        ]
+    },
+    {
         "name": "barryvdh/laravel-dompdf",
         "version": "v0.8.7",
         "version_normalized": "0.8.7.0",
@@ -3508,6 +3557,70 @@
                 "url": "https://github.com/sebastianbergmann",
                 "type": "github"
             }
+        ]
+    },
+    {
+        "name": "pixelpeter/laravel5-woocommerce-api-client",
+        "version": "v3.0.0",
+        "version_normalized": "3.0.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/pixelpeter/laravel5-woocommerce-api-client.git",
+            "reference": "ce134e353a6962afb20d63a309b74bfe803dd8a0"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/pixelpeter/laravel5-woocommerce-api-client/zipball/ce134e353a6962afb20d63a309b74bfe803dd8a0",
+            "reference": "ce134e353a6962afb20d63a309b74bfe803dd8a0",
+            "shasum": ""
+        },
+        "require": {
+            "automattic/woocommerce": "1.3.*",
+            "php": "^7.0"
+        },
+        "require-dev": {
+            "mockery/mockery": "^0.9.4",
+            "phpunit/phpunit": "^6.2",
+            "satooshi/php-coveralls": "^1.0"
+        },
+        "time": "2017-07-10T17:16:08+00:00",
+        "type": "library",
+        "extra": {
+            "laravel": {
+                "providers": [
+                    "Pixelpeter\\Woocommerce\\WoocommerceServiceProvider"
+                ],
+                "aliases": {
+                    "Woocommerce": "Pixelpeter\\Woocommerce\\Facades\\Woocommerce"
+                }
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Pixelpeter\\Woocommerce\\": "src"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Peter Haak",
+                "email": "info@pixelpeter.de",
+                "homepage": "https://pixelpeter.de/",
+                "role": "Developer"
+            }
+        ],
+        "description": "Laravel 5 wrapper for the Woocommerce REST API",
+        "homepage": "https://github.com/pixelpeter/laravel5-woocommerce-api-client",
+        "keywords": [
+            "api",
+            "laravel",
+            "rest",
+            "woocommerce",
+            "wordpress"
         ]
     },
     {

@@ -346,7 +346,25 @@ $('#ponumber').on('change', function() {
 });
 
 $('#customer_id').on('change', function() { 
-   $("#category").prop("disabled", false);
+    $("#category").prop("disabled", false);
+   
+});
+
+//select user by role for sorting report
+$('#role_id').on('change', function() { 
+   var rolename = $(this).val();
+
+   $.ajax({
+            url: '/admin/getcustomerbyrolename/'+rolename,
+            success: data => {
+                $("#cust_id").html('');
+                $('#cust_id').append(data);
+                $("#cust_id").prop("disabled", false);
+                console.log(data);
+            }
+
+        });
+   //alert(rolename);
 });
 
 $('#category').on('change', function() { 

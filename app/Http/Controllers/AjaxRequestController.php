@@ -269,4 +269,18 @@ class AjaxRequestController extends Controller
 
         return array($sort_sales,$sort_purchase,$sortdata);
     }
+
+    public function CustomerByRolename($rolename){
+
+        $user_by_roles = User::whereHas('roles', function ($q) use ($rolename) {
+            $q->where('name', $rolename);
+            })->get();
+
+        $users_dropdown = "<option selected value='0' readonly>Select User</option>";
+            foreach ($user_by_roles as $users) {
+                $users_dropdown .= "<option value='".$users->id."'>".$users->name . "</option>";
+            }
+        return $users_dropdown;
+
+    }
 }

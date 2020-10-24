@@ -118,6 +118,9 @@ Route::get('/admin/view-countries', [App\Http\Controllers\CountryController::cla
 Route::match(['get','post'],'/admin/create-countries', [App\Http\Controllers\CountryController::class,'addCountry']);
 Route::match(['get','post'],'/admin/edit-countries/{id}', [App\Http\Controllers\CountryController::class,'editCountry']);
 Route::get('/admin/delete-country/{id}',[App\Http\Controllers\CountryController::class,'deleteCountry']);
+//Sales Order Summary Controllers
+
+Route::get('/admin/view-orders-summary',[App\Http\Controllers\SalesOrderSummaryController::class,'viewOrdersSummary']);
 
 // State conroller
 Route::get('/admin/view-states', [App\Http\Controllers\StateController::class,'viewState']);
@@ -131,8 +134,12 @@ Route::match(['get','post'],'/admin/create-cities', [App\Http\Controllers\CityCo
 Route::match(['get','post'],'/admin/edit-cities/{id}', [App\Http\Controllers\CityController::class,'editCity']);
 Route::get('/admin/delete-cities/{id}',[App\Http\Controllers\CityController::class,'deleteCity']);
 
+//Woocommerce Controller
+Route::get('/admin/view-woo', [App\Http\Controllers\WoocommerceController::class,'ViewWoocommerce']);
+
 //Product Ajax Routes
 Route::get('/admin/getproductsubcategories/{id}',[App\Http\Controllers\AjaxRequestController::class,'getsubcategoriesdropdown']);
+
 Route::get('/admin/getsubcategoryproducts/{id}',[App\Http\Controllers\AjaxRequestController::class,'getproductsdropdown']);
 Route::get('/admin/getproduct-stock-price/{id}/{cusid}',[App\Http\Controllers\AjaxRequestController::class,'getproductstockprice']);
 Route::get('/statename/{id}',[App\Http\Controllers\AjaxRequestController::class,'getStateName']);
@@ -146,6 +153,8 @@ Route::get('admin/getsupplierproductpo/{id}',[App\Http\Controllers\AjaxRequestCo
 Route::get('admin/recievepodetail/{id}',[App\Http\Controllers\AjaxRequestController::class,'getRecievePO']);
 Route::get('admin/getpoproductdata/{id}/{poid}',[App\Http\Controllers\AjaxRequestController::class,'getPOproducts']);
 Route::get('admin/getsummary/{from}/{to}',[App\Http\Controllers\AjaxRequestController::class,'getSummary']);
+
+Route::get('/admin/getcustomerbyrolename/{rolename}',[App\Http\Controllers\AjaxRequestController::class,'CustomerByRolename']);
 
 });
 

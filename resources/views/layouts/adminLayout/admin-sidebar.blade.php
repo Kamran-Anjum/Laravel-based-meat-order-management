@@ -32,7 +32,7 @@
                         <li class="sidebar-item">
                             <a class="sidebar-link has-arrow waves-effect waves-dark" href="#" aria-expanded="false">
                                 <i class="mdi mdi-credit-card-multiple"></i>
-                                <span class="hide-menu">Orders</span> 
+                                <span class="hide-menu">Sales Orders</span> 
                                 <span class="badge badge-inverse badge-pill ml-auto mr-3 font-medium px-2 py-1"></span>
                             </a>
                             <ul aria-expanded="false" class="collapse  first-level">
@@ -40,17 +40,17 @@
                                 <li class="sidebar-item">
                                     <a href="{{ url('admin/view-orders') }}" class="sidebar-link">
                                         <i class="mdi mdi-adjust"></i>
-                                        <span class="hide-menu">View Orders</span>
+                                        <span class="hide-menu">View Sales Orders</span>
                                     </a>
                                 </li>
                                 <li class="sidebar-item">
                                     <a href="#" class="sidebar-link">
                                         <i class="mdi mdi-adjust"></i>
-                                        <span class="hide-menu">View Wordpress Orders</span>
+                                        <span class="hide-menu">View Wordpress Sales Orders</span>
                                     </a>
                                 </li>
                                 <li class="sidebar-item">
-                                    <a href="#" class="sidebar-link">
+                                    <a href="{{ url('admin/view-orders-summary') }}" class="sidebar-link">
                                         <i class="mdi mdi-adjust"></i>
                                         <span class="hide-menu">Summary/Reports</span>
                                     </a>
