@@ -121,6 +121,8 @@ Route::get('/admin/delete-country/{id}',[App\Http\Controllers\CountryController:
 //Sales Order Summary Controllers
 
 Route::get('/admin/view-orders-summary',[App\Http\Controllers\SalesOrderSummaryController::class,'viewOrdersSummary']);
+Route::get('admin/getsoreport/{from}/{to}/{role}/{customer}',[App\Http\Controllers\SalesOrderSummaryController::class,'SortReport']);
+Route::get('admin/getsorpdf/{from}/{to}/{role}/{customer}',[App\Http\Controllers\SalesOrderSummaryController::class,'pdfreport']);
 
 // State conroller
 Route::get('/admin/view-states', [App\Http\Controllers\StateController::class,'viewState']);

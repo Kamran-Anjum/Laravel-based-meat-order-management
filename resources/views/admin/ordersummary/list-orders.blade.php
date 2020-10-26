@@ -36,14 +36,14 @@
                                 <div class="col-2">
                                     <div class="form-group">
                                         <label class="control-label">From Date</label>
-                                        <input id="fromdate" name="order_date" type="date" class="form-control">
+                                        <input id="fromdate" name="from_date" type="date" class="form-control">
                                     </div>
                                 </div>
 
                                 <div class="col-2">
                                     <div class="form-group">
                                         <label class="control-label">To Date</label>
-                                        <input id="todate" name="order_date" type="date" class="form-control">
+                                        <input id="todate" name="to_date" type="date" class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-md-3 mb-0">
@@ -68,7 +68,7 @@
                                 </div>
                                 <div class="col-md-2 mb-0">
                                     <div class="form-group">
-                                        <button style="top: 29px;" class="btn btn-success">Search</button>
+                                        <button onclick="getReportSort()" style="top: 29px;" class="btn btn-success">Search</button>
                                     </div>    
                                 </div>
                             </div>
@@ -76,6 +76,7 @@
                             </div>
                         </div>
                     </div>
+                    
                 @if(Session::has('flash_message_error'))
                     <div class="alert alert-error alert-danger alert-block">
                         <button type="button" class="close" data-dismiss="alert">×</button>
@@ -103,11 +104,31 @@
                 <!-- basic table -->
                 <div class="row">
                     <div class="col-12">
+                    <div class="material-card card" style="margin-bottom: 0px !important">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-10">
+                                        <h3>You can Download your reports as PDF or Excel Format</h3>
+                                    </div>
+                                    <div class="col-1"><button style="width: 100%;" class="btn btn-success" onclick="reportPDF()">PDF</button>
+                                    </div>
+                                    <div class="col-1">
+                                        <button class="btn btn-success" style="width: 100%;" onclick="reportPDF()">Excel</button>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        
                         <div class="material-card card">
                             <div class="card-body">
+
                                 <div class="table-responsive">
-                                    <button class="btn btn-success" style="position: absolute; left: 200px;">Print</button>
-                                    <button class="btn btn-success" style="position: absolute; left: 270px;">Excel</button>
+                                    <!-- <button class="btn btn-success" onclick="reportPDF()" style="position: absolute; left: 200px;">PDF</button> -->
+                                    
                                     <table class="table table-striped dataTable product-overview" id="zero_config">
                                         <thead>
 
@@ -122,7 +143,7 @@
                                                 
                                             </tr>
                                         </thead>
-                                        <tbody>
+                                        <tbody id="sortsummary">
                                             <?php $i = 1; ?>
                                         @foreach($orders as $order)
                                             <tr>

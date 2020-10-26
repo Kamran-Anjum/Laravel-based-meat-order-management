@@ -273,7 +273,7 @@ class AjaxRequestController extends Controller
     public function CustomerByRolename($rolename){
 
         $user_by_roles = User::whereHas('roles', function ($q) use ($rolename) {
-            $q->where('name', $rolename);
+            $q->where('id', $rolename);
             })->get();
 
         $users_dropdown = "<option selected value='0' readonly>Select User</option>";

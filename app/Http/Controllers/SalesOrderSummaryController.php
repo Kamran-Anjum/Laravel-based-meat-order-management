@@ -12,13 +12,14 @@ use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Models\ProductStock;
 use App\Models\User;
+use PDF;
 
 class SalesOrderSummaryController extends Controller
 {
     public function viewOrdersSummary(){
 
     	$orders = DB::table('orders as o')
-    	->whereIn('o.status',[5,6])
+    	//->whereIn('o.status',[5,6])
     	->join('purchase_order_status as ps','o.status','=','ps.id')
     	->join('users as u','o.user_id', '=', 'u.id')
     	->select('o.*','u.name as customerName','ps.name as s_status')
@@ -27,9 +28,109 @@ class SalesOrderSummaryController extends Controller
     	$roles = DB::table('roles')->whereNotIn('id',[1,2,3,4])->get();
             $roles_dropdown = "<option value='0' readonly selected > Select Role</option>";
             foreach ($roles as $role) {
-                $roles_dropdown .= "<option value='".$role->name."'>".$role->name . "</option>";
+                $roles_dropdown .= "<option value='".$role->id."'>".$role->name . "</option>";
             }
     	//dd($orders);
     	return view('admin.ordersummary.list-orders')->with(compact('orders','roles_dropdown'));
+    }
+
+    public function SortReport($fromdate, $todate, $role, $user)
+    {
+    	if ($role == 0 && $user == 0) {
+    		if ($fromdate == $todate) {
+            	$sortorders = DB::table('orders as o')->whereDate('o.created_at',$fromdate)
+            	->join('users as u','o.user_id', '=', 'u.id')
+    			->join('purchase_order_status as ps','o.status','=','ps.id')
+    			->select('o.*','u.name as customerName','ps.name as s_status')
+    			->get();
+            }
+        	else{
+            	$sortorders = DB::table('orders as o')->whereBetween('o.created_at', [$fromdate, $todate])
+            	->join('users as u','o.user_id', '=', 'u.id')
+    			->join('purchase_order_status as ps','o.status','=','ps.id')
+    			->select('o.*','u.name as customerName','ps.name as s_status')
+    			->get();
+            
+        	}
+    	}
+    	elseif ($user == 0) {
+    		//$sortorders = [];
+    		$users = User::whereHas('roles', static function ($query) use ($role) {
+                    return $query->where('id', $role);
+                })->with('roles')->get();
+
+    		foreach ($users as $roless) {
+    			$sortorders = DB::table('orders as o')->whereBetween('o.created_at', [$fromdate, $todate])
+    			->where(['o.user_id'=> $roless->id])
+    			->join('users as u','o.user_id', '=', 'u.id')
+    			->join('purchase_order_status as ps','o.status','=','ps.id')
+    			->select('o.*','u.name as customerName','ps.name as s_status')
+    			->get();
+    		}
+    		
+    	}
+    	else{
+    		$sortorders = DB::table('orders as o')->whereBetween('o.created_at', [$fromdate, $todate])
+    		->where(['o.user_id'=> $user])
+    		->join('users as u','o.user_id', '=', 'u.id')
+    		->join('purchase_order_status as ps','o.status','=','ps.id')
+    		->select('o.*','u.name as customerName','ps.name as s_status')
+    		->get();
+    	}
+    	
+    	return $sortorders;
+    }
+
+    public function pdfreport($fromdate, $todate, $role, $user)
+    {
+        if ($role == 0 && $user == 0) {
+    		if ($fromdate == $todate) {
+            	$sortorders = DB::table('orders as o')->whereDate('o.created_at',$fromdate)
+            	->join('users as u','o.user_id', '=', 'u.id')
+    			->join('purchase_order_status as ps','o.status','=','ps.id')
+    			->select('o.*','u.name as customerName','ps.name as s_status')
+    			->get();
+            }
+        	else{
+            	$sortorders = DB::table('orders as o')->whereBetween('o.created_at', [$fromdate, $todate])
+            	->join('users as u','o.user_id', '=', 'u.id')
+    			->join('purchase_order_status as ps','o.status','=','ps.id')
+    			->select('o.*','u.name as customerName','ps.name as s_status')
+    			->get();
+            
+        	}
+    	}
+    	elseif ($user == 0) {
+    		//$sortorders = [];
+    		$users = User::whereHas('roles', static function ($query) use ($role) {
+                    return $query->where('id', $role);
+                })->with('roles')->get();
+
+    		foreach ($users as $roless) {
+    			$sortorders = DB::table('orders as o')->whereBetween('o.created_at', [$fromdate, $todate])
+    			->where(['o.user_id'=> $roless->id])
+    			->join('users as u','o.user_id', '=', 'u.id')
+    			->join('purchase_order_status as ps','o.status','=','ps.id')
+    			->select('o.*','u.name as customerName','ps.name as s_status')
+    			->get();
+    		}
+    		
+    	}
+    	else{
+    		$sortorders = DB::table('orders as o')->whereBetween('o.created_at', [$fromdate, $todate])
+    		->where(['o.user_id'=> $user])
+    		->join('users as u','o.user_id', '=', 'u.id')
+    		->join('purchase_order_status as ps','o.status','=','ps.id')
+    		->select('o.*','u.name as customerName','ps.name as s_status')
+    		->get();
+    	}
+
+      // share data to view
+      view()->share('sortorders',$sortorders);
+      $pdf = PDF::loadView('admin.reports.sales-report', $sortorders);
+      //$pdf->stream('invoice_po_'.$fromdate.'.pdf');
+
+      // download PDF file with download method
+      return $pdf->stream('invoice_po_'.$fromdate.'.pdf');
     }
 }
