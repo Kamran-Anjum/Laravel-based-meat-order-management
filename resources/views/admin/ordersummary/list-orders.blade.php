@@ -107,13 +107,16 @@
                     <div class="material-card card" style="margin-bottom: 0px !important">
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-10">
+                                    <div class="col-7">
                                         <h3>You can Download your reports as PDF or Excel Format</h3>
                                     </div>
                                     <div class="col-1"><button style="width: 100%;" class="btn btn-success" onclick="reportPDF()">PDF</button>
                                     </div>
-                                    <div class="col-1">
-                                        <button class="btn btn-success" style="width: 100%;" onclick="reportPDF()">Excel</button>
+                                    <div class="col-2">
+                                        <button class="btn btn-success" style="width: 100%;" onclick="reportExcelview()">View Excel</button>
+                                    </div>
+                                    <div class="col-2">
+                                        <button class="btn btn-success" style="width: 100%;" onclick="reportExcel()">Download Excel</button>
                                     </div>
                                 </div>
                                 

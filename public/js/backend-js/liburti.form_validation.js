@@ -769,3 +769,55 @@ alert(role);
 alert(customer);*/
 
 }
+function reportExcel(){
+var from = document.getElementById('fromdate').value;
+var to = document.getElementById('todate').value;
+var role = document.getElementById('role_id').value;
+var customer = document.getElementById('cust_id').value;
+
+if(from === ''){
+
+    alert("Please Select From Date First");
+}
+else if(to === ''){
+
+    alert("Please Select To Date First");
+}
+else{
+    window.open('/admin/export-excel/'+from+'/'+to+'/'+role+'/'+customer, '_blank');
+}
+
+        //var url = '/admin/getsorpdf/'+from+'/'+to+'/'+role+'/'+customer,
+        
+/*alert(from);
+alert(to);
+alert(role);
+alert(customer);*/
+
+}
+function reportExcelview(){
+var from = document.getElementById('fromdate').value;
+var to = document.getElementById('todate').value;
+var role = document.getElementById('role_id').value;
+var customer = document.getElementById('cust_id').value;
+
+if(from === ''){
+
+    alert("Please Select From Date First");
+}
+else if(to === ''){
+
+    alert("Please Select To Date First");
+}
+else{
+    window.open('/admin/export-excel-view/'+from+'/'+to+'/'+role+'/'+customer, '_blank');
+}
+
+        //var url = '/admin/getsorpdf/'+from+'/'+to+'/'+role+'/'+customer,
+        
+/*alert(from);
+alert(to);
+alert(role);
+alert(customer);*/
+
+}
