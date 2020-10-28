@@ -22,6 +22,7 @@ $(document).ready(function(){
     }); 
 
     $("#subcategory").select2();
+    $("#assetsubcategory").select2();
     $("#suppproducts").select2();
     $("#purchaseproduct").select2();
     $("#purchaseproducted").select2();
@@ -42,6 +43,8 @@ $('#product_category_id').on('change', function() {
 
         }); 
 });
+
+
 
 // select supplier product for purchase order
 $('#supplierPO').on('change', function() { 
@@ -446,12 +449,43 @@ $('#product_id').on('change', function() {
 
     });
 
+ $('#asset_category_id').on('change', function() { 
+   var category_id = $(this).val();
+   
+    $.ajax({
+            url: '/admin/getassetsubcategories/'+category_id,
+            success: data => {
+                var citydd = $("#assetsubcategory").html('');
+                $('#assetsubcategory').append(data);
+                $("#assetsubcategory").prop("disabled", false);
+                console.log(data);
+            }
+
+        }); 
+});
+
 });
 function getSupplierDetails(id){
     var id = id;
     //alert(id);
     $.ajax({
         url: '/getsupplierdetail/'+id,
+        success: data => {
+            console.log(data);
+            $('#ScheduleTable tbody').html('');
+            
+            
+            $('#ScheduleTable tbody').html(data);
+            $("#ScheduleTable").DataTable();
+        }
+    });
+}
+
+function getAssetDetails(id){
+    var id = id;
+    //alert(id);
+    $.ajax({
+        url: '/getassetdetail/'+id,
         success: data => {
             console.log(data);
             $('#ScheduleTable tbody').html('');

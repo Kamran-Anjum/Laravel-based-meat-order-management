@@ -126,6 +126,29 @@ Route::get('admin/getsorpdf/{from}/{to}/{role}/{customer}',[App\Http\Controllers
 Route::get('admin/export-excel/{from}/{to}/{role}/{customer}',[App\Http\Controllers\SalesOrderSummaryController::class,'export']);
 Route::get('admin/export-excel-view/{from}/{to}/{role}/{customer}',[App\Http\Controllers\SalesOrderSummaryController::class,'excelview']);
 
+// Vehicle controller
+Route::get('/admin/view-vehicles', [App\Http\Controllers\VehicleController::class,'viewVehicles']);
+Route::match(['get','post'],'/admin/create-vehicle', [App\Http\Controllers\VehicleController::class,'addVehicle']);
+Route::match(['get','post'],'/admin/edit-vehicle/{id}', [App\Http\Controllers\VehicleController::class,'editVehicle']);
+Route::get('/admin/delete-vehicle/{id}',[App\Http\Controllers\VehicleController::class,'deleteState']);
+
+// Assets Category controller
+Route::get('/admin/view-assets-categories', [App\Http\Controllers\AssetsController::class,'viewAssetsCategories']);
+Route::match(['get','post'],'/admin/add-assets-category', [App\Http\Controllers\AssetsController::class,'addAssetCategory']);
+Route::match(['get','post'],'/admin/edit-asset-categoty/{id}', [App\Http\Controllers\AssetsController::class,'editAssetCategory']);
+Route::get('/admin/delete-assets-category/{id}',[App\Http\Controllers\AssetsController::class,'deleteAssetCategory']);
+
+// Assets SubCategory controller
+Route::get('/admin/view-assets-sub-categories', [App\Http\Controllers\AssetsController::class,'viewAssetsSubCategories']);
+Route::match(['get','post'],'/admin/add-assets-sub-category', [App\Http\Controllers\AssetsController::class,'addAssetSubCategory']);
+Route::match(['get','post'],'/admin/edit-asset-sub-category/{id}', [App\Http\Controllers\AssetsController::class,'editAssetSubCategory']);
+Route::get('/admin/delete-assets-sub-category/{id}',[App\Http\Controllers\AssetsController::class,'deleteAssetSubCategory']);
+
+// Assets controller
+Route::get('/admin/view-assets', [App\Http\Controllers\AssetsController::class,'viewAssets']);
+Route::match(['get','post'],'/admin/create-asset', [App\Http\Controllers\AssetsController::class,'createAsset']);
+Route::match(['get','post'],'/admin/edit-asset/{id}', [App\Http\Controllers\AssetsController::class,'editAsset']);
+Route::get('/admin/delete-asset/{id}',[App\Http\Controllers\AssetsController::class,'deleteAsset']);
 
 // State conroller
 Route::get('/admin/view-states', [App\Http\Controllers\StateController::class,'viewState']);
@@ -144,12 +167,14 @@ Route::get('/admin/view-woo', [App\Http\Controllers\WoocommerceController::class
 
 //Product Ajax Routes
 Route::get('/admin/getproductsubcategories/{id}',[App\Http\Controllers\AjaxRequestController::class,'getsubcategoriesdropdown']);
+Route::get('/admin/getassetsubcategories/{id}',[App\Http\Controllers\AjaxRequestController::class,'getassetsubcategoriesdropdown']);
 
 Route::get('/admin/getsubcategoryproducts/{id}',[App\Http\Controllers\AjaxRequestController::class,'getproductsdropdown']);
 Route::get('/admin/getproduct-stock-price/{id}/{cusid}',[App\Http\Controllers\AjaxRequestController::class,'getproductstockprice']);
 Route::get('/statename/{id}',[App\Http\Controllers\AjaxRequestController::class,'getStateName']);
 Route::get('/cityname/{cid}/{sid}',[App\Http\Controllers\AjaxRequestController::class,'getCityName']);
 Route::get('/getsupplierdetail/{id}',[App\Http\Controllers\AjaxRequestController::class,'getSupplierDetail']);
+Route::get('/getassetdetail/{id}',[App\Http\Controllers\AjaxRequestController::class,'getAssetDetail']);
 
 Route::get('/getcustomerdetail/{id}',[App\Http\Controllers\AjaxRequestController::class,'getCustomerDetail']);
 Route::get('admin/getpodetail/{id}',[App\Http\Controllers\AjaxRequestController::class,'getPODetail']);

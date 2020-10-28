@@ -150,11 +150,44 @@
                             </a>
                         </li> -->
                         <li class="sidebar-item">
-                            <a href="#" class="sidebar-link">
+                            <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
                                 <i class="mdi mdi-shopping"></i>
-                                <span class="hide-menu">Vehicles</span>
+                                <span class="hide-menu">Assets</span>
                             </a>
+                            <ul aria-expanded="false" class="collapse  first-level">
+<!--                                 <li class="sidebar-item">
+                                    <a href="{{ url('admin/sizeattribute/list-sizeattribute') }}" class="sidebar-link">
+                                        <i class="mdi mdi-adjust"></i>
+                                        <span class="hide-menu">Size Attribute</span>
+                                    </a>
+                                </li> -->
+                                <li class="sidebar-item">
+                                    <a href="{{ url('/admin/view-assets-categories') }}" class="sidebar-link">
+                                    <i class="mdi mdi-shopping"></i>
+                                    <span class="hide-menu">Assets Categories</span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-item">
+                                    <a href="{{ url('/admin/view-assets-sub-categories') }}" class="sidebar-link">
+                                    <i class="mdi mdi-shopping"></i>
+                                    <span class="hide-menu">Assets Sub Categories</span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-item">
+                                    <a href="{{ url('/admin/view-assets') }}" class="sidebar-link">
+                                    <i class="mdi mdi-shopping"></i>
+                                    <span class="hide-menu">Assets</span>
+                                    </a>
+                                </li>
+                                <!-- <li class="sidebar-item">
+                                    <a href="{{ url('/admin/recieve-pruchase-orders') }}" class="sidebar-link">
+                                        <i class="mdi mdi-adjust"></i>
+                                        <span class="hide-menu">Recieve Purchase Order</span>
+                                    </a>
+                                </li> -->
+                            </ul>
                         </li>
+                        
 
                         <!-- <li class="sidebar-item">
                             <a href="{{ url('/admin/view-countries')}}" class="sidebar-link">

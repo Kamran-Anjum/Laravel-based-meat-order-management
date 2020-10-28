@@ -32,6 +32,21 @@ class AjaxRequestController extends Controller
         return $subcategories_dropdown;
 
     }
+    //Get Assets Subcategories
+    public function getassetsubcategoriesdropdown($id = null){
+
+        $subcategories = DB::table('assets_subcategories')
+                ->whereIn('asset_category_id',array($id))->get();
+
+                $subcategories_dropdown = "<option disabled selected>Select Sub Category</option>";
+                foreach($subcategories as $subcategory){
+                    $subcategories_dropdown .= "<option value='".$subcategory->id."'>".$subcategory->name . "</option>";      
+                     }
+        
+        
+        return $subcategories_dropdown;
+
+    }
     //Get Products for sales Order
     public function getproductsdropdown($id = null){
 
@@ -125,6 +140,23 @@ class AjaxRequestController extends Controller
             // ->groupBy('sc.batch_id')
             ->first();
             $supp_detail = "<tr class='gradeX'><td><strong>Supplier Name:  </strong>".$suppliers->supplier_name."</td></tr><tr class='gradeX'><td><strong>Supplier Contact No:  </strong>".$suppliers->contact_no."</td></tr><tr class='gradeX'><td><strong>Supplier Email:  </strong>".$suppliers->email."</td></tr><tr class='gradeX'><td><strong>Supplier Address:  </strong>".$suppliers->address."</td></tr><tr class='gradeX'><td><strong>Supplier City:  </strong>".$suppliers->cityname."</td></tr><tr class='gradeX'><td><strong>Supplier Country:  </strong>".$suppliers->country."</td></tr><tr class='gradeX'><td><strong>Supplier Created By:  </strong>".$suppliers->userName."</td></tr><tr class='gradeX'><td><strong>Status:  </strong>Active</td></tr><tr class='gradeX'><td><strong>Supplier Image:  </strong><img src='https://halalmeat.testit.live/images/backend-images/halalmeat/supplier/tiny/".$suppliers->image."'</td></tr><tr class='gradeX'><td><strong>Created At:  </strong>".$suppliers->created_at."</td></tr>";
+        return $supp_detail;
+
+    }
+    //Get Assets Details
+    public function getAssetDetail($id = null){
+
+        $assets = DB::table('assets as a')
+            ->where(['a.id' => $id])
+            ->join('assets_vehicle_details as av','a.id','=','av.asset_id')
+            ->join('assets_status as aa','a.status','=','aa.id')
+            ->join('users as u','a.created_by','=','u.id')
+            ->join('assets_categories as ac','a.asset_category_id','=','ac.id')
+            ->join('assets_subcategories as asc','a.asset_subcategory_id','=','asc.id')
+            ->select('a.*','av.*','aa.name as statuses','u.name as userName','ac.name as catName','asc.name as subcatName')
+            // ->groupBy('sc.batch_id')
+            ->first();
+            $supp_detail = "<tr class='gradeX'><td><strong>Category Name:  </strong>".$assets->catName."</td></tr><tr class='gradeX'><td><strong>Sub-Category Name:  </strong>".$assets->subcatName."</td></tr><tr class='gradeX'><td><strong>Asset Name:  </strong>".$assets->name."</td></tr><tr class='gradeX'><td><strong>Document No.:  </strong>".$assets->document_no."</td></tr><tr class='gradeX'><td><strong>Amount:  </strong> $ ".$assets->cost_amount  ."</td></tr><tr class='gradeX'><td><strong>Tax:  </strong> $ ".$assets->tax_amount."</td></tr><tr class='gradeX'><td><strong>Total Amount:  </strong> $ ".$assets->total_amount."</td></tr><tr class='gradeX'><td><strong>Created By:  </strong>".$assets->userName."</td></tr><tr class='gradeX'><td><strong>Status:  </strong>".$assets->statuses."</td></tr><tr class='gradeX'><td><strong>Registeration No:  </strong>".$assets->reg_no."</td></tr><tr class='gradeX'><td><strong>Engine No:  </strong>".$assets->engine_no."</td></tr><tr class='gradeX'><td><strong>Chasis No:  </strong>".$assets->chasis_no."</td></tr><tr class='gradeX'><td><strong>Asset Image:  </strong><img src='http://127.0.0.1:8000/images/backend-images/halalmeat/assets/vehicle/tiny/".$assets->image."'</td></tr><tr class='gradeX'><td><strong>Created At:  </strong>".$assets->created_at."</td></tr>";
         return $supp_detail;
 
     }
