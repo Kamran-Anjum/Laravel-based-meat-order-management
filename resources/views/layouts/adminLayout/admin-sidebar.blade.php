@@ -149,18 +149,13 @@
                                 <span class="hide-menu">Departments</span>
                             </a>
                         </li> -->
-                        <li class="sidebar-item">
+                        <!-- <li class="sidebar-item">
                             <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
                                 <i class="mdi mdi-shopping"></i>
                                 <span class="hide-menu">Assets</span>
                             </a>
                             <ul aria-expanded="false" class="collapse  first-level">
-<!--                                 <li class="sidebar-item">
-                                    <a href="{{ url('admin/sizeattribute/list-sizeattribute') }}" class="sidebar-link">
-                                        <i class="mdi mdi-adjust"></i>
-                                        <span class="hide-menu">Size Attribute</span>
-                                    </a>
-                                </li> -->
+
                                 <li class="sidebar-item">
                                     <a href="{{ url('/admin/view-assets-categories') }}" class="sidebar-link">
                                     <i class="mdi mdi-shopping"></i>
@@ -179,24 +174,26 @@
                                     <span class="hide-menu">Assets</span>
                                     </a>
                                 </li>
-                                <!-- <li class="sidebar-item">
-                                    <a href="{{ url('/admin/recieve-pruchase-orders') }}" class="sidebar-link">
-                                        <i class="mdi mdi-adjust"></i>
-                                        <span class="hide-menu">Recieve Purchase Order</span>
-                                    </a>
-                                </li> -->
+                                
                             </ul>
-                        </li>
+                        </li> -->
                         
 
-                        <!-- <li class="sidebar-item">
-                            <a href="{{ url('/admin/view-countries')}}" class="sidebar-link">
-                                <i class="mdi mdi-av-timer"></i>
-                                <span class="hide-menu">Countries</span>
+                         <li class="sidebar-item">
+                            <a href="{{ url('/admin/view-vehicles') }}" class="sidebar-link">
+                                <i class="mdi mdi-shopping"></i>
+                                    <span class="hide-menu">Vehicles</span>
                             </a>
                         </li>
 
                         <li class="sidebar-item">
+                            <a href="{{ url('/admin/view-riders') }}" class="sidebar-link">
+                                <i class="mdi mdi-shopping"></i>
+                                    <span class="hide-menu">Riders</span>
+                            </a>
+                        </li>
+
+                        <!-- <li class="sidebar-item">
                             <a href="{{ url('/admin/view-states')}}" class="sidebar-link">
                                 <i class="mdi mdi-av-timer"></i>
                                 <span class="hide-menu">States</span>

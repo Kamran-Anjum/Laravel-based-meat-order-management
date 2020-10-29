@@ -10,14 +10,14 @@
             <div class="page-breadcrumb">
                 <div class="row">
                     <div class="col-lg-3 col-md-4 col-xs-12 align-self-center">
-                        <h5 class="font-medium text-uppercase mb-0">Add Product</h5>
+                        <h5 class="font-medium text-uppercase mb-0">Add Vehicle</h5>
                     </div>
                     <div class="col-lg-9 col-md-8 col-xs-12 align-self-center">
                         <!-- <button class="btn btn-danger text-white float-right ml-3 d-none d-md-block">Buy Ample Admin</button> -->
                         <nav aria-label="breadcrumb" class="mt-2 float-md-right float-left">
                             <ol class="breadcrumb mb-0 justify-content-end p-0">
                                 <li class="breadcrumb-item"><a href="{{ url('admin/dashboard') }}">Home</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">Add Product</li>
+                                <li class="breadcrumb-item active" aria-current="page">Add Vehicle</li>
                             </ol>
                         </nav>
                     </div>
@@ -79,9 +79,9 @@
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-body">
-                                <form enctype="multipart/form-data" method="post" action="{{ url('/admin/create-asset') }}" > {{ csrf_field() }}
+                                <form enctype="multipart/form-data" method="post" action="{{ url('/admin/create-vehicle') }}" > {{ csrf_field() }}
                                     <div class="form-body">
-                                        <h5 class="card-title">Create Asset</h5>
+                                        <h5 class="card-title">Create Vehicle</h5>
                                         <hr>
 
                                         <div class="row">
@@ -197,7 +197,7 @@
                                         <hr>
                                         <div class="form-actions mt-5">
                                         <button type="submit" class="btn btn-success"> <i class="fa fa-check"></i> Add</button>
-                                        <a href="{{ url('/admin/view-assets')}}"><button type="button" class="btn btn-dark">Cancel</button></a>
+                                        <a href="{{ url('/admin/view-vehicles')}}"><button type="button" class="btn btn-dark">Cancel</button></a>
                                     </div>
                                            </form>
 

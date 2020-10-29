@@ -10,18 +10,31 @@
             <div class="page-breadcrumb">
                 <div class="row">
                     <div class="col-lg-3 col-md-4 col-xs-12 align-self-center">
-                        <h5 class="font-medium text-uppercase mb-0">Edit Vehicel</h5>
+                        <h5 class="font-medium text-uppercase mb-0">Add Rider</h5>
                     </div>
                     <div class="col-lg-9 col-md-8 col-xs-12 align-self-center">
                         <!-- <button class="btn btn-danger text-white float-right ml-3 d-none d-md-block">Buy Ample Admin</button> -->
                         <nav aria-label="breadcrumb" class="mt-2 float-md-right float-left">
                             <ol class="breadcrumb mb-0 justify-content-end p-0">
                                 <li class="breadcrumb-item"><a href="{{ url('admin/dashboard') }}">Home</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">Edit Vehicle</li>
+                                <li class="breadcrumb-item active" aria-current="page">Add Rider</li>
                             </ol>
                         </nav>
                     </div>
                 </div>
+                @if(Session::has('flash_message_error'))
+                    <div class="alert alert-danger alert-block">
+                        <button type="button" class="close" data-dismiss="alert">×</button>
+                        <strong>{!! session('flash_message_error') !!}</strong>
+                    </div>
+
+                @endif
+                @if(Session::has('flash_message_success'))
+                    <div class="alert alert-success alert-block">
+                        <button type="button" class="close" data-dismiss="alert">×</button>
+                        <strong>{!! session('flash_message_success') !!}</strong>
+                    </div>
+                @endif
             </div>
             <!-- ============================================================== -->
             <!-- End Bread crumb and right sidebar toggle -->
@@ -79,44 +92,23 @@
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-body">
-                                <form enctype="multipart/form-data" method="post" action="{{ url('/admin/edit-vehicle/'.$assets->id) }}" > {{ csrf_field() }}
+                                <form enctype="multipart/form-data" method="post" action="{{ url('/admin/create-customer') }}" > {{ csrf_field() }}
                                     <div class="form-body">
-                                        <h5 class="card-title">Edit Vehicle</h5>
+                                        <h5 class="card-title">Create Rider</h5>
                                         <hr>
-
-                                        <div class="row">
-                                            <div class="col-md-4 mb-0">
-                                                <div class="form-group">                                                  
-                                                    <label  for="">Category</label>
-                                                    <input type="text" class="form-control" name="asset_category_id" readonly value="{{$assets->catName}}">
-                                                                                                    
-                                                    <div class="invalid-feedback">Example invalid custom select feedback</div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4 mb-0">
-                                                <div class="form-group">                                                  
-                                                    <label  for="">Sub Category</label>
-                                                    <select name="assetsubcategory" class="form-control" style="width: 100%; height:36px;" required>
-                                                        {!! $subcategories_dropdown !!}
-                                            </select>                                                  
-                                                    <div class="invalid-feedback">Example invalid custom select feedback</div>
-                                                </div>
-                                            </div>
-
-                                        </div>
                                       
                                         <div class="row">
                                              <div class="col-md-4 mb-0">
                                                 <div class="form-group">                                                  
                                                     <label  for="">Name</label>
-                                                    <input value="{{$assets->name}}" type="text" class="form-control" name="asset_name">
+                                                    <input required type="text" class="form-control" name="customer_name">
                                                     <div class="invalid-feedback">Example invalid custom select feedback</div>
                                                 </div>
                                             </div>
                                             <div class="col-md-4 mb-0">
                                                 <div class="form-group">                                                  
-                                                    <label  for="">Document Number</label>
-                                                    <input value="{{$assets->document_no}}" type="text" class="form-control" name="doc_no">
+                                                    <label  for="">Email</label>
+                                                    <input required type="text" class="form-control" name="customer_email">
                                                     <div class="invalid-feedback">Example invalid custom select feedback</div>
                                                 </div>
                                             </div>
@@ -124,15 +116,15 @@
                                         <div class="row">
                                             <div class="col-md-4 mb-0">
                                                 <div class="form-group">                                                  
-                                                    <label  for="">Amount</label>
-                                                    <input value="{{$assets->cost_amount}}" type="number" class="form-control" name="amount">
+                                                    <label  for="">Address</label>
+                                                    <input required type="text" class="form-control" name="customer_address">
                                                     <div class="invalid-feedback">Example invalid custom select feedback</div>
                                                 </div>
                                             </div>
                                             <div class="col-md-4 mb-0">
                                                 <div class="form-group">                                    
-                                                    <label  for="">Tax Amount</label>
-                                                    <input value="{{$assets->tax_amount}}" type="number" class="form-control" name="tax">
+                                                    <label  for="">Cell No</label>
+                                                    <input required type="text" name="customer_cell" class="form-control" >
                                                    
                                                     <div class="invalid-feedback">Example invalid custom select feedback</div>
                                                 </div>
@@ -141,76 +133,65 @@
                                         </div>
                                       
                                       <div class="row">
-                                              
+                                              <div class="col-md-4 mb-0">
+                                                <div class="form-group">                                                  
+                                                    <label  for="">Customer Role</label>
+                                                    <select required class="form-control" name="customer_role">
+                                                       {!! $roles_dropdown !!}
+
+                                                    </select>                                                    
+                                                    <div class="invalid-feedback">Example invalid custom select feedback</div>
+                                                </div>
+                                            </div>
                                              <div class="col-md-4 mb-0">
                                                 <div class="form-group">                                                  
-                                                    <label  for="">Total Amount</label>
-                                                    <input value="{{$assets->total_amount}}" type="number" class="form-control" name="total_amount">
+                                                    <label  for="">Profile Image (Optional)</label>
+                                                    <input type="file" class="form-control" name="customer_image">
                                                     <div class="invalid-feedback">Example invalid custom select feedback</div>
                                                 </div>
                                             </div>
-
-                                            <div class="col-md-4 mb-0">
+                                        </div>
+                                        <div class="row">
+                                              <div class="col-md-4 mb-0">
                                                 <div class="form-group">                                                  
-                                                    <label  for="">Status</label>
-                                                    <select name="asset_status" class="form-control" style="width: 100%; height:36px;" required>
-                                                        {!! $status_dropdown !!}
-                                            </select>                                                  
+                                                    <label  for="">Password</label>
+                                                    <input required type="text" class="form-control" name="password">                                                    
                                                     <div class="invalid-feedback">Example invalid custom select feedback</div>
                                                 </div>
                                             </div>
+                                             <div class="col-md-4 mb-0">
+                                                <div class="form-group">                                                  
+                                                    <label  for="">Confirm Password</label>
+                                                    <input required type="text" class="form-control" name="cpassword">
+                                                    <div class="invalid-feedback">Example invalid custom select feedback</div>
+                                                </div>
+                                            </div>
+                                        </div>
 
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Status</label>
+                                                    <br/>
+                                                    <div class="custom-control custom-radio custom-control-inline">
+                                                        <input type="radio" value="1" id="customRadioInline1" checked="checked" name="is_active" class="custom-control-input">
+                                                        <label class="custom-control-label" for="customRadioInline1">Active</label>
+                                                    </div>
+                                                    <div class="custom-control custom-radio custom-control-inline">
+                                                        <input type="radio" value="0" id="customRadioInline2" name="is_active" class="custom-control-input">
+                                                        <label class="custom-control-label" for="customRadioInline2">Inactive</label>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                         
-                                        <div class="row">
-                                             <div class="col-md-4 mb-0">
-                                                <div class="form-group">                                                  
-                                                    <label  for="">Registration Number</label>
-                                                    <input value="{{$assets->reg_no}}" type="text" class="form-control" name="reg_no">
-                                                    <div class="invalid-feedback">Example invalid custom select feedback</div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4 mb-0">
-                                                <div class="form-group">                                                  
-                                                    <label  for="">Engine Number</label>
-                                                    <input value="{{$assets->engine_no}}" type="text" class="form-control" name="engine_no">
-                                                    <div class="invalid-feedback">Example invalid custom select feedback</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                             <div class="col-md-4 mb-0">
-                                                <div class="form-group">                                                  
-                                                    <label  for="">Chasis Number</label>
-                                                    <input value="{{$assets->chasis_no}}" type="text" class="form-control" name="chasis_no">
-                                                    <div class="invalid-feedback">Example invalid custom select feedback</div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4 mb-0">
-                                                <div class="form-group">                                                  
-                                                    <label  for="">Image</label>
-                                                    <input type="file" class="form-control" name="vehicle_image">
-                                                    <div class="invalid-feedback">Example invalid custom select feedback</div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                        <div class="form-group">
-                                            <button type="button" class="btn waves-effect waves-light btn-danger"><a class="text-white sa-confirm-delete" param-id="{{$assets->id}}" param-route="delete-vehicle-image" href="javascript:">Remove</a></button>
-
-                                    
-                                            <input type="hidden" name="current_image" value="{{ $assets->image }}">
-                                            @if(!empty( $assets->image ))
-                                                <img src="{{ asset('images/backend-images/halalmeat/assets/vehicle/tiny/'.$assets->image ) }}" width="80">
-                                            @endif
-                                        </div>
-                                    </div>
-                                        </div>                     
+                                                                  
                                     </div>
 
                                         <hr>
                                         <div class="form-actions mt-5">
-                                        <button type="submit" class="btn btn-success"> <i class="fa fa-check"></i> Edit</button>
-                                        <a href="{{ url('/admin/view-vehicles')}}"><button type="button" class="btn btn-dark">Cancel</button></a>
+                                        <button type="submit" class="btn btn-success"> <i class="fa fa-check"></i> Add</button>
+                                        <a href="{{ url('/admin/view-riders')}}"><button type="button" class="btn btn-dark">Cancel</button></a>
                                     </div>
                                            </form>
 

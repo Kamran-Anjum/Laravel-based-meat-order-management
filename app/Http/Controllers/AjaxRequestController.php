@@ -163,7 +163,22 @@ class AjaxRequestController extends Controller
 
     public function getCustomerDetail($id = null){
 
-        $authorizedRoles = ['internal customer', 'external customer', 'private customer','workforce'];
+        $authorizedRoles = ['internal customer', 'external customer', 'private customer','workforce','Rider'];
+
+        $users = User::whereHas('roles', static function ($query) use ($authorizedRoles) {
+                    return $query->whereIn('name', $authorizedRoles);
+                })->where(['id'=>$id])->with('roles')->first();
+
+        $ud = DB::table('customer_details')->where(['user_id'=>$id])->first();
+
+            $user_detail = "<tr class='gradeX'><td><strong>Customer Name:  </strong>".$users->name."</td></tr><tr class='gradeX'><td><strong>Customer Email:  </strong>".$users->email."</td></tr><tr class='gradeX'><td><strong>Customer Role:  </strong>".$users->roles->first()->name."</td></tr><tr class='gradeX'><td><strong>Customer Cell No:  </strong>".$ud->cell_no."</td></tr><tr class='gradeX'><td><strong>Customer Address:  </strong>".$ud->address."</td></tr><tr class='gradeX'><td><strong>Profile Image:  </strong><img src='https://halalmeat.testit.live/images/backend-images/halalmeat/customer/tiny/".$ud->profile_image."'</td></tr>";
+        return $user_detail;
+
+    }
+
+    public function getRiderDetail($id = null){
+
+        $authorizedRoles = ['internal customer', 'external customer', 'private customer','workforce','Rider'];
 
         $users = User::whereHas('roles', static function ($query) use ($authorizedRoles) {
                     return $query->whereIn('name', $authorizedRoles);

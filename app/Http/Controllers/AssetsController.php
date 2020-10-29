@@ -201,7 +201,7 @@ class AssetsController extends Controller
                 }
             $asset_detail->save();
 
-    		return redirect('admin/view-assets')->with('flash_message_success','Asset successfully Added!');
+    		return redirect('admin/view-vehicles')->with('flash_message_success','vehicle successfully Added!');
     	}
 
     	$categories = DB::table('assets_categories')->get();
@@ -214,5 +214,102 @@ class AssetsController extends Controller
             
          
     	return view('admin.assets.create-asset')->with(compact('categories_dropdown'));
+    } 
+
+    public function editAsset(Request $request, $id =null)
+    {
+        
+        $user = Auth::user();
+        $user_id = $user->id;
+
+        if($request->isMethod('post')){
+            $data = $request->all();
+            //dd($data);
+            
+            Asset::where(['id'=>$id])->update
+            ([
+                'asset_subcategory_id' => $data['assetsubcategory'],
+                'name' => $data['asset_name'],
+                'document_no' => $data['doc_no'],
+                'cost_amount' => $data['amount'],
+                'tax_amount' => $data['tax'],
+                'total_amount' => $data['total_amount'],
+                'status' => $data['asset_status']
+            
+            ]);
+            
+            if($request->hasFile('vehicle_image')){
+
+                $image_tmp = $request->vehicle_image;
+                    if($image_tmp->isValid()){
+                        $extension = $image_tmp->getClientOriginalExtension();
+                        $filename = 'vehicle'.rand(1111,9999999).'.'.$extension;
+                        $large_image_path = 'images/backend-images/halalmeat/assets/vehicle/large/'.$filename;
+                        $medium_image_path = 'images/backend-images/halalmeat/assets/vehicle/medium/'.$filename;
+                        $small_image_path = 'images/backend-images/halalmeat/assets/vehicle/small/'.$filename;
+                        $tiny_image_path = 'images/backend-images/halalmeat/assets/vehicle/tiny/'.$filename;
+                        Image::make($image_tmp)->save($large_image_path);
+                        Image::make($image_tmp)->resize(600,600)->save($medium_image_path);
+                        Image::make($image_tmp)->resize(166,266)->save($small_image_path);
+                        Image::make($image_tmp)->resize(100,100)->save($tiny_image_path);
+                    }
+                }
+                else{
+                    $filename = $data['current_image'];
+                if( empty($filename)){
+                    $filename ='';
+                }
+                }
+
+                AssetVehicleDetail::where(['asset_id'=>$id])->update
+                ([
+                    'reg_no' => $data['reg_no'],
+                    'engine_no' => $data['engine_no'],
+                    'chasis_no' => $data['chasis_no'],
+                    'image' => $filename,
+                    
+            
+                ]);
+
+        return redirect('/admin/view-vehicles')->with('flash_message_success','vehicle has been Updated Successfully!'); 
+        }
+        $assets = DB::table('assets as a')
+        ->join('assets_categories as ac','a.asset_category_id','=','ac.id')
+        ->join('assets_subcategories as asc','a.asset_subcategory_id','=','asc.id')
+        ->join('assets_status as aa','a.status','=','aa.id')
+        ->join('assets_vehicle_details as avh','a.id','=','avh.asset_id')
+        ->join('users as u','a.created_by','=','u.id')
+        ->select('a.*','avh.*','u.name as userName','ac.name as catName','asc.name as subcatName','aa.name as statuses')
+        ->first();
+
+        $subcategories = DB::table('assets_subcategories')->get();
+        $subcategories_dropdown = "<option value=''>Select SubCategory</option>";
+         foreach($subcategories as $category){
+            if($assets->asset_subcategory_id == $category->id){
+            $subcategories_dropdown .= "<option selected value='".$category->id."'>".$category->name . "</option>";
+            }
+            else{
+            $subcategories_dropdown .= "<option value='".$category->id."'>".$category->name  . "</option>";
+            }
+         }
+
+        $statuses = DB::table('assets_status')->get();
+        $status_dropdown = "<option value=''>Select Status</option>";
+         foreach($statuses as $status){
+            if($assets->status == $status->id){
+            $status_dropdown .= "<option selected value='".$status->id."'>".$status->name . "</option>";
+            }
+            else{
+            $status_dropdown .= "<option value='".$status->id."'>".$status->name  . "</option>";
+            }
+         }
+        
+        return view('admin.assets.edit-asset')->with(compact('assets','subcategories_dropdown','status_dropdown'));
+    }
+
+    public function deletevehicleimage($id)
+    {
+        AssetVehicleDetail::where(['id'=>$id])->update(['image'=>'']);
+        return redirect()->back()->with('flash_message_success','Vehicle image has been Deleted Successfully!');
     }
 }

@@ -10,7 +10,7 @@
             <div class="page-breadcrumb">
                 <div class="row">
                     <div class="col-lg-4 col-md-4 col-xs-12 align-self-center">
-                        <h5 class="font-medium text-uppercase mb-0">List Vehicle</h5>
+                        <h5 class="font-medium text-uppercase mb-0">List Riders</h5>
 
                     </div>
                     <div class="col-lg-8 col-md-4 col-xs-12 align-self-center">
@@ -19,7 +19,7 @@
                         <nav aria-label="breadcrumb" class="mt-2 float-md-right float-left">
                             <ol class="breadcrumb mb-0 justify-content-end p-0">
                                 <li class="breadcrumb-item"><a href="{{ url('admin/dashboard') }}">Home</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">List Vehicle</li>
+                                <li class="breadcrumb-item active" aria-current="page">List Riders</li>
                             </ol>
                         </nav>
                     </div>
@@ -27,7 +27,7 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="button-group">
-                        <a href="{{ url('admin/create-asset') }}"><button type="button" class="btn waves-effect waves-light btn-success">Add New</button></a>
+                        <a href="{{ url('admin/create-rider/') }}"><button type="button" class="btn waves-effect waves-light btn-success">Add New</button></a>
                     </div>
                     </div>
                 </div>
@@ -71,38 +71,37 @@
                                             <tr>
                                                 <th>S.No</th>
                                                 <th>Name</th>
-                                                <th>Document No</th>
-                                                <th>Category</th>
-                                                <th>Sub-Category</th>
-                                                <th>Total Amount</th>
-                                                <th>Created By</th>
+                                                <th>Email</th>
+                                                <th>Role</th>
                                                 <th>Status</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                        <?php $i = 0; ?>
-                                        @foreach($assets as $product)
+                                        <?php $i = 1; ?>
+                                        @foreach($users as $user)
                                             <tr>
                                             
                                                
-                                                <td>{{$product->id}}</td>
-                                                <td>{{$product->name}}</td>
-                                                <td>{{$product->document_no}}</td>
-                                                <td>{{$product->catName}}</td>
-                                                <td>{{$product->subcatName}}</td>
-                                                <td>$ {{$product->total_amount}}</td>
-                                                <td>{{$product->userName}}</td>
-                                                <td>{{$product->statuses}}</td>
+                                                <td>{{$i}}</td>
+                                                <td>{{$user->name}}</td>
+                                                <td>{{$user->email}}</td>
+                                                <td>{{$user->roles->first()->name}}</td>
+                                                @if($user->is_active == '1')
+                                                <td>Active</td>
+                                                @else
+                                                <td>De-Active</td>
+                                                @endif
+                                                <!-- <td>$320,800</td> -->
                                                 <td>
                                                     <div class="button-group">
-                                                        <button type="button" class="btn waves-effect waves-light btn-info" data-toggle="modal" value="" data-target="#exampleModal" onclick="getAssetDetails({{ $product->id }})">Detail</button>
-                                                        <button type="button" class="btn waves-effect waves-light btn-primary"><a class="text-white" href="{{ url('admin/edit-vehicle/'.$product->id) }}">Edit</a></button>
-                                                        <!-- <button type="button" class="btn waves-effect waves-light btn-danger"><a class="text-white sa-confirm-delete" param-id="{{ $product->id }}" param-route="delete-fabric" href="javascript:">Remove</a></button> -->
+                                                        <button type="button" class="btn waves-effect waves-light btn-info" data-toggle="modal" value="" data-target="#exampleModal" onclick="getRiderDetails({{ $user->id }})">Detail</a></button>
+                                                        <button type="button" class="btn waves-effect waves-light btn-primary"><a class="text-white" href="{{ url('admin/edit-rider/'.$user->id) }}">Edit</a></button>
+                                                        <!-- <button type="button" class="btn waves-effect waves-light btn-danger"><a class="text-white sa-confirm-delete" param-id="{{ $user->id }}" param-route="delete-fabric" href="javascript:">Remove</a></button> -->
 
                                                     </div>
                                                 </td>
-
+                                                <?php $i = $i+1; ?>
                                             </tr>
                                         @endforeach
                                              
@@ -111,11 +110,8 @@
                                             <tr>
                                                 <th>S.No</th>
                                                 <th>Name</th>
-                                                <th>Document No</th>
-                                                <th>Category</th>
-                                                <th>Sub-Category</th>
-                                                <th>Total Amount</th>
-                                                <th>Created By</th>
+                                                <th>Email</th>
+                                                <th>Role</th>
                                                 <th>Status</th>
                                                 <th>Action</th>
 
@@ -143,14 +139,12 @@
             <!-- End Container fluid  -->
             <!-- ============================================================== -->
         </div>
-        <!-- ============================================================== -->
-        <!-- End Page wrapper  -->
-        <!-- ============================================================== -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <!-- Card body -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">Vehicle Details</h5>
+                                            <h5 class="modal-title" id="exampleModalLabel">Rider's Detail</h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                             </button>
@@ -167,7 +161,7 @@
       <a data-toggle="collapse" data-parent="#accordionEx" href="#collapseOne1" aria-expanded="true"
         aria-controls="collapseOne1">
         <h5 class="mb-0">
-          Collapsible Vehicle Detail<i class="fas fa-angle-down rotate-icon"></i>
+          Collapsible Rider's Detail<i class="fas fa-angle-down rotate-icon"></i>
         </h5>
       </a>
     </div>
@@ -234,5 +228,8 @@
                                     </div>
                                 </div>
                             </div>
+        <!-- ============================================================== -->
+        <!-- End Page wrapper  -->
+        <!-- ============================================================== -->
 
 @endsection

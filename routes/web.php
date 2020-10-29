@@ -145,10 +145,18 @@ Route::match(['get','post'],'/admin/edit-asset-sub-category/{id}', [App\Http\Con
 Route::get('/admin/delete-assets-sub-category/{id}',[App\Http\Controllers\AssetsController::class,'deleteAssetSubCategory']);
 
 // Assets controller
-Route::get('/admin/view-assets', [App\Http\Controllers\AssetsController::class,'viewAssets']);
+/*Route::get('/admin/view-assets', [App\Http\Controllers\AssetsController::class,'viewAssets']);
 Route::match(['get','post'],'/admin/create-asset', [App\Http\Controllers\AssetsController::class,'createAsset']);
 Route::match(['get','post'],'/admin/edit-asset/{id}', [App\Http\Controllers\AssetsController::class,'editAsset']);
 Route::get('/admin/delete-asset/{id}',[App\Http\Controllers\AssetsController::class,'deleteAsset']);
+Route::get('/admin/delete-vehicle-image/{id}',[App\Http\Controllers\AssetsController::class,'deletevehicleimage']);*/
+
+// Assets controller
+Route::get('/admin/view-vehicles', [App\Http\Controllers\AssetsController::class,'viewAssets']);
+Route::match(['get','post'],'/admin/create-vehicle', [App\Http\Controllers\AssetsController::class,'createAsset']);
+Route::match(['get','post'],'/admin/edit-vehicle/{id}', [App\Http\Controllers\AssetsController::class,'editAsset']);
+Route::get('/admin/delete-asset/{id}',[App\Http\Controllers\AssetsController::class,'deleteAsset']);
+Route::get('/admin/delete-vehicle-image/{id}',[App\Http\Controllers\AssetsController::class,'deletevehicleimage']);
 
 // State conroller
 Route::get('/admin/view-states', [App\Http\Controllers\StateController::class,'viewState']);
@@ -161,6 +169,14 @@ Route::get('/admin/view-cities', [App\Http\Controllers\CityController::class,'vi
 Route::match(['get','post'],'/admin/create-cities', [App\Http\Controllers\CityController::class,'addCity']);
 Route::match(['get','post'],'/admin/edit-cities/{id}', [App\Http\Controllers\CityController::class,'editCity']);
 Route::get('/admin/delete-cities/{id}',[App\Http\Controllers\CityController::class,'deleteCity']);
+
+// Riders Controller
+Route::get('/admin/view-riders',[App\Http\Controllers\RidersController::class,'viewRiders']);
+Route::match(['get','post'],'/admin/create-rider',[App\Http\Controllers\RidersController::class,'createRider']);
+Route::match(['get','post'],'admin/edit-rider/{id}', [App\Http\Controllers\RidersController::class,'editRider']);
+Route::match(['get','post'],'admin/view-rider-details/{id}', [App\Http\Controllers\RidersController::class,'viewRiderDetails']);
+Route::get('/admin/delete-user-image/{id}',[App\Http\Controllers\CustomerController::class,'deletecustomerimage']);
+Route::get('/admin/comming-soon/',[App\Http\Controllers\CustomerController::class,'commingsoon']);
 
 //Woocommerce Controller
 Route::get('/admin/view-woo', [App\Http\Controllers\WoocommerceController::class,'ViewWoocommerce']);
@@ -177,6 +193,7 @@ Route::get('/getsupplierdetail/{id}',[App\Http\Controllers\AjaxRequestController
 Route::get('/getassetdetail/{id}',[App\Http\Controllers\AjaxRequestController::class,'getAssetDetail']);
 
 Route::get('/getcustomerdetail/{id}',[App\Http\Controllers\AjaxRequestController::class,'getCustomerDetail']);
+Route::get('/getriderdetail/{id}',[App\Http\Controllers\AjaxRequestController::class,'getRiderDetail']);
 Route::get('admin/getpodetail/{id}',[App\Http\Controllers\AjaxRequestController::class,'getPODetail']);
 Route::get('admin/getsodetail/{id}',[App\Http\Controllers\AjaxRequestController::class,'getSODetail']);
 Route::get('admin/getsupplierproductpo/{id}',[App\Http\Controllers\AjaxRequestController::class,'getSupplierproductPO']);

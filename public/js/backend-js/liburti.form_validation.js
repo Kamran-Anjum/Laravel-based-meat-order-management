@@ -513,6 +513,22 @@ function getCustomerDetails(id){
     });
 }
 
+function getRiderDetails(id){
+    var id = id;
+    //alert(id);
+    $.ajax({
+        url: '/getriderdetail/'+id,
+        success: data => {
+            console.log(data);
+            $('#ScheduleTable tbody').html('');
+            
+            
+            $('#ScheduleTable tbody').html(data);
+            $("#ScheduleTable").DataTable();
+        }
+    });
+}
+
 function getPODetails(id){
     var id = id;
     //alert(id);
