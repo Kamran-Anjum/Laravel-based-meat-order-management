@@ -786,12 +786,49 @@ else{
         }
     });
 }
+}
+function getReportSortP(){
+var from = document.getElementById('fromdate').value;
+var to = document.getElementById('todate').value;
+var role = document.getElementById('role_id').value;
+var customer = document.getElementById('cust_id').value;
+var html = '';
+if(from === ''){
+    
+    alert("Please Select From Date First");
+}
+else if(to === ''){
 
-/*alert(from);
-alert(to);
-alert(role);
-alert(customer);*/
+    alert("Please Select To Date First");
+}
+else{
 
+    $.ajax({
+        url: '/production/getsoreport/'+from+'/'+to+'/'+role+'/'+customer,
+        success: data => {
+            $('#sortsummary').html('');
+            var i = 1;
+            data.forEach(function(item){
+
+                html += '<tr>';
+                html +='<td>'+i+'</td>';
+                html +='<td>'+item['id']+'</td>';
+                html +='<td>'+item['created_at']+'</td>';
+                html +='<td>'+item['customerName']+'</td>';
+                html +='<td>'+item['total_amount']+'</td>';
+                html +='<td>'+item['total_amount']+'</td>';
+                html +='<td>'+item['s_status']+'</td>';
+                html += '</tr>';
+                i= i+1;
+            });
+            $('#sortsummary').html(html);
+            //alert("Sales: "+data);
+            console.log(data);
+            
+            
+        }
+    });
+}
 }
 function reportPDF(){
 var from = document.getElementById('fromdate').value;
@@ -809,6 +846,33 @@ else if(to === ''){
 }
 else{
     window.open('/admin/getsorpdf/'+from+'/'+to+'/'+role+'/'+customer, '_blank');
+}
+
+        //var url = '/admin/getsorpdf/'+from+'/'+to+'/'+role+'/'+customer,
+        
+/*alert(from);
+alert(to);
+alert(role);
+alert(customer);*/
+
+}
+
+function reportPDFP(){
+var from = document.getElementById('fromdate').value;
+var to = document.getElementById('todate').value;
+var role = document.getElementById('role_id').value;
+var customer = document.getElementById('cust_id').value;
+
+if(from === ''){
+
+    alert("Please Select From Date First");
+}
+else if(to === ''){
+
+    alert("Please Select To Date First");
+}
+else{
+    window.open('/production/getsorpdf/'+from+'/'+to+'/'+role+'/'+customer, '_blank');
 }
 
         //var url = '/admin/getsorpdf/'+from+'/'+to+'/'+role+'/'+customer,
@@ -845,6 +909,32 @@ alert(role);
 alert(customer);*/
 
 }
+function reportExcelP(){
+var from = document.getElementById('fromdate').value;
+var to = document.getElementById('todate').value;
+var role = document.getElementById('role_id').value;
+var customer = document.getElementById('cust_id').value;
+
+if(from === ''){
+
+    alert("Please Select From Date First");
+}
+else if(to === ''){
+
+    alert("Please Select To Date First");
+}
+else{
+    window.open('/production/export-excel/'+from+'/'+to+'/'+role+'/'+customer, '_blank');
+}
+
+        //var url = '/admin/getsorpdf/'+from+'/'+to+'/'+role+'/'+customer,
+        
+/*alert(from);
+alert(to);
+alert(role);
+alert(customer);*/
+
+}
 function reportExcelview(){
 var from = document.getElementById('fromdate').value;
 var to = document.getElementById('todate').value;
@@ -861,6 +951,32 @@ else if(to === ''){
 }
 else{
     window.open('/admin/export-excel-view/'+from+'/'+to+'/'+role+'/'+customer, '_blank');
+}
+
+        //var url = '/admin/getsorpdf/'+from+'/'+to+'/'+role+'/'+customer,
+        
+/*alert(from);
+alert(to);
+alert(role);
+alert(customer);*/
+
+}
+function reportExcelviewP(){
+var from = document.getElementById('fromdate').value;
+var to = document.getElementById('todate').value;
+var role = document.getElementById('role_id').value;
+var customer = document.getElementById('cust_id').value;
+
+if(from === ''){
+
+    alert("Please Select From Date First");
+}
+else if(to === ''){
+
+    alert("Please Select To Date First");
+}
+else{
+    window.open('/production/export-excel-view/'+from+'/'+to+'/'+role+'/'+customer, '_blank');
 }
 
         //var url = '/admin/getsorpdf/'+from+'/'+to+'/'+role+'/'+customer,

@@ -181,7 +181,14 @@ Route::get('/admin/comming-soon/',[App\Http\Controllers\CustomerController::clas
 //Woocommerce Controller
 Route::get('/admin/view-woo', [App\Http\Controllers\WoocommerceController::class,'ViewWoocommerce']);
 
-//Product Ajax Routes
+
+
+});
+
+//Ajax Routes
+Route::group(['middleware' => ['role: |super-admin|production-admin']], function () {
+
+	//Product Ajax Routes
 Route::get('/admin/getproductsubcategories/{id}',[App\Http\Controllers\AjaxRequestController::class,'getsubcategoriesdropdown']);
 Route::get('/admin/getassetsubcategories/{id}',[App\Http\Controllers\AjaxRequestController::class,'getassetsubcategoriesdropdown']);
 
@@ -202,11 +209,25 @@ Route::get('admin/getpoproductdata/{id}/{poid}',[App\Http\Controllers\AjaxReques
 Route::get('admin/getsummary/{from}/{to}',[App\Http\Controllers\AjaxRequestController::class,'getSummary']);
 
 Route::get('/admin/getcustomerbyrolename/{rolename}',[App\Http\Controllers\AjaxRequestController::class,'CustomerByRolename']);
-
 });
+//Production Routes
+Route::group(['middleware' => ['role: |production-admin']], function () {
+	Route::get('/production-logout',[App\Http\Controllers\ProductionController::class,'logout']);
 
+Route::get('/production/dashboard',[App\Http\Controllers\ProductionController::class,'dashboard']);
 
+//Sales Order Summary Controllers
+Route::get('/production/view-orders-summary',[App\Http\Controllers\ProductionOrderSummaryController::class,'viewOrdersSummary']);
+Route::get('production/getsoreport/{from}/{to}/{role}/{customer}',[App\Http\Controllers\ProductionOrderSummaryController::class,'SortReport']);
+Route::get('production/getsorpdf/{from}/{to}/{role}/{customer}',[App\Http\Controllers\ProductionOrderSummaryController::class,'pdfreport']);
+Route::get('production/export-excel/{from}/{to}/{role}/{customer}',[App\Http\Controllers\ProductionOrderSummaryController::class,'export']);
+Route::get('production/export-excel-view/{from}/{to}/{role}/{customer}',[App\Http\Controllers\ProductionOrderSummaryController::class,'excelview']);
 
+//Order Controllers Route
+Route::get('/production/view-orders',[App\Http\Controllers\ProductionOrderController::class,'viewOrders']);
+Route::match(['get','post'],'/production/create-order',[App\Http\Controllers\ProductionOrderController::class,'createOrder']);
+Route::match(['get','post'],'production/edit-order/{id}', [App\Http\Controllers\ProductionOrderController::class,'editOrder']);
+});
 
 
 

@@ -11,7 +11,7 @@ use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
 use Session;
 use App\Models\User;
-
+ 
 class AdminController extends Controller
 {
     use  Notifiable, HasRoles;

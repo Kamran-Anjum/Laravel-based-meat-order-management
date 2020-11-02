@@ -61,7 +61,7 @@
         <!-- ============================================================== -->
 
 @include('layouts.productionLayout.production-header')
-@include('layouts.adminLayout.production-sidebar')
+@include('layouts.productionLayout.production-sidebar')
 
 
 
