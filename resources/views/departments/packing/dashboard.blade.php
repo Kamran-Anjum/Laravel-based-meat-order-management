@@ -1,4 +1,4 @@
-@extends('layouts.adminLayout.admin-design')
+@extends('layouts.packingLayout.packing-design')
 @section('content')
 
 
@@ -36,37 +36,38 @@
                 <!-- First Cards Row  -->
                 <!-- ============================================================== -->
                 <div class="row">
-                    <div class="col-md-6 col-lg-3">
+                    <div class="col-md-6 col-lg-6">
                         <div class="card">
                             <div class="card-body">
-                                <h5 class="card-title text-uppercase">Daily Sales</h5>
+                                <h5 class="card-title text-uppercase">Today's Sales</h5>
                                 <div class="text-right">
-                                    <span class="text-muted">Today's Income</span>
-                                    <h2 class="mt-2 display-7"><sup><i class="ti-arrow-up text-success"></i></sup>$12,000</h2>
+                                    <span class="text-muted">Today's Sales Orders</span>
+                                    <h2 class="mt-2 display-7"><sup><i class="ti-arrow-up text-success"></i></sup>${{number_format($today_sales)}}</h2>
                                 </div>
-                                <span class="text-success">20%</span>
+                                <!-- <span class="text-success">20%</span>
                                 <div class="progress">
                                     <div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6 col-lg-3">
+                    <div class="col-md-6 col-lg-6">
                         <div class="card">
                             <div class="card-body">
-                                <h5 class="card-title text-uppercase">Weekly Sales</h5>
+                                <h5 class="card-title text-uppercase">Today's Purchases</h5>
                                 <div class="text-right">
-                                    <span class="text-muted">Weekly Income</span>
-                                    <h2 class="mt-2 display-7"><sup><i class="ti-arrow-down text-danger"></i></sup>$5,000</h2>
+                                    <span class="text-muted">Today's Purchases Orders</span>
+                                    <h2 class="mt-2 display-7"><sup><i class="ti-arrow-down text-danger"></i></sup>${{number_format($today_purchase)}}</h2>
                                 </div>
-                                <span class="text-success">30%</span>
+                                <!-- <span class="text-success">30%</span>
                                 <div class="progress">
                                     <div class="progress-bar bg-danger" role="progressbar" style="width: 30%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6 col-lg-3">
+
+                    <!-- <div class="col-md-6 col-lg-3">
                         <div class="card">
                             <div class="card-body">
                                 <h5 class="card-title text-uppercase">Monthly Sales</h5>
@@ -95,7 +96,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
             <!-- ============================================================== -->

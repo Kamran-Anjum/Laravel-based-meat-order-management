@@ -274,6 +274,7 @@ class AssetsController extends Controller
         return redirect('/admin/view-vehicles')->with('flash_message_success','vehicle has been Updated Successfully!'); 
         }
         $assets = DB::table('assets as a')
+        ->where('a.id'=> $id)
         ->join('assets_categories as ac','a.asset_category_id','=','ac.id')
         ->join('assets_subcategories as asc','a.asset_subcategory_id','=','asc.id')
         ->join('assets_status as aa','a.status','=','aa.id')

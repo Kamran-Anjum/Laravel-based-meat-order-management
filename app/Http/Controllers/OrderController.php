@@ -118,8 +118,8 @@ class OrderController extends Controller
     public function editOrder(Request $request, $id =null)
     {
         if($request->isMethod('post')){
-            $data = $request->all();
-            //dd($data);
+            //$data = $request->all();
+            dd($data);
             Order::where(['id'=>$id])->update
             ([
                 'priority_status' => $data['pr_status'],

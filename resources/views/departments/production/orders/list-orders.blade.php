@@ -93,7 +93,11 @@
                                                 <td>{{$order->order_by}}</td>
                                                 <td style="width: 12%">
                                                     <button type="button" class="btn waves-effect waves-light btn-info" data-toggle="modal" value="" data-target="#exampleModal" onclick="getSODetails({{ $order->id }})"><a class="text-white" href="#">View</a></button>
+                                                    @if($order->status == "7" || $order->status == "10")
                                                     <button type="button" class="btn waves-effect waves-light btn-primary"><a class="text-white" href="{{ url('production/edit-order/'.$order->id) }}">Edit</a></button>
+                                                    @else
+                                                    <button disabled type="button" class="btn waves-effect waves-light btn-primary">Edit</button>
+                                                    @endif
 
                                                 </td>
                                             </tr>

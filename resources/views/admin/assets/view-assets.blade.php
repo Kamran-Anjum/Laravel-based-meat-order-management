@@ -27,7 +27,7 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="button-group">
-                        <a href="{{ url('admin/create-asset') }}"><button type="button" class="btn waves-effect waves-light btn-success">Add New</button></a>
+                        <a href="{{ url('admin/create-vehicle') }}"><button type="button" class="btn waves-effect waves-light btn-success">Add New</button></a>
                     </div>
                     </div>
                 </div>

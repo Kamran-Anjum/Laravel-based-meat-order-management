@@ -22,7 +22,7 @@ class CustomerController extends Controller
 
     public function viewCustomers(){
 
-    	$authorizedRoles = ['internal customer', 'external customer', 'private customer','workforce'];
+    	$authorizedRoles = ['internal customer', 'external customer', 'private customer','workforce','coop'];
 
 		$users = User::whereHas('roles', static function ($query) use ($authorizedRoles) {
                     return $query->whereIn('name', $authorizedRoles);
@@ -90,7 +90,7 @@ class CustomerController extends Controller
         }
         else
         {
-            $roles = DB::table('roles')->whereNotIn('id',[1,2,3,4])->get();
+            $roles = DB::table('roles')->whereNotIn('id',[1,2,3,4,10,11])->get();
             $roles_dropdown = "<option disabled selected > Select Role</option>";
             foreach ($roles as $role) {
                 $roles_dropdown .= "<option value='".$role->name."'>".$role->name . "</option>";
@@ -163,7 +163,7 @@ class CustomerController extends Controller
         //dd($oldrole);
         $customer_details = DB::table('customer_details')->where(['user_id'=>$id])->first();
 
-        $roles = DB::table('roles')->whereNotIn('id',[1,2,3,4])->get();
+        $roles = DB::table('roles')->whereNotIn('id',[1,2,3,4,10,11])->get();
 
         $roles_dropdown = "<option value=''>Select Role</option>";
          foreach($roles as $role){

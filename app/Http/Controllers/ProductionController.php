@@ -30,7 +30,7 @@ class ProductionController extends Controller
     			else{
                     return redirect('/production')->with('flash_message_error','Invalid Username or Password');
                 }
-    	}
+    	} 
         return view('departments.production.production-login'); 
     }
 

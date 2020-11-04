@@ -186,7 +186,7 @@ Route::get('/admin/view-woo', [App\Http\Controllers\WoocommerceController::class
 });
 
 //Ajax Routes
-Route::group(['middleware' => ['role: |super-admin|production-admin']], function () {
+Route::group(['middleware' => ['role: |super-admin|production-admin|packing-admin']], function () {
 
 	//Product Ajax Routes
 Route::get('/admin/getproductsubcategories/{id}',[App\Http\Controllers\AjaxRequestController::class,'getsubcategoriesdropdown']);
@@ -207,8 +207,9 @@ Route::get('admin/getsupplierproductpo/{id}',[App\Http\Controllers\AjaxRequestCo
 Route::get('admin/recievepodetail/{id}',[App\Http\Controllers\AjaxRequestController::class,'getRecievePO']);
 Route::get('admin/getpoproductdata/{id}/{poid}',[App\Http\Controllers\AjaxRequestController::class,'getPOproducts']);
 Route::get('admin/getsummary/{from}/{to}',[App\Http\Controllers\AjaxRequestController::class,'getSummary']);
+Route::get('admin/getsummary/{from}/{to}',[App\Http\Controllers\AjaxRequestController::class,'getSummary']);
 
-Route::get('/admin/getcustomerbyrolename/{rolename}',[App\Http\Controllers\AjaxRequestController::class,'CustomerByRolename']);
+Route::get('/admin/getforwardStockSO/{id}',[App\Http\Controllers\AjaxRequestController::class,'ForwardStockSO']);
 });
 //Production Routes
 Route::group(['middleware' => ['role: |production-admin']], function () {
@@ -229,7 +230,16 @@ Route::match(['get','post'],'/production/create-order',[App\Http\Controllers\Pro
 Route::match(['get','post'],'production/edit-order/{id}', [App\Http\Controllers\ProductionOrderController::class,'editOrder']);
 });
 
+//Packing Department Routes
+Route::group(['middleware' => ['role: |packing-admin']], function () {
+	Route::get('/packing-logout',[App\Http\Controllers\PackingController::class,'logout']);
 
+Route::get('/packing/dashboard',[App\Http\Controllers\PackingController::class,'dashboard']);
+
+//Order Controllers Route
+Route::get('/packing/view-orders',[App\Http\Controllers\PackingController::class,'viewOrders']);
+Route::match(['get','post'],'packing/edit-order/{id}', [App\Http\Controllers\PackingController::class,'editOrder']);
+});
 
 /*Route::get('/', function () {
     return view('welcome');

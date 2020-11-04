@@ -73,6 +73,9 @@
                     tbody td input{
                         border:none !important;
                     }
+                    .hidden{
+                        display: none;
+                    }
                 </style>
                 <!-- ============================================================== -->
                 <!-- Start Page Content -->
@@ -92,6 +95,7 @@
                                                 <div class="form-group">
                                                     <label  for="">Customer Name</label>
                                                     <input name="order_date" value="{{$sale_order->cusName}}" type="text" class="form-control" disabled>
+                                                    <input type="hidden" id="od_id" value="{{$sale_order->id}}">
                                                     <div class="invalid-feedback">Example invalid custom select feedback</div>
                                                 </div>
                                            
@@ -183,7 +187,7 @@
                                             <div class="col-md-2">
                                                 <div class="form-group">
                                                     <label class="control-label">Forward To</label>
-                                                    <select name="dept_status" class="form-control">
+                                                    <select id="dept_status" name="dept_status" class="form-control">
                                                         {!! $location_dropdown !!}
                                                     </select>
                                                 </div>
@@ -196,26 +200,28 @@
                                             
                                         </div>
 
-                                        
-                                    <!-- <div class="row">
+                                    @if($sale_order->location_status == 3)
+                                    <div id="ross" class="row">
 
                                     	 <div class="col-md-4">
                                                 <div class="form-group">
-                                                    <label class="control-label">Final Amount</label>
-                                                    <input required type="text" class="form-control" ></div>
+                                                    <button type="button" onclick="forwardedRow()" class="btn btn-success">Add Forward Quantity</button>
+                                                </div>
                                             </div>
-                                             <div class="col-md-4">
+                                    </div>
+                                    @else
+                                    <div id="ross" class="row hidden">
+
+                                         <div class="col-md-4">
                                                 <div class="form-group">
-                                                    <label class="control-label">Amount Paid</label>
-                                                    <input required type="text" class="form-control" ></div>
+                                                    <button type="button" onclick="forwardedRow()" class="btn btn-success">Add Forward Quantity</button>
+                                                </div>
                                             </div>
-                                             <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label class="control-label">Balance</label>
-                                                    <input required type="text" class="form-control" ></div>
-                                            </div>
-                                    </div> -->
-                                   
+                                    </div>
+                                    @endif
+                                   <div id="forwardrow">
+                                       
+                                   </div>
                                         <hr>
                                     </div>
                                     <div class="form-actions mt-5">

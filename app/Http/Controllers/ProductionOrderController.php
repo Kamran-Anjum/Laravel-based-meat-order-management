@@ -119,7 +119,7 @@ class ProductionOrderController extends Controller
     {
         if($request->isMethod('post')){
             $data = $request->all();
-            //dd($data);
+            dd($data);
             Order::where(['id'=>$id])->update
             ([
                 'priority_status' => $data['pr_status'],
@@ -139,7 +139,7 @@ class ProductionOrderController extends Controller
         ->select('od.*','p.name as prodName')
         ->get();
 
-        $order_status = DB::table('purchase_order_status')->whereNotIn('id',[2,3])->get();
+        $order_status = DB::table('purchase_order_status')->whereIn('id',[7,10])->get();
         //dd($order_status);
         $status_dropdown = "";
         foreach ($order_status as $status) {
@@ -150,7 +150,7 @@ class ProductionOrderController extends Controller
         		$status_dropdown .= "<option value='".$status->id."'>".$status->name."</option>";
         	}
         }
-        $location_status = DB::table('order_location_status')->get();
+        $location_status = DB::table('order_location_status')->whereIn('id',[2,3])->get();
         //dd($order_status);
         $location_dropdown = "";
         foreach ($location_status as $loc_status) {

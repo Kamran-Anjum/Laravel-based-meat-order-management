@@ -304,20 +304,20 @@
                                         <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label class="control-label">Name</label>
-                                                     <input type="text" name="shipping_name" class="form-control" name="">
+                                                     <input required type="text" name="shipping_name" class="form-control" name="">
                                             </div>
                                         </div>
                                             <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label class="control-label">Email</label>
-                                                    <input type="Email" name="shipping_email" class="form-control" name="">
+                                                    <input required type="Email" name="shipping_email" class="form-control" name="">
                                                     
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label class="control-label">Cell No</label>
-                                                    <input type="text" name="shipping_cell" class="form-control" name="">
+                                                    <input required="" type="text" name="shipping_cell" class="form-control" name="">
                                                     
                                             </div>
                                         </div>
@@ -337,7 +337,7 @@
                                             <div class="col-md-2">
                                                 <div class="form-group">
                                                     <label class="control-label">City</label>
-                                                    <select name="shipping_city" class="form-control">
+                                                    <select required name="shipping_city" class="form-control">
                                                         {!! $city_dropdown !!}
                                                     </select>
                                                 </div>

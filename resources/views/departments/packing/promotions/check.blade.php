@@ -1,1 +1,0 @@
-<h2>Checking Page</h2>

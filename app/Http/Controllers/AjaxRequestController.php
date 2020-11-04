@@ -197,13 +197,10 @@ class AjaxRequestController extends Controller
         $purchase_orders = DB::table('purchase_order as po')
             ->where(['po.id'=> $id])
             ->join('suppliers as sc','po.supplier_id','=','sc.id')
-            //->join('purchase_order_detail as pod','po.id','=','pod.p_order_id')
-            //->join('products as p','pod.product_id','=','p.id')
             ->join('countries as c','sc.country_id','=','c.id')
-            ->join('states as s','sc.state_id','=','s.id')
             ->join('cities as ct','sc.city_id','=','ct.id')
             ->join('users as u','po.created_by', '=', 'u.id')
-            ->select('po.*','sc.*','ct.name as cityname','s.name as statename','c.name as country','u.name as userName')
+            ->select('po.*','sc.*','ct.name as cityname','c.name as country','u.name as userName')
             ->first();
 
         $po_detail = DB::table('purchase_order_detail as pod')
@@ -329,5 +326,37 @@ class AjaxRequestController extends Controller
             }
         return $users_dropdown;
 
+    }
+
+    public function ForwardStockSO($id)
+    {
+        $order_details = DB::table('order_details as od')
+        ->where(['order_id'=> $id])
+        ->join('products as p','od.product_id','=','p.id')
+        ->select('od.*','p.name as productName')
+        ->get();
+        $forward_id = [];
+        foreach ($order_details as $od) {
+            $forward_id[] .= $od->id;
+        }
+
+        $order =  DB::table('forward_order_stock')->whereIn("order_detail_id",$forward_id)->get();
+        if (count($order) > 0) {
+            $order_detail = DB::table('order_details as od')
+            ->where(['order_id'=> $id])
+            ->join('products as p','od.product_id','=','p.id')
+            ->join('forward_order_stock as fos','od.id','=','fos.order_detail_id')
+            ->select('od.*','p.name as productName','fos.forward_qty as forqty','fos.balance_qty as balqty')
+            ->get();
+        }
+        else{
+            $order_detail = DB::table('order_details as od')
+            ->where(['order_id'=> $id])
+            ->join('products as p','od.product_id','=','p.id')
+            ->select('od.*','p.name as productName')
+            ->get();
+        }
+
+        return array($order_detail,$order);
     }
 }

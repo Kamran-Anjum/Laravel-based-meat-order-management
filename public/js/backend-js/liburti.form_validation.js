@@ -61,6 +61,19 @@ $('#supplierPO').on('change', function() {
 
         }); 
 });
+//production status woking start
+$('#dept_status').on('change', function() { 
+   var status_id = $(this).val();
+   //alert(status_id);
+   if(status_id == 3)
+   {
+    $("#ross").removeClass("hidden");
+   }
+   else{
+    $("#ross").addClass("hidden");
+   }
+});
+
 
 //Add Purchase Order
 $('#purchaseproduct').on('change', function() { 
@@ -464,6 +477,8 @@ $('#product_id').on('change', function() {
         }); 
 });
 
+
+
 });
 function getSupplierDetails(id){
     var id = id;
@@ -848,13 +863,6 @@ else{
     window.open('/admin/getsorpdf/'+from+'/'+to+'/'+role+'/'+customer, '_blank');
 }
 
-        //var url = '/admin/getsorpdf/'+from+'/'+to+'/'+role+'/'+customer,
-        
-/*alert(from);
-alert(to);
-alert(role);
-alert(customer);*/
-
 }
 
 function reportPDFP(){
@@ -875,12 +883,6 @@ else{
     window.open('/production/getsorpdf/'+from+'/'+to+'/'+role+'/'+customer, '_blank');
 }
 
-        //var url = '/admin/getsorpdf/'+from+'/'+to+'/'+role+'/'+customer,
-        
-/*alert(from);
-alert(to);
-alert(role);
-alert(customer);*/
 
 }
 function reportExcel(){
@@ -901,14 +903,9 @@ else{
     window.open('/admin/export-excel/'+from+'/'+to+'/'+role+'/'+customer, '_blank');
 }
 
-        //var url = '/admin/getsorpdf/'+from+'/'+to+'/'+role+'/'+customer,
-        
-/*alert(from);
-alert(to);
-alert(role);
-alert(customer);*/
 
 }
+
 function reportExcelP(){
 var from = document.getElementById('fromdate').value;
 var to = document.getElementById('todate').value;
@@ -927,14 +924,8 @@ else{
     window.open('/production/export-excel/'+from+'/'+to+'/'+role+'/'+customer, '_blank');
 }
 
-        //var url = '/admin/getsorpdf/'+from+'/'+to+'/'+role+'/'+customer,
-        
-/*alert(from);
-alert(to);
-alert(role);
-alert(customer);*/
-
 }
+
 function reportExcelview(){
 var from = document.getElementById('fromdate').value;
 var to = document.getElementById('todate').value;
@@ -953,14 +944,8 @@ else{
     window.open('/admin/export-excel-view/'+from+'/'+to+'/'+role+'/'+customer, '_blank');
 }
 
-        //var url = '/admin/getsorpdf/'+from+'/'+to+'/'+role+'/'+customer,
-        
-/*alert(from);
-alert(to);
-alert(role);
-alert(customer);*/
-
 }
+
 function reportExcelviewP(){
 var from = document.getElementById('fromdate').value;
 var to = document.getElementById('todate').value;
@@ -979,11 +964,100 @@ else{
     window.open('/production/export-excel-view/'+from+'/'+to+'/'+role+'/'+customer, '_blank');
 }
 
-        //var url = '/admin/getsorpdf/'+from+'/'+to+'/'+role+'/'+customer,
-        
-/*alert(from);
-alert(to);
-alert(role);
-alert(customer);*/
+}
+function forwardedRow() {
+    
+    var id = document.getElementById("od_id").value;
+    //alert(id);
+    var html = '';
+    $.ajax({
+            url: '/admin/getforwardStockSO/'+id,
+            success: data => {
+                
+            $('#forwardrow').html('');
+            if (data[1].length > 0) {
+               data[0].forEach(function(item){
+                html += '<div class="row">';
+                html += '<div class="col-md-3">';
+                html +='<div class="form-group">';
+                html +='<label class="control-label">Product Name</label>';
+                html +='<input readonly value="'
+                html +=item['productName'];
+                html +='" type="text" class="form-control" >';
+                html +='<input value="'
+                html +=item['id'];
+                html +='" type="hidden">';
+                html +='</div>';
+                html +='</div>';
+                html += '<div class="col-md-3">';
+                html +='<div class="form-group">';
+                html +='<label  class="control-label">Order Quantity</label>';
+                html +='<input id="aqty" name="quantity[]" readonly value="'
+                html +=item['quantity'];
+                html +='" type="number" class="form-control" >';
+                html +='</div>';
+                html +='</div>';
+                html += '<div class="col-md-3">';
+                html +='<div class="form-group">';
+                html +='<label class="control-label">Last Forward Qty</label>';
+                html +='<input readonly name="lf_quantity[]" id="fqty" min="0" type="number" value="'
+                html +=item['forqty'];
+                html +='" class="form-control" >';
+                html +='</div>';
+                html +='</div>';
+                html += '<div class="col-md-3">';
+                html +='<div class="form-group">';
+                html +='<label class="control-label">Forward Qty</label>';
+                html +='<input max="'
+                html +=item['balqty'];
+                html +='" name="f_quantity[]" required id="ffqty" min="0" type="number" class="form-control" >';
+                html +='</div>';
+                html +='</div>';
+                html +='</div>';
+            
+            }); 
+            }
+            else{
+                data[0].forEach(function(item){
+                html += '<div class="row">';
+                html += '<div class="col-md-3">';
+                html +='<div class="form-group">';
+                html +='<label class="control-label">Product Name</label>';
+                html +='<input readonly value="'
+                html +=item['productName'];
+                html +='" type="text" class="form-control" >';
+                html +='<input value="'
+                html +=item['id'];
+                html +='" type="hidden">';
+                html +='</div>';
+                html +='</div>';
+                html += '<div class="col-md-3">';
+                html +='<div class="form-group">';
+                html +='<label class="control-label">Order Quantity</label>';
+                html +='<input name="quantity[]" id="aqty" readonly value="'
+                html +=item['quantity'];
+                html +='" type="number" class="form-control" >';
+                html +='</div>';
+                html +='</div>';
+                html += '<div class="col-md-3">';
+                html +='<div class="form-group">';
+                html +='<label class="control-label">Forward Quantity</label>';
+                html +='<input max="'
+                html +=item['quantity'];
+                html +='" name="f_quantity[]" required id="ffqty" min="0" type="number" class="form-control" >';
+                html +='</div>';
+                html +='</div>';
+                html +='</div>';
+            
+            });
+            }
+            
+            $('#forwardrow').html(html);
+
+                //console.log(data[0]);
+            }
+
+        }); 
 
 }
+
