@@ -582,6 +582,9 @@ function getSODetails(id){
 
             $('#productinfo tbody').html(data[1]);
             $("#productinfo").DataTable();
+
+            $('#forwardinfo tbody').html(data[2]);
+            $("#forwardinfo").DataTable();
         }
     });
 }
@@ -986,7 +989,7 @@ function forwardedRow() {
                 html +='" type="text" class="form-control" >';
                 html +='<input value="'
                 html +=item['id'];
-                html +='" type="hidden">';
+                html +='" type="hidden" name="order_d_id[]">';
                 html +='</div>';
                 html +='</div>';
                 html += '<div class="col-md-3">';
@@ -1008,9 +1011,15 @@ function forwardedRow() {
                 html += '<div class="col-md-3">';
                 html +='<div class="form-group">';
                 html +='<label class="control-label">Forward Qty</label>';
+                if (item['balqty'] == 0) {
+                    html +='<input name="f_quantity[]" value="0" type="hidden" >';
+                    html +='<input readonly id="ffqty" value="Order Item Completely Sent" type="text" class="form-control" >';
+                }
+                else{
                 html +='<input max="'
                 html +=item['balqty'];
                 html +='" name="f_quantity[]" required id="ffqty" min="0" type="number" class="form-control" >';
+                }
                 html +='</div>';
                 html +='</div>';
                 html +='</div>';
@@ -1028,7 +1037,7 @@ function forwardedRow() {
                 html +='" type="text" class="form-control" >';
                 html +='<input value="'
                 html +=item['id'];
-                html +='" type="hidden">';
+                html +='" type="hidden" name="order_d_id[]">';
                 html +='</div>';
                 html +='</div>';
                 html += '<div class="col-md-3">';
@@ -1050,7 +1059,7 @@ function forwardedRow() {
                 html +='</div>';
             
             });
-            }
+            } 
             
             $('#forwardrow').html(html);
 

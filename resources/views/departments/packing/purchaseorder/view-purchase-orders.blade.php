@@ -1,6 +1,12 @@
-@extends('layouts.productionLayout.production-design')
+@extends('layouts.packingLayout.packing-design')
 @section('content')
-    <!-- ============================================================== -->
+<style type="text/css">
+    .modal.show .modal-dialog {
+    transform: none;
+    max-width: 80% ;
+}
+</style>
+        <!-- ============================================================== -->
         <!-- Page wrapper  -->
         <!-- ============================================================== -->
         <div class="page-wrapper">
@@ -10,7 +16,7 @@
             <div class="page-breadcrumb">
                 <div class="row">
                     <div class="col-lg-4 col-md-4 col-xs-12 align-self-center">
-                        <h5 class="font-medium text-uppercase mb-0">List Orders</h5>
+                        <h5 class="font-medium text-uppercase mb-0">List Purchase Orders</h5>
 
                     </div>
                     <div class="col-lg-8 col-md-4 col-xs-12 align-self-center">
@@ -19,7 +25,7 @@
                         <nav aria-label="breadcrumb" class="mt-2 float-md-right float-left">
                             <ol class="breadcrumb mb-0 justify-content-end p-0">
                                 <li class="breadcrumb-item"><a href="{{ url('admin/dashboard') }}">Home</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">List Orders</li>
+                                <li class="breadcrumb-item active" aria-current="page">List Purchase Orders</li>
                             </ol>
                         </nav>
                     </div>
@@ -27,12 +33,12 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="button-group">
-                        <button type="button" class="btn waves-effect waves-light btn-success"><a class="text-white" href="{{ url('production/create-order') }}">Add New</a></button>
+                        <a href="{{ url('admin/create-purchase-order') }}"><button type="button" class="btn waves-effect waves-light btn-success">Add New</button></a>
                     </div>
                     </div>
                 </div>
                 @if(Session::has('flash_message_error'))
-                    <div class="alert alert-error alert-danger alert-block">
+                    <div class="alert alert-error alert-block">
                         <button type="button" class="close" data-dismiss="alert">×</button>
                         <strong>{!! session('flash_message_error') !!}</strong>
                     </div>
@@ -60,61 +66,61 @@
                     <div class="col-12">
                         <div class="material-card card">
                             <div class="card-body">
+<!--                                 <h4 class="card-title">Zero Configuration</h4>
+                                <h6 class="card-subtitle">DataTables has most features enabled by default, so all you
+                                    need to do to use it with your own tables is to call the construction
+                                    function:<code> $().DataTable();</code>. You can refer full documentation from here
+                                    <a href="https://datatables.net/">Datatables</a></h6> -->
                                 <div class="table-responsive">
-                                    <table class="table table-striped dataTable product-overview" id="zero_config">
+                                    <table id="zero_config" class="table table-striped border">
                                         <thead>
                                             <tr>
                                                 <th>S.No</th>
-                                                <th>Name</th>
-                                                <th>Email</th>
-                                                <th>Cell No</th>
-                                                <!-- <th>Discount</th> -->
-                                                <th>Periority</th>
-                                                <th>Location</th>
-                                                <th>Status</th>
-                                                <th>Total Amount</th>
-                                                <th>Ordered By</th>
-                                                <th>Action</th>
+                                                <th>Supplier Name</th>
                                                 
+                                                <th>Total Amount</th>                                 
+                                                <th>Periority</th>
+                                                <th>Created By</th>
+                                                <th>Status</th>
+                                                <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                        @foreach($orders as $order)
+                                        
+                                        @foreach($purchase_orders as $purchase_order)
                                             <tr>
-                                                <td>{{$order->id}}</td>
-                                                <td>{{$order->name}}</td>
-                                                <td>{{$order->email}}</td>
-                                                <td>{{$order->cell_no}}</td>
-                                                <!-- <td>${{$order->discount}}</td> -->
-                                                <td>{{$order->pr_status}}</td>
-                                                <td>{{$order->loc_status}}</td>
-                                                <td>{{$order->s_status}}</td>
-                                                <td>{{$order->total_amount}}</td>
-                                                <td>{{$order->order_by}}</td>
-                                                <td style="width: 12%">
-                                                    <button type="button" class="btn waves-effect waves-light btn-info" data-toggle="modal" value="" data-target="#exampleModal" onclick="getSODetails({{ $order->id }})"><a class="text-white" href="#">View</a></button>
-                                                    @if($order->status == "7" || $order->status == "10")
-                                                    <button type="button" class="btn waves-effect waves-light btn-primary"><a class="text-white" href="{{ url('production/edit-order/'.$order->id) }}">Edit</a></button>
-                                                    @else
-                                                    <button disabled type="button" class="btn waves-effect waves-light btn-primary">Edit</button>
-                                                    @endif
-
+                                            
+                                               
+                                                <td>{{$purchase_order->id}}</td>
+                                                <td>{{$purchase_order->suppName}}</td>
+                                                
+                                                <td>{{$purchase_order->total_amount}}</td>
+                                                <td>{{$purchase_order->prStatus}}</td>
+                                                <td>{{$purchase_order->userName}}</td>
+                                                <td>{{$purchase_order->sstatus}}</td>
+                                                
+                                                <td>
+                                                    <div class="button-group">
+                                                        
+                                                        <button type="button" class="btn waves-effect waves-light btn-primary"><a target="_blank" class="text-white" href="{{ url('/packing/poinvoice/'.$purchase_order->id)}}">PDF</a></button>
+                                                        <button type="button" class="btn waves-effect waves-light btn-info" data-toggle="modal" value="" data-target="#exampleModal" onclick="getPODetails({{ $purchase_order->id }})" >P.O Detail</button>
+                                                        
+                                                        <button type="button" disabled class="btn waves-effect waves-light btn-warning"><a class="text-white" >Edit</a></button>
+                                                        
+                                                    </div>
                                                 </td>
+
                                             </tr>
-                                            @endforeach
+                                        @endforeach
                                         </tbody>
                                         <tfoot>
                                             <tr>
                                                 <th>S.No</th>
-                                                <th>Name</th>
-                                                <th>Email</th>
-                                                <th>Cell No</th>
-                                                <!-- <th>Discount</th> -->
+                                                <th>Supplier Name</th>
+                                                <th>Total Amount</th>                                 
                                                 <th>Periority</th>
-                                                <th>Location</th>
+                                                <th>Created By</th>
                                                 <th>Status</th>
-                                                <th>Total Amount</th>
-                                                <th>Ordered By</th>
                                                 <th>Action</th>
                                             </tr>
                                         </tfoot>
@@ -147,7 +153,7 @@
                                 <div class="modal-dialog col-8" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">Sale Order</h5>
+                                            <h5 class="modal-title" id="exampleModalLabel">Purchase Order</h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                             </button>
@@ -164,7 +170,7 @@
       <a data-toggle="collapse" data-parent="#accordionEx" href="#collapseOne1" aria-expanded="true"
         aria-controls="collapseOne1">
         <h5 class="mb-0">
-          Sale Order Detail<i class="fas fa-angle-down rotate-icon"></i>
+          Purchase Order Detail<i class="fas fa-angle-down rotate-icon"></i>
         </h5>
       </a>
     </div>
@@ -182,11 +188,11 @@
                                                     <th>P.O # 23:</th>
                                                 </tr> -->
                                                 <tr>
-                                                    <td><strong>Name:</strong> abc</td>
+                                                    <td><strong>Supplier Name:</strong> abc</td>
                                                     <td><strong>Contant number:</strong> 123</td>
                                                 </tr>
                                                 <tr>
-                                                    <td><strong>Email:</strong> abc</td>
+                                                    <td><strong>Supplier Email:</strong> abc</td>
                                                     <td><strong>Supplier Image:</strong> <img width="75" height="75" src="{{ asset('images/backend-images/favicon.png') }}"></td>
                                                 </tr>
                                                 <tr>
@@ -227,23 +233,6 @@
                                                     <td>22</td>
                                                 </tr> -->
                                         </tbody>
-                                    </table>
-                                        <table id="forwardinfo" class="table border">
-                                            <tbody>
-                                                
-                                                <!-- <tr>
-                                                    <th>Product Name</th>
-                                                    <th>Forward Qty</th>
-                                                    <th>Balance QTY</th>
-                                                    
-                                                </tr>
-                                                <tr>
-                                                    <td>Chicken</td>
-                                                    <td>2</td>
-                                                    <td>1</td>
-                                                    
-                                                </tr> -->
-                                        </tbody>
                                         
                                     </table>
                                 </div>
@@ -259,5 +248,4 @@
                                     </div>
                                 </div>
                             </div>
-
 @endsection

@@ -156,7 +156,7 @@ class PurchaseorderController extends Controller
     	}
     	
     }
-
+ 
     public function editPurchaseOrders(Request $request,$id)
     {
         $user = Auth::User();

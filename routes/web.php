@@ -239,6 +239,10 @@ Route::get('/packing/dashboard',[App\Http\Controllers\PackingController::class,'
 //Order Controllers Route
 Route::get('/packing/view-orders',[App\Http\Controllers\PackingController::class,'viewOrders']);
 Route::match(['get','post'],'packing/edit-order/{id}', [App\Http\Controllers\PackingController::class,'editOrder']);
+//Purchase Order Packing
+Route::get('/packing/view-pruchase-orders',[App\Http\Controllers\PackingController::class,'viewPurchaseOrders']);
+Route::match(['get','post'],'/packing/recieve-pruchase-orders/', [App\Http\Controllers\PackingController::class,'recievePurchaseOrders']);
+Route::get('/packing/poinvoice/{id}',[App\Http\Controllers\PackingController::class,'createPDF']);
 });
 
 /*Route::get('/', function () {

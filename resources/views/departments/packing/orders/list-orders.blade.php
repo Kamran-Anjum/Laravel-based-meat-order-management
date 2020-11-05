@@ -225,6 +225,24 @@
                                         </tbody>
                                         
                                     </table>
+                                    <table id="forwardinfo" class="table border">
+                                            <tbody>
+                                                
+                                                <!-- <tr>
+                                                    <th>Product Name</th>
+                                                    <th>Forward Qty</th>
+                                                    <th>Balance QTY</th>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                    <td>Chicken</td>
+                                                    <td>2</td>
+                                                    <td>1</td>
+                                                    
+                                                </tr> -->
+                                        </tbody>
+                                        
+                                    </table>
                                 </div>
       </div>
     </div>

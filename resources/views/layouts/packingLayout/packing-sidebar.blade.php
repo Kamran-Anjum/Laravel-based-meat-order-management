@@ -46,6 +46,12 @@
 
                             </ul>
                         </li>
+                        <li class="sidebar-item">
+                                    <a href="{{ url('packing/recieve-pruchase-orders') }}" class="sidebar-link">
+                                        <i class="mdi mdi-credit-card-multiple"></i>
+                                        <span class="hide-menu">Recieve Purchase Orders</span>
+                                    </a>
+                                </li>
                         
 
                     </ul>

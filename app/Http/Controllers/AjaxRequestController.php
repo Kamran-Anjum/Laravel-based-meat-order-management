@@ -239,13 +239,34 @@ class AjaxRequestController extends Controller
         ->get();
 
             $supp_detail = "<h3>SO # ".$id."</h3><h3>Sale Order Info</h3><tr class='gradeX'><td><strong>Customer Name:  </strong>".$sale_orders->customerName."</td><td><strong>Customer Eamil:  </strong>".$sale_orders->cusEmail."</td></tr><tr class='gradeX'><td><strong>Contact:  </strong>".$sale_orders->cell_no."</td><td><strong>Order Status:  </strong>".$sale_orders->s_status."</td></tr><tr class='gradeX'><td><strong>Shipp To:  </strong>".$sale_orders->shipping_address."</td><td><strong>Shipp From:  </strong>".$sale_orders->billing_address."</td></tr><tr class='gradeX'><td><strong>Priority:  </strong>".$sale_orders->pr_status."</td><td><strong>Location:  </strong>".$sale_orders->loc_status."</td></tr>";
-
+            $od_ids = [];
             $prod_detail = "<h3>ProductInfo<h3><tr><th>Name</th><th>Price</th><th>QTY</th><th>Discount</th><th>Amount</th><th>Sub Total</th></tr>";
 
             foreach ($so_detail as $product) {
+                $od_ids[] .= $product->id;
                 $prod_detail .= "<tr><td>".$product->productName."</td><td>".$product->unit_price."</td><td>".$product->quantity."</td><td>".$product->discount."</td><td>".$product->discount_amount."</td><td>".$product->total_price."</td></tr>";
             }
-        return array($supp_detail,$prod_detail);
+
+            $orderforward =  DB::table('forward_order_stock')->whereIn("order_detail_id",$od_ids)->get();
+            if (count($orderforward) > 0) {
+                $order_forward = DB::table('order_details as od')
+                ->where(['od.order_id'=> $id])
+                ->join('products as p','od.product_id','=','p.id')
+                ->join('forward_order_stock as fos','od.id','=','fos.order_detail_id')
+                ->select('od.*','p.name as productName','fos.forward_qty as forqty','fos.balance_qty as balqty')
+                ->get();
+
+                $forward_detail = "<h3>ForwardInfo<h3><tr><th>Name</th><th>Fowrwarded</th><th>Balance</th></tr>";
+
+            foreach ($order_forward as $forward) {
+                $forward_detail .= "<tr><td>".$forward->productName."</td><td>".$forward->forqty."</td><td>".$forward->balqty."</td></tr>";
+            }
+            }
+            else{
+                $forward_detail = "<h3>ForwardInfo<h3><tr><th>Name</th><th>Fowrwarded</th><th>Balance</th></tr><tr><td></td><td></td><td></td></tr>";
+            }
+            
+        return array($supp_detail,$prod_detail,$forward_detail);
 
     }
 
@@ -264,7 +285,7 @@ class AjaxRequestController extends Controller
         ->select('po.*','pos.name as status','pos.id as posId','pop.name as prStatus')
         ->first();
 
-        $po_status = DB::table('purchase_order_status')->whereNotIn('id',[1])->get();
+        $po_status = DB::table('purchase_order_status')->whereIn('id',[2,3])->get();
         $pos_dropdown = "<option selected >Select Current Status </option>";
             foreach ($po_status as $statuses) {
                 $pos_dropdown .= "<option value='".$statuses->id."'>".$statuses->name . "</option>";

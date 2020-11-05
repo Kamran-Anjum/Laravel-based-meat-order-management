@@ -11,6 +11,7 @@ use Session;
 use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Models\ProductStock;
+use App\Models\ForwardStock;
 use App\Models\User;
 
 class ProductionOrderController extends Controller
@@ -119,7 +120,34 @@ class ProductionOrderController extends Controller
     {
         if($request->isMethod('post')){
             $data = $request->all();
-            dd($data);
+            //dd($data);
+            if (isset($data['lf_quantity'])) {
+
+                for ($i=0; $i <count($data['order_d_id']) ; $i++) { 
+                    $current_qty[] = $data['lf_quantity'][$i]+$data['f_quantity'][$i];
+                    $bal_qty[] = $data['quantity'][$i]-$current_qty[$i];
+
+                ForwardStock::where(['order_detail_id'=>$data['order_d_id']])->update
+                    ([
+                        'forward_qty' => $current_qty[$i],
+                        'balance_qty' => $bal_qty[$i],
+                    ]);
+                }
+                //dd($bal_qty);
+                //$bal_qty = $data['quantity']-$current_qty;
+                
+            }
+            else{
+                for ($i=0; $i <count($data['order_d_id']) ; $i++) { 
+                    $bal_qty[] = $data['quantity'][$i]-$data['f_quantity'][$i];
+
+                    $forward_stock = new ForwardStock();
+                    $forward_stock->order_detail_id = $data['order_d_id'][$i];
+                    $forward_stock->forward_qty = $data['f_quantity'][$i];
+                    $forward_stock->balance_qty = $bal_qty[$i];
+                    $forward_stock->save();
+                    }
+            }
             Order::where(['id'=>$id])->update
             ([
                 'priority_status' => $data['pr_status'],
