@@ -17,6 +17,8 @@ Route::group(['middleware' => ['auth']], function() {
    Route::match(['get','post'],'/admin',[App\Http\Controllers\AdminController::class,'adminlogin']);
 });
 // Admin login controller
+Route::match(['get','post'],'/testfekin',[App\Http\Controllers\TransportController::class,'testFekin']);
+
 Route::match(['get','post'],'/admin',[App\Http\Controllers\AdminController::class,'adminlogin']);
 Route::match(['get','post'],'/production',[App\Http\Controllers\ProductionController::class,'productionlogin']);
 Route::match(['get','post'],'/transport',[App\Http\Controllers\TransportController::class,'transportlogin']);
@@ -244,6 +246,34 @@ Route::get('/packing/view-pruchase-orders',[App\Http\Controllers\PackingControll
 Route::match(['get','post'],'/packing/recieve-pruchase-orders/', [App\Http\Controllers\PackingController::class,'recievePurchaseOrders']);
 Route::get('/packing/poinvoice/{id}',[App\Http\Controllers\PackingController::class,'createPDF']);
 });
+//Transport Department Routes
+Route::group(['middleware' => ['role: |transport-admin']], function () {
+	Route::get('/transport-logout',[App\Http\Controllers\TransportController::class,'logout']);
+
+Route::get('/transport/dashboard',[App\Http\Controllers\TransportController::class,'dashboard']);
+
+//Order Controllers Route
+Route::get('/transport/view-orders',[App\Http\Controllers\TransportController::class,'viewOrders']);
+Route::match(['get','post'],'transport/edit-order/{id}', [App\Http\Controllers\TransportController::class,'editOrder']);
+//Vehicle
+Route::get('/transport/vehicles',[App\Http\Controllers\TransportController::class,'viewVehicles']);
+Route::get('/transport/riders',[App\Http\Controllers\TransportController::class,'viewRider']);
+});
+
+//Finance Department Routes
+Route::group(['middleware' => ['role: |finance-admin']], function () {
+	Route::get('/finance-logout',[App\Http\Controllers\FinanceController::class,'logout']);
+
+Route::get('/finance/dashboard',[App\Http\Controllers\FinanceController::class,'dashboard']);
+
+Route::get('/finance/view-expence',[App\Http\Controllers\FinanceController::class,'commingsoon']);
+Route::get('/finance/view-pruchase-orders',[App\Http\Controllers\FinanceController::class,'commingsoon']);
+Route::get('/finance/view-orders',[App\Http\Controllers\FinanceController::class,'commingsoon']);
+Route::get('/finance/view-orders-summary',[App\Http\Controllers\FinanceController::class,'commingsoon']);
+
+
+});
+
 
 /*Route::get('/', function () {
     return view('welcome');

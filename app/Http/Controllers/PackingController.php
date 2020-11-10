@@ -88,7 +88,7 @@ class PackingController extends Controller
                 'status' => $data['status'],
             ]);
 
-            return redirect('/production/view-orders')->with('flash_message_success','Order Status has been Updated Successfully!');
+            return redirect('/packing/view-orders')->with('flash_message_success','Order Status has been Updated Successfully!');
         }
 
         $sale_order = DB::table('orders as o')->where(['o.id'=>$id])

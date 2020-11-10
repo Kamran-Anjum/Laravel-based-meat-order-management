@@ -62,13 +62,13 @@ public function dashboard(){
     public function addadmin(){
 
         $user = new User();
-                $user->name = "Packing Admin";
-                $user->email = "packing@halalmeat.com";
-                $user->password = bcrypt("packing123");
+                $user->name = "Finance Admin";
+                $user->email = "finance@halalmeat.com";
+                $user->password = bcrypt("finance123");
                 $user->admin = 1;
                 $user->is_active = 1;
                 $user->save();
-                $user->assignRole('packing-admin');
+                $user->assignRole('finance-admin');
 
                 return redirect('/logout');
     }

@@ -1,4 +1,4 @@
-@extends('layouts.adminLayout.admin-design')
+@extends('layouts.financeLayout.finance-design')
 @section('content')
         <!-- ============================================================== -->
         <!-- Page wrapper  -->

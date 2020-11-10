@@ -61,7 +61,7 @@
                     <!-- Form -->
                     <div class="row">
                         <div class="col-12">
-                            <form class="form-horizontal mt-3" method="post" id="loginform" action="{{url('admin')}}">
+                            <form class="form-horizontal mt-3" method="post" id="loginform" action="{{url('finance')}}">
                                 {{ csrf_field() }}
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
