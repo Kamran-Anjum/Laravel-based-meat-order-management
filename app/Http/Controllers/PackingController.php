@@ -66,7 +66,7 @@ class PackingController extends Controller
     public function viewOrders(){
 
     	$orders = DB::table('orders as o')
-    	->where(['location_status'=> 3])
+    	->whereIn('status', [8,11,12,14])
     	->join('po_priority_status as pos','o.priority_status','=','pos.id')
     	->join('purchase_order_status as ps','o.status','=','ps.id')
     	->join('order_location_status as ols','o.location_status','=','ols.id')
@@ -93,34 +93,29 @@ class PackingController extends Controller
 
         $sale_order = DB::table('orders as o')->where(['o.id'=>$id])
         ->join('users as u','o.user_id','=','u.id')
-        ->select('o.*','u.name as cusName')->first();
+        ->join('order_location_status as ol','o.location_status','=','ol.id')
+        ->join('purchase_order_status as ps','o.status','=','ps.id')
+        ->select('o.*','u.name as cusName','ol.name as location_name','ps.name as stateus')->first();
 
         $order_details = DB::table('order_details as od')->where(['od.order_id'=>$id])
         ->join('products as p','od.product_id','=','p.id')
         ->select('od.*','p.name as prodName')
         ->get();
 
-        $order_status = DB::table('purchase_order_status')->whereNotIn('id',[1,2,3,4,5,6,9])->get();
+        $order_status = DB::table('purchase_order_status')->whereIn('id',[11, 13])->get();
         //dd($order_status);
-        $status_dropdown = "";
+        $status_dropdown = "<option selected >Select New Status</option>";
         foreach ($order_status as $status) {
-        	if ($status->id == $sale_order->status) {
-        		$status_dropdown .= "<option selected value='".$status->id."'>".$status->name."</option>";
-        	}
-        	else{
+        	
         		$status_dropdown .= "<option value='".$status->id."'>".$status->name."</option>";
-        	}
+        	
         }
         $location_status = DB::table('order_location_status')->whereNotIn('id',[1,2,5])->get();
         //dd($order_status);
-        $location_dropdown = "";
+        $location_dropdown = "<option selected >Department To Froward</option>";
         foreach ($location_status as $loc_status) {
-        	if ($loc_status->id == $sale_order->location_status) {
-        		$location_dropdown .= "<option selected value='".$loc_status->id."'>".$loc_status->name."</option>";
-        	}
-        	else{
+        	
         		$location_dropdown .= "<option value='".$loc_status->id."'>".$loc_status->name."</option>";
-        	}
         }
         //dd($location_dropdown);
 

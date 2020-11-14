@@ -73,7 +73,7 @@ class AjaxRequestController extends Controller
                 ->first();
         $balance_stock = $stocks->recieve_qty - $stocks->sale_qty;
 
-        $authorizedRoles = ['internal customer', 'external customer', 'private customer','workforce'];
+        $authorizedRoles = ['internal-customer', 'external-customer', 'private-customer','workforce'];
         
         $users = User::whereHas('roles', static function ($query) use ($authorizedRoles) {
                     return $query->whereIn('name', $authorizedRoles);
@@ -367,7 +367,7 @@ class AjaxRequestController extends Controller
             ->where(['order_id'=> $id])
             ->join('products as p','od.product_id','=','p.id')
             ->join('forward_order_stock as fos','od.id','=','fos.order_detail_id')
-            ->select('od.*','p.name as productName','fos.forward_qty as forqty','fos.balance_qty as balqty')
+            ->select('od.*','p.name as productName','fos.forward_qty','fos.balance_qty as balqty')
             ->get();
         }
         else{

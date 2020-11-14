@@ -725,6 +725,7 @@ class ComposerStaticInitd6241ce7417791fd7a44aae8301addd0
         'App\\Models\\Country' => __DIR__ . '/../..' . '/app/Models/Country.php',
         'App\\Models\\CustomerDetails' => __DIR__ . '/../..' . '/app/Models/CustomerDetails.php',
         'App\\Models\\CustomerPrice' => __DIR__ . '/../..' . '/app/Models/CustomerPrice.php',
+        'App\\Models\\ForwardStock' => __DIR__ . '/../..' . '/app/Models/ForwardStock.php',
         'App\\Models\\Order' => __DIR__ . '/../..' . '/app/Models/Order.php',
         'App\\Models\\OrderDetail' => __DIR__ . '/../..' . '/app/Models/OrderDetail.php',
         'App\\Models\\Product' => __DIR__ . '/../..' . '/app/Models/Product.php',

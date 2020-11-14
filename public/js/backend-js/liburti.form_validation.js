@@ -1004,7 +1004,7 @@ function forwardedRow() {
                 html +='<div class="form-group">';
                 html +='<label class="control-label">Last Forward Qty</label>';
                 html +='<input readonly name="lf_quantity[]" id="fqty" min="0" type="number" value="'
-                html +=item['forqty'];
+                html +=item['forward_qty'];
                 html +='" class="form-control" >';
                 html +='</div>';
                 html +='</div>';
@@ -1063,7 +1063,7 @@ function forwardedRow() {
             
             $('#forwardrow').html(html);
 
-                //console.log(data[0]);
+                console.log(data[0]);
             }
 
         }); 

@@ -10,7 +10,7 @@
     <meta name="author" content="">
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href=" {{ asset('images/backend-images/favicon.png') }}">
-    <title>Halalmeat</title>
+    <title>Liburti</title>
 	<link rel="canonical" href="https://www.wrappixel.com/templates/ampleadmin/" />
     <!-- Custom CSS -->
     <link href=" {{ asset('css/backend-css/style.min.css')}}" rel="stylesheet">
@@ -56,12 +56,12 @@
                 <div id="loginform">
                     <div class="logo">
                         <span class="db"><img src=" {{ asset('images/backend-images/logos/logo-icon.png') }}" alt="logo" /></span>
-                        <h5 class="font-medium mb-3">Customers SignIn</h5>
+                        <h5 class="font-medium mb-3">Sign In to Customer</h5>
                     </div>
                     <!-- Form -->
                     <div class="row">
                         <div class="col-12">
-                            <form class="form-horizontal mt-3" method="post" id="loginform" action="{{url('/')}}">
+                            <form class="form-horizontal mt-3" method="post" id="loginform" action="{{url('admin')}}">
                                 {{ csrf_field() }}
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">

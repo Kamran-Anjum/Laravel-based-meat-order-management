@@ -17,12 +17,12 @@ class CustomerController extends Controller
 {
     public function customerlogin()
     {
-        return view('customers.customers-login');
+        return view('admin.customers.customers-login');
     }
 
     public function viewCustomers(){
 
-    	$authorizedRoles = ['internal customer', 'external customer', 'private customer','workforce','coop'];
+    	$authorizedRoles = ['internal-customer', 'external-customer', 'private-customer','workforce','coop'];
 
 		$users = User::whereHas('roles', static function ($query) use ($authorizedRoles) {
                     return $query->whereIn('name', $authorizedRoles);

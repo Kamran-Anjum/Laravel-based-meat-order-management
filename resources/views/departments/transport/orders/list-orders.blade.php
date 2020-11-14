@@ -73,7 +73,7 @@
                                                 <th>Location</th>
                                                 <th>Status</th>
                                                 <th>Total Amount</th>
-                                                <th>Ordered By</th>
+                                                <th>View</th>
                                                 <th>Action</th>
                                                 
                                             </tr>
@@ -90,11 +90,16 @@
                                                 <td>{{$order->loc_status}}</td>
                                                 <td>{{$order->s_status}}</td>
                                                 <td>{{$order->total_amount}}</td>
-                                                <td>{{$order->order_by}}</td>
                                                 <td style="width: 12%">
                                                     <button type="button" class="btn waves-effect waves-light btn-info" data-toggle="modal" value="" data-target="#exampleModal" onclick="getSODetails({{ $order->id }})"><a class="text-white" href="#">View</a></button>
-                                                    <button type="button" class="btn waves-effect waves-light btn-primary"><a class="text-white" href="{{ url('transport/edit-order/'.$order->id) }}">Edit</a></button>
-                                                    <button type="button" class="btn waves-effect waves-light btn-primary"><a class="text-white" href="{{ url('transport/edit-order/'.$order->id) }}">Assign</a></button>
+
+                                                </td>
+                                                <td style="width: 12%">
+                                                    @if($order->is_assign == '1')
+                                                    <button type="button" class="btn waves-effect waves-light btn-primary"><a class="text-white" href="{{ url('transport/deliver-order/'.$order->id) }}">Invoice</a></button>
+                                                    @else
+                                                    <button type="button" class="btn waves-effect waves-light btn-primary"><a class="text-white" href="{{ url('transport/deliver-order/'.$order->id) }}">Deliver</a></button>
+                                                    @endif
 
                                                 </td>
                                             </tr>
@@ -111,7 +116,7 @@
                                                 <th>Location</th>
                                                 <th>Status</th>
                                                 <th>Total Amount</th>
-                                                <th>Ordered By</th>
+                                                <th>View</th>
                                                 <th>Action</th>
                                             </tr>
                                         </tfoot>

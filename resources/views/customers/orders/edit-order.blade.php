@@ -1,4 +1,4 @@
-@extends('layouts.packingLayout.packing-design')
+@extends('layouts.adminLayout.admin-design')
 @section('content')
         <!-- ============================================================== -->
         <!-- Page wrapper  -->
@@ -82,7 +82,7 @@
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-body">
-                                <form enctype="multipart/form-data" method="post" action="{{ url('/transport/deliver-order/'.$sale_order->id) }}" > {{ csrf_field() }}
+                                <form enctype="multipart/form-data" method="post" action="{{ url('/admin/edit-order/'.$sale_order->id) }}" > {{ csrf_field() }}
                                     <div class="form-body">
                                         <h5 class="card-title">Update Sales Order</h5>
                                         <hr>
@@ -169,20 +169,23 @@
                                             <div class="col-md-2">
                                                 <div class="form-group">
                                                     <label class="control-label">Priority</label>
-                                                    <select readonly name="pr_status" class="form-control">
+                                                    <select name="pr_status" class="form-control">
                                                         {!! $priority_dropdown !!}
                                                     </select></div>
                                             </div>
                                             <div class="col-md-2">
                                                 <div class="form-group">
-                                                    <label class="control-label">Current Status</label>
-                                                    <input class="form-control" type="text" disabled value="{{$sale_order->stateus}}" name="">
-                                                </div>
+                                                    <label class="control-label">Status</label>
+                                                    <select name="status" class="form-control">
+                                                        {!! $status_dropdown !!}
+                                                    </select></div>
                                             </div>
                                             <div class="col-md-2">
                                                 <div class="form-group">
-                                                    <label class="control-label">Department</label>
-                                                    <input class="form-control" type="text" disabled value="{{$sale_order->location_name}}" name="">
+                                                    <label class="control-label">Forward To</label>
+                                                    <select name="dept_status" class="form-control">
+                                                        {!! $location_dropdown !!}
+                                                    </select>
                                                 </div>
                                             </div>
                                             <div class="col-md-2">
@@ -193,43 +196,6 @@
                                             
                                         </div>
 
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <div class="form-group">
-                                                    <label class="control-label">Update Status</label>
-                                                    <select name="status" class="form-control">
-                                                        {!! $status_dropdown !!}
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-2">
-                                                <div class="form-group">
-                                                    <label class="control-label">Select Rider</label>
-                                                    <select name="rider" class="form-control">
-                                                        {!! $users_dropdown !!}
-                                                    </select>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-md-3">
-                                                <div class="form-group">
-                                                    <label class="control-label">Select Vehicle</label>
-                                                    
-                                                    <select name="vehicle" class="form-control">
-                                                        {!! $vehicle_dropdown !!}
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <!-- <div class="col-md-3">
-                                                <div class="form-group">
-                                                    <label class="control-label">Forward To</label>
-                                                    <select name="dept_status" class="form-control">
-                                                        {!! $location_dropdown !!}
-                                                    </select>
-                                                </div>
-                                            </div> -->
-                                            
-                                        </div>
                                         
                                     <!-- <div class="row">
 
@@ -254,7 +220,7 @@
                                     </div>
                                     <div class="form-actions mt-5">
                                         <button type="submit" class="btn btn-success"> <i class="fa fa-check"></i> Update</button>
-                                        <a href="{{ url('/transport/view-orders')}}"><button type="button" class="btn btn-dark">Cancel</button></a>
+                                        <a href="{{ url('/admin/view-orders')}}"><button type="button" class="btn btn-dark">Cancel</button></a>
                                     </div>
                                 </form>
                             </div>

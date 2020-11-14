@@ -175,23 +175,53 @@
                                             </div>
                                             <div class="col-md-2">
                                                 <div class="form-group">
-                                                    <label class="control-label">Status</label>
-                                                    <select name="status" class="form-control">
-                                                        {!! $status_dropdown !!}
-                                                    </select></div>
+                                                    <label class="control-label">Current Status</label>
+                                                    <input class="form-control" type="text" disabled value="{{$sale_order->stateus}}" name="">
+                                                </div>
                                             </div>
                                             <div class="col-md-2">
                                                 <div class="form-group">
-                                                    <label class="control-label">Forward To</label>
-                                                    <select name="dept_status" class="form-control">
-                                                        {!! $location_dropdown !!}
-                                                    </select>
+                                                    <label class="control-label">Department</label>
+                                                    <input class="form-control" type="text" disabled value="{{$sale_order->location_name}}" name="">
                                                 </div>
                                             </div>
                                             <div class="col-md-2">
                                                 <div class="form-group">
                                                     <label class="control-label">Total Amount</label>
                                                     <input disabled value="{{$sale_order->total_amount}}" id="total_price" readonly value="0" required type="number" class="form-control" ></div>
+                                            </div>
+                                            
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <!-- <div class="form-group">
+                                                    <label class="control-label">Order Note</label>
+                                                    <textarea disabled name="order_note" class="form-control" cols="4" rows="5">{{$sale_order->order_note}}</textarea>   
+                                                </div> -->
+                                            </div>
+                                            <div class="col-md-2">
+                                                <!-- <div class="form-group">
+                                                    <label class="control-label">Order Note</label>
+                                                    <textarea disabled name="order_note" class="form-control" cols="4" rows="5">{{$sale_order->order_note}}</textarea>   
+                                                </div> -->
+                                            </div>
+
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label class="control-label">Update Status</label>
+                                                    <select name="status" class="form-control">
+                                                        {!! $status_dropdown !!}
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label class="control-label">Forward To</label>
+                                                    <select name="dept_status" class="form-control">
+                                                        {!! $location_dropdown !!}
+                                                    </select>
+                                                </div>
                                             </div>
                                             
                                         </div>

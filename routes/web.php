@@ -26,7 +26,7 @@ Route::match(['get','post'],'/finance',[App\Http\Controllers\FinanceController::
 Route::match(['get','post'],'/customer',[App\Http\Controllers\CustomerController::class,'customerlogin']);
 Route::match(['get','post'],'/packing',[App\Http\Controllers\PackingController::class,'packinglogin']);
 Route::match(['get','post'],'/add-admin',[App\Http\Controllers\AdminController::class,'addadmin']);
-
+Route::match(['get','post'],'/',[App\Http\Controllers\FrontCustomerController::class,'frontcustomerlogin']);
 Route::group(['middleware' => ['role: |super-admin']], function () {
 
 // Admin Logout
@@ -188,7 +188,7 @@ Route::get('/admin/view-woo', [App\Http\Controllers\WoocommerceController::class
 });
 
 //Ajax Routes
-Route::group(['middleware' => ['role: |super-admin|production-admin|packing-admin']], function () {
+Route::group(['middleware' => ['role: |super-admin|production-admin|packing-admin|transport-admin']], function () {
 
 	//Product Ajax Routes
 Route::get('/admin/getproductsubcategories/{id}',[App\Http\Controllers\AjaxRequestController::class,'getsubcategoriesdropdown']);
@@ -254,7 +254,7 @@ Route::get('/transport/dashboard',[App\Http\Controllers\TransportController::cla
 
 //Order Controllers Route
 Route::get('/transport/view-orders',[App\Http\Controllers\TransportController::class,'viewOrders']);
-Route::match(['get','post'],'transport/edit-order/{id}', [App\Http\Controllers\TransportController::class,'editOrder']);
+Route::match(['get','post'],'transport/deliver-order/{id}', [App\Http\Controllers\TransportController::class,'editOrder']);
 //Vehicle
 Route::get('/transport/vehicles',[App\Http\Controllers\TransportController::class,'viewVehicles']);
 Route::get('/transport/riders',[App\Http\Controllers\TransportController::class,'viewRider']);
@@ -272,9 +272,21 @@ Route::get('/finance/view-orders',[App\Http\Controllers\FinanceController::class
 Route::get('/finance/view-orders-summary',[App\Http\Controllers\FinanceController::class,'commingsoon']);
 
 
+
 });
+// Front Customer Setup
+Route::group(['middleware' => ['role: |external-customer|internal-customer|private-customer|coop|workforce']], function () {
+Route::get('/user-logout',[App\Http\Controllers\FrontCustomerController::class,'logout']);
+Route::get('/user/dashboard',[App\Http\Controllers\FrontCustomerController::class,'dashboard']);
+
+Route::get('/user/view-orders',[App\Http\Controllers\FrontCustomerController::class,'viewOrders']);
+Route::match(['get','post'], '/user/add-order', [App\Http\Controllers\FrontCustomerController::class,'addOrder']);
 
 
+Route::get('/user/getsubcategoryproducts/{id}',[App\Http\Controllers\FrontCustomerController::class,'getproductsdropdown']);
+Route::get('/user/getproductsubcategories/{id}',[App\Http\Controllers\FrontCustomerController::class,'getsubcategoriesdropdown']);
+Route::get('/user/getproduct-stock-price/{id}/{cusid}',[App\Http\Controllers\FrontCustomerController::class,'getproductstockprice']);
+});
 /*Route::get('/', function () {
     return view('welcome');
 });*/
@@ -284,4 +296,4 @@ Route::get('/finance/view-orders-summary',[App\Http\Controllers\FinanceControlle
 
 
 
-Route::get('/', [App\Http\Controllers\AdminController::class,'adminlogin']);
+//Route::get('/', [App\Http\Controllers\AdminController::class,'adminlogin']);

@@ -127,12 +127,17 @@ class ProductionOrderController extends Controller
                     $current_qty[] = $data['lf_quantity'][$i]+$data['f_quantity'][$i];
                     $bal_qty[] = $data['quantity'][$i]-$current_qty[$i];
 
-                ForwardStock::where(['order_detail_id'=>$data['order_d_id']])->update
+
+                
+                }
+                for ($j=0; $j <count($data['order_d_id']) ; $j++) { 
+                   ForwardStock::where(['order_detail_id'=>$data['order_d_id'][$j]])->update
                     ([
-                        'forward_qty' => $current_qty[$i],
-                        'balance_qty' => $bal_qty[$i],
+                        'forward_qty' => $current_qty[$j],
+                        'balance_qty' => $bal_qty[$j],
                     ]);
                 }
+                //dd($current_qty, $bal_qty);
                 //dd($bal_qty);
                 //$bal_qty = $data['quantity']-$current_qty;
                 
@@ -167,7 +172,7 @@ class ProductionOrderController extends Controller
         ->select('od.*','p.name as prodName')
         ->get();
 
-        $order_status = DB::table('purchase_order_status')->whereIn('id',[7,10])->get();
+        $order_status = DB::table('purchase_order_status')->whereIn('id',[8,12])->get();
         //dd($order_status);
         $status_dropdown = "";
         foreach ($order_status as $status) {

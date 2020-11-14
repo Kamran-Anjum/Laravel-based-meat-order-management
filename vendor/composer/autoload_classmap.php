@@ -60,6 +60,7 @@ return array(
     'App\\Models\\Country' => $baseDir . '/app/Models/Country.php',
     'App\\Models\\CustomerDetails' => $baseDir . '/app/Models/CustomerDetails.php',
     'App\\Models\\CustomerPrice' => $baseDir . '/app/Models/CustomerPrice.php',
+    'App\\Models\\ForwardStock' => $baseDir . '/app/Models/ForwardStock.php',
     'App\\Models\\Order' => $baseDir . '/app/Models/Order.php',
     'App\\Models\\OrderDetail' => $baseDir . '/app/Models/OrderDetail.php',
     'App\\Models\\Product' => $baseDir . '/app/Models/Product.php',

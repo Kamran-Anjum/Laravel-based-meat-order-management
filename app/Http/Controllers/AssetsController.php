@@ -173,6 +173,7 @@ class AssetsController extends Controller
     		$asset->tax_amount = $data['tax'];
             $asset->total_amount = $data['total_amount'];
             $asset->status = 1;
+            $asset->is_assign = 0;
             $asset->created_by = $user->id;
     		$asset->save();
             $asset_id = $asset->id;

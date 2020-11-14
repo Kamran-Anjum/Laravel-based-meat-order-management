@@ -10,7 +10,7 @@
     <meta name="author" content="">
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('images/backend-images/favicon.png ') }}">
-    <title>Liburti</title>
+    <title>HalalMeat</title>
 	<link rel="canonical" href="#" />
     <!-- This Page CSS -->
     <link href=" {{ asset('css/backend-css/assets/libs/chartist/dist/chartist.min.css') }}" rel="stylesheet">
@@ -105,7 +105,7 @@
     <script src="{{ asset('css/backend-css/assets/libs/sweetalert2/dist/sweetalert2.all.min.js') }}"></script>
     <script src="{{ asset('css/backend-css/assets/libs/sweetalert2/sweet-alert.init.js') }}"></script>
     <!-- Custom Sweet Alert and Validation -->
-    <script src="{{ asset('js/backend-js/liburti.form_validation.js') }}"></script>
+    <script src="{{ asset('js/frontend-js/halalmeat.form_validation.js') }}"></script>
     <!-- Select dropdown -->
     <script src="{{ asset('css/backend-css/assets/libs/select2/dist/js/select2.full.min.js') }}"></script>
     <script src="{{ asset('css/backend-css/assets/libs/select2/dist/js/select2.min.js') }}"></script>

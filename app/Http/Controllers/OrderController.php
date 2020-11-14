@@ -79,11 +79,12 @@ class OrderController extends Controller
 
                 return redirect('admin/view-orders')->with('flash_message_success','Sale Order successfully Added!');
     	}
-    	$authorizedRoles = ['internal customer', 'external customer', 'private customer','workforce'];
+    	$authorizedRoles = ['internal-customer', 'external-customer', 'private-customer','workforce'];
 
 		$customers = User::whereHas('roles', static function ($query) use ($authorizedRoles) {
                     return $query->whereIn('name', $authorizedRoles);
                 })->with('roles')->get();
+        //dd($customers);
 		$customer_dropdown = "<option selected disabled >Select Customer</option>";
 		foreach ($customers as $customer) {
 			$customer_dropdown .= "<option value='".$customer->id."'>".$customer->name." (".$customer->roles->first()->name.")</option>";
