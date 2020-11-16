@@ -51,6 +51,12 @@
                                 </li>
 
                             </ul>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="{{ url('/user/profile') }}" class="sidebar-link">
+                                <i class="mdi mdi-shopping"></i>
+                                    <span class="hide-menu">Profile</span>
+                            </a>
                         </li>                        
 
                     </ul>

@@ -281,7 +281,10 @@ Route::get('/user/dashboard',[App\Http\Controllers\FrontCustomerController::clas
 
 Route::get('/user/view-orders',[App\Http\Controllers\FrontCustomerController::class,'viewOrders']);
 Route::match(['get','post'], '/user/add-order', [App\Http\Controllers\FrontCustomerController::class,'addOrder']);
+Route::match(['get','post'], '/user/profile', [App\Http\Controllers\FrontCustomerController::class,'userProfile']);
+Route::match(['get','post'], '/user/edit-profile/{id}', [App\Http\Controllers\FrontCustomerController::class,'editProfile']);
 
+Route::get('/user/delete-customer-image/{id}',[App\Http\Controllers\FrontCustomerController::class,'deletecustomerimage']);
 
 Route::get('/user/getsubcategoryproducts/{id}',[App\Http\Controllers\FrontCustomerController::class,'getproductsdropdown']);
 Route::get('/user/getproductsubcategories/{id}',[App\Http\Controllers\FrontCustomerController::class,'getsubcategoriesdropdown']);

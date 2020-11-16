@@ -14,6 +14,8 @@ use App\Models\User;
 use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Models\ProductStock;
+use App\Models\CustomerDetails;
+use Image;
 
 class FrontCustomerController extends Controller
 {
@@ -132,6 +134,71 @@ class FrontCustomerController extends Controller
     	return view('customers.orders.create-order')->with(compact('user_role','categories_dropdown','city_dropdown'));
     }
 
+    public function userProfile()
+    {
+        $users = Auth::User();
+
+        $user_detail = DB::table('customer_details')
+        ->where(['user_id'=>$users->id])
+        ->first();
+
+        return view('customers.user-profile')->with(compact('users','user_detail'));
+    }
+
+    public function editProfile(Request $request, $id)
+    {
+       if($request->isMethod('post')){
+            $data = $request->all();
+
+            if($request->isMethod('post')){
+            $data = $request->all();
+            
+            if($request->hasFile('image')){
+
+                $image_tmp = $request->image;
+                    if($image_tmp->isValid()){
+                        $extension = $image_tmp->getClientOriginalExtension();
+                        $filename = 'customer'.rand(1111,9999999).'.'.$extension;
+                        $large_image_path = 'images/backend-images/halalmeat/customer/large/'.$filename;
+                        $medium_image_path = 'images/backend-images/halalmeat/customer/medium/'.$filename;
+                        $small_image_path = 'images/backend-images/halalmeat/customer/small/'.$filename;
+                        $tiny_image_path = 'images/backend-images/halalmeat/customer/tiny/'.$filename;
+                        Image::make($image_tmp)->save($large_image_path);
+                        Image::make($image_tmp)->resize(600,600)->save($medium_image_path);
+                        Image::make($image_tmp)->resize(166,266)->save($small_image_path);
+                        Image::make($image_tmp)->resize(100,100)->save($tiny_image_path);
+                    }
+                }
+                else{
+                    $filename = $data['current_image'];
+                if( empty($filename)){
+                    $filename ='';
+                }
+                }
+
+            CustomerDetails::where(['user_id'=>$id])->update
+            ([
+                'address' => $data['customer_address'],
+                'cell_no' => $data['customer_cell'],
+                'profile_image' => $filename
+            ]);
+
+            return redirect('/user/profile')->with('flash_message_success','Profile has been Updated Successfully!'); 
+        }
+    }
+
+        $users = Auth::User();
+        $user_detail = DB::table('customer_details')
+        ->where(['user_id'=>$users->id])
+        ->first();
+        return view('customers.edit-profile')->with(compact('users','user_detail'));
+    }
+
+    public function deletecustomerimage($id)
+    {
+        CustomerDetails::where(['user_id'=>$id])->update(['profile_image'=>'']);
+        return redirect()->back()->with('flash_message_success','Customer image has been Deleted Successfully!');
+    }
     //Ajax Requests for frontend Users
     //get Product subcategories by category id
     //Get Subcategories

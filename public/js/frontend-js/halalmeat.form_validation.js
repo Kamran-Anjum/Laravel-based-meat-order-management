@@ -1,6 +1,6 @@
 $(document).ready(function(){
 
-    $(".sa-confirm-delete").click(function () {
+    $(".sa-confirm-deletes").click(function () {
     	
     	var id = $(this).attr('param-id');
 		var deleteFunction = $(this).attr('param-route');
@@ -16,7 +16,7 @@ $(document).ready(function(){
         }).then((result) => {
 
             if (result.value) {
-            	window.location.href="/admin/"+deleteFunction+"/"+id;
+            	window.location.href="/user/"+deleteFunction+"/"+id;
             }
         })
     }); 
