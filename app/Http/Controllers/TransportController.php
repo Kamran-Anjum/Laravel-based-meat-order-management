@@ -56,16 +56,17 @@ class TransportController extends Controller
                 //dd($total_amount);
         return view('departments.transport.dashboard')->with(compact('today_sales','today_purchase'));
     }
-
+ 
     public function viewOrders(){
 
     	$orders = DB::table('orders as o')
     	->whereIn('status', [11,13,14,15])
     	->join('po_priority_status as pos','o.priority_status','=','pos.id')
     	->join('purchase_order_status as ps','o.status','=','ps.id')
+        ->join('purchase_order_status as pso','o.delivery_status','=','pso.id')
     	->join('order_location_status as ols','o.location_status','=','ols.id')
     	->join('users as u','o.created_by', '=', 'u.id')
-    	->select('o.*','u.name as order_by','pos.name as pr_status','ps.name as s_status','ols.name as loc_status')
+    	->select('o.*','u.name as order_by','pos.name as pr_status','ps.name as s_status','ols.name as loc_status','pso.name as delivery_status')
     	->get();
     	//dd($orders);
     	return view('departments.transport.orders.list-orders')->with(compact('orders'));
@@ -127,7 +128,7 @@ class TransportController extends Controller
             Order::where(['id'=>$id])->update
             ([
                 'location_status' => 6,
-                'status' => $data['status'],
+                'delivery_status' => $data['status'],
                 'is_assign' => 1,
             ]);
 

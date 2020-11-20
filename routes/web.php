@@ -36,6 +36,12 @@ Route::match(['get','post'],'admin-change-pwd',[App\Http\Controllers\AdminContro
 
 // Admin Home/Dashboard
 Route::get('/admin/dashboard',[App\Http\Controllers\AdminController::class,'dashboard']);
+// Expences Routes
+Route::get('/admin/view-expences',[App\Http\Controllers\AdminController::class,'viewExpences']);
+Route::match(['get','post'],'/admin/add-expence',[App\Http\Controllers\AdminController::class,'addExpence']);
+Route::match(['get','post'],'/admin/edit-category/{id}',[App\Http\Controllers\CategoryController::class,'editCategory']);
+Route::get('/admin/delete-category/{id}',[App\Http\Controllers\CategoryController::class,'deleteCategory']);
+
 
 //role routes
 Route::get('admin/view-roles', [App\Http\Controllers\RoleController::class,'viewRole']);
@@ -266,9 +272,10 @@ Route::group(['middleware' => ['role: |finance-admin']], function () {
 
 Route::get('/finance/dashboard',[App\Http\Controllers\FinanceController::class,'dashboard']);
 
-Route::get('/finance/view-expence',[App\Http\Controllers\FinanceController::class,'commingsoon']);
+Route::get('/finance/view-expence',[App\Http\Controllers\FinanceController::class,'viewExpences']);
+Route::match(['get','post'],'/admin/add-expence',[App\Http\Controllers\FinanceController::class,'addExpence']);
 Route::get('/finance/view-pruchase-orders',[App\Http\Controllers\FinanceController::class,'commingsoon']);
-Route::get('/finance/view-orders',[App\Http\Controllers\FinanceController::class,'commingsoon']);
+Route::get('/finance/view-orders',[App\Http\Controllers\FinanceController::class,'viewOrders']);
 Route::get('/finance/view-orders-summary',[App\Http\Controllers\FinanceController::class,'commingsoon']);
 
 

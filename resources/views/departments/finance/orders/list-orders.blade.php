@@ -1,4 +1,4 @@
-@extends('layouts.transportLayout.transport-design')
+@extends('layouts.financeLayout.finance-design')
 @section('content')
     <!-- ============================================================== -->
         <!-- Page wrapper  -->
@@ -27,7 +27,7 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="button-group">
-                        <button type="button" class="btn waves-effect waves-light btn-success"><a class="text-white" href="{{ url('admin/create-order') }}">Add New</a></button>
+                        <button type="button" class="btn waves-effect waves-light btn-success"><a class="text-white" href="{{ url('production/create-order') }}">Add New</a></button>
                     </div>
                     </div>
                 </div>
@@ -67,13 +67,13 @@
                                                 <th>S.No</th>
                                                 <th>Name</th>
                                                 <th>Email</th>
+                                                <th>Cell No</th>
                                                 <!-- <th>Discount</th> -->
                                                 <th>Periority</th>
                                                 <th>Location</th>
                                                 <th>Status</th>
-                                                <th>Delivery Status</th>
                                                 <th>Total Amount</th>
-                                                <th>View</th>
+                                                <th>Ordered By</th>
                                                 <th>Action</th>
                                                 
                                             </tr>
@@ -84,21 +84,19 @@
                                                 <td>{{$order->id}}</td>
                                                 <td>{{$order->name}}</td>
                                                 <td>{{$order->email}}</td>
+                                                <td>{{$order->cell_no}}</td>
                                                 <!-- <td>${{$order->discount}}</td> -->
                                                 <td>{{$order->pr_status}}</td>
                                                 <td>{{$order->loc_status}}</td>
                                                 <td>{{$order->s_status}}</td>
-                                                <td>{{$order->delivery_status}}</td>
                                                 <td>{{$order->total_amount}}</td>
+                                                <td>{{$order->order_by}}</td>
                                                 <td style="width: 12%">
                                                     <button type="button" class="btn waves-effect waves-light btn-info" data-toggle="modal" value="" data-target="#exampleModal" onclick="getSODetails({{ $order->id }})"><a class="text-white" href="#">View</a></button>
-
-                                                </td>
-                                                <td style="width: 12%">
-                                                    @if($order->is_assign == '1')
-                                                    <button type="button" class="btn waves-effect waves-light btn-primary"><a class="text-white" href="{{ url('transport/deliver-order/'.$order->id) }}">Invoice</a></button>
+                                                    @if($order->status == "1" || $order->status == "7" || $order->status == "12")
+                                                    <button type="button" class="btn waves-effect waves-light btn-primary"><a class="text-white" href="{{ url('production/edit-order/'.$order->id) }}">Edit</a></button>
                                                     @else
-                                                    <button type="button" class="btn waves-effect waves-light btn-primary"><a class="text-white" href="{{ url('transport/deliver-order/'.$order->id) }}">Deliver</a></button>
+                                                    <button disabled type="button" class="btn waves-effect waves-light btn-primary">Edit</button>
                                                     @endif
 
                                                 </td>
@@ -110,13 +108,13 @@
                                                 <th>S.No</th>
                                                 <th>Name</th>
                                                 <th>Email</th>
+                                                <th>Cell No</th>
                                                 <!-- <th>Discount</th> -->
                                                 <th>Periority</th>
                                                 <th>Location</th>
                                                 <th>Status</th>
-                                                <th>Delivery Status</th>
                                                 <th>Total Amount</th>
-                                                <th>View</th>
+                                                <th>Ordered By</th>
                                                 <th>Action</th>
                                             </tr>
                                         </tfoot>
@@ -229,9 +227,8 @@
                                                     <td>22</td>
                                                 </tr> -->
                                         </tbody>
-                                        
                                     </table>
-                                    <table id="forwardinfo" class="table border">
+                                        <table id="forwardinfo" class="table border">
                                             <tbody>
                                                 
                                                 <!-- <tr>

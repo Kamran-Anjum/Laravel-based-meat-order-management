@@ -11,6 +11,8 @@ use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
 use Session;
 use App\Models\User;
+use App\Models\Expence;
+use Image;
  
 class AdminController extends Controller
 {
@@ -77,6 +79,58 @@ public function dashboard(){
     public function logout(){
         Session::flush();
         return redirect('/admin')->with('flash_message_success','Logged out Successfully');
+    }
+
+    public function viewExpences()
+    {
+        $expences = DB::table('expences as e')
+        ->join('expence_type as et', 'e.type','=','et.id')
+        ->join('users as u','e.created_by','=','u.id')
+        ->select('e.*','et.name as typeName','u.name as userName')
+        ->get();
+        return view('admin.expence.view-expences')->with(compact('expences'));
+    }
+
+    public function addExpence(Request $request){
+        $user = Auth::User();
+
+        if($request->isMethod('post')){
+            $data = $request->all();
+            //dd($data);
+            $expence = new Expence();
+            $expence->name = $data['e_name'];
+            $expence->type = $data['e_type'];
+            $expence->amount = $data['e_price'];
+            $expence->created_by = $user->id;
+            if($request->hasFile('image')){
+
+                $image_tmp = $request->image;
+                    if($image_tmp->isValid()){
+                        $extension = $image_tmp->getClientOriginalExtension();
+                        $filename = 'expence'.rand(1111,9999999).'.'.$extension;
+                        $large_image_path = 'images/backend-images/halalmeat/expence/large/'.$filename;
+                        $medium_image_path = 'images/backend-images/halalmeat/expence/medium/'.$filename;
+                        $small_image_path = 'images/backend-images/halalmeat/expence/small/'.$filename;
+                        $tiny_image_path = 'images/backend-images/halalmeat/expence/tiny/'.$filename;
+                        Image::make($image_tmp)->save($large_image_path);
+                        Image::make($image_tmp)->resize(600,600)->save($medium_image_path);
+                        Image::make($image_tmp)->resize(166,266)->save($small_image_path);
+                        Image::make($image_tmp)->resize(100,100)->save($tiny_image_path);
+                        $expence->image = $filename;
+                    }
+                }
+            $expence->save();
+
+            return redirect('admin/view-expences')->with('flash_message_success','Expence successfully Added!');
+        }
+
+        $expence_type = DB::table('expence_type')->get();
+        $expence_dropdown = "<option disabled selected > Select Type</option>";
+
+        foreach ($expence_type as $exp) {
+            $expence_dropdown .="<option value='".$exp->id."'>".$exp->name . "</option>";
+        }
+        return view('admin.expence.create-expence')->with(compact('expence_dropdown'));
     }
 
 }

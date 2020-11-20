@@ -72,7 +72,7 @@
                                 <h5 class="card-title text-uppercase">Total Expences</h5>
                                 <div class="text-right">
                                     <span class="text-muted">Total Expences</span>
-                                    <h2 class="mt-2 display-7"><sup><i class="ti-arrow-down text-danger"></i></sup>${{number_format($today_purchase)}}</h2>
+                                    <h2 class="mt-2 display-7"><sup><i class="ti-arrow-down text-danger"></i></sup>${{number_format($today_expence)}}</h2>
                                 </div>
                                 <!-- <span class="text-success">30%</span>
                                 <div class="progress">
@@ -80,7 +80,7 @@
                                 </div> -->
                             </div>
                         </div>
-                    </div>
+                    </div> 
                     <div class="col-md-3 col-lg-3">
                         <div class="card">
                             <div class="card-body">

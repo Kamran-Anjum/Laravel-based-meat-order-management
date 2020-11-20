@@ -177,7 +177,12 @@
                                 
                             </ul>
                         </li> -->
-                        
+                        <li class="sidebar-item">
+                            <a href="{{ url('/admin/view-expences') }}" class="sidebar-link">
+                                <i class="mdi mdi-shopping"></i>
+                                    <span class="hide-menu">Expences</span>
+                            </a>
+                        </li>
 
                          <li class="sidebar-item">
                             <a href="{{ url('/admin/view-vehicles') }}" class="sidebar-link">
