@@ -187,7 +187,7 @@ Route::get('/admin/delete-user-image/{id}',[App\Http\Controllers\CustomerControl
 Route::get('/admin/comming-soon/',[App\Http\Controllers\CustomerController::class,'commingsoon']);
 
 //Woocommerce Controller
-Route::get('/admin/view-woo', [App\Http\Controllers\WoocommerceController::class,'ViewWoocommerce']);
+Route::get('/admin/view-wp-orders', [App\Http\Controllers\WoocommerceController::class,'ViewWoocommerce']);
 
 
 

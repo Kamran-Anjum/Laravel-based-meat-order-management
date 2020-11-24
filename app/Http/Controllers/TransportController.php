@@ -96,30 +96,82 @@ class TransportController extends Controller
 
     public function testFekin()
     {
+        $token = "1688894217.hBpAwTwLZjUp4XvPgDPnQUZSk4FiWzs8";
+
     	$curl = curl_init();
+  curl_setopt_array($curl, array(
+    CURLOPT_URL => "https://api.fiken.no/api/v2/companies/fiken-demo-venstre-vik-as/invoices",
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_TIMEOUT => 30,
+    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+    CURLOPT_CUSTOMREQUEST => "GET",
+    CURLOPT_HTTPHEADER => array(
+      "cache-control: no-cache",
+      "Authorization: Bearer 1688894217.hBpAwTwLZjUp4XvPgDPnQUZSk4FiWzs8"
+    ),
+  ));
 
-      curl_setopt_array($curl, array(
-        CURLOPT_URL => "https://fiken.no/api/v1/rel/invoices",
-        CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_ENCODING => "",
-        CURLOPT_FOLLOWLOCATION => true,
-        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-        CURLOPT_CUSTOMREQUEST => "GET",
-       CURLOPT_HTTPHEADER => array(
-         "Username: post@kjottsentralen.no",
-         "Password: Kswwqq2018"
-       ),
-      ));
+  $response = curl_exec($curl);
+  $err = curl_error($curl);
+  //$response = json_encode($response);
+  curl_close($curl);
 
-      $response = curl_exec($curl);
-
-    curl_close($curl);
-
-    $response = json_decode($response);
+  $response = json_decode($response);
     dd($response);
     	
     }
+public function fikenPost()
+{
+    //$data = new array();
+    $data = ["uuid"=> "123e4567-e89b-12d3-a456-426655440000",
+    "issueDate"=> "2020-12-20",
+    "dueDate"=> "2020-12-20",
+    "lines"=> [
+    [
+      "net"=> 7500,
+      "vat"=> 1125,
+      "vatType"=> "MEDIUM",
+      "gross"=> 8625,
+      //"vatInPercent"=> 0.2500000000,
+      "unitPrice"=> 7500,
+      "quantity"=> 1,
+      //"discount"=> 25,
+      "productName"=> "Gardening Gloves VI2",
+      "productId"=> 2888156,
+      "description"=> "Goatskin, with extra-long suede cuffs",
+      "comment"=> "One size fits all",
+      "incomeAccount"=> 3000
+    ]
+  ],
+  "customerId"=> 1703087210,
+  "bankAccountCode"=> "1920:10001",
+  "currency"=> "NOK",
+  "invoiceText"=> "Invoice for services rendered during the Oslo Knitting Festival.",
+  "cash"=> true,
+  "paymentAccount"=> "1920:10001",
+];
 
+                    //header('Content-Type: application/json'); 
+                    $chz = curl_init("https://api.fiken.no/api/v2/companies/fiken-demo-venstre-vik-as/invoices"); 
+                                $data = json_encode($data);
+                                $authorization = "Authorization: Bearer 1688894217.hBpAwTwLZjUp4XvPgDPnQUZSk4FiWzs8"; 
+                                curl_setopt($chz, CURLOPT_HTTPHEADER, array('Content-Type: application/json','Accept: application/json' , $authorization )); 
+                                curl_setopt($chz, CURLOPT_RETURNTRANSFER, true);
+                                curl_setopt($chz, CURLOPT_POST, 1); 
+                                curl_setopt($chz, CURLOPT_POSTFIELDS, $data); 
+                                curl_setopt($chz, CURLOPT_FOLLOWLOCATION, 1); 
+                                $resultz = curl_exec($chz); 
+                                $info = curl_getinfo($chz);
+                                curl_close($chz);
+                                /*print_r($info)."<br>";*/
+                                print_r($resultz);
+                                die();
+                                //$resultz . PHP_EOL; 
+                                //$resultz = json_decode($resultz, true);
+                                //dd($resultz);
+                                //$status = $resultz["ResponseCode"];
+
+}
     public function editOrder(Request $request, $id =null)
     {
         if($request->isMethod('post')){
