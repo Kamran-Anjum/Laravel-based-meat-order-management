@@ -60,6 +60,6 @@ class ProductionController extends Controller
     }
     public function logout(){
         Session::flush();
-        return redirect('/production')->with('flash_message_success','Logged out Successfully');
+        return redirect('/admin')->with('flash_message_success','Logged out Successfully');
     }
 }

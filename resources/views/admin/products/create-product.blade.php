@@ -130,6 +130,17 @@
                                                 </div>
                                             </div>
                                             <div class="col-md-4 mb-0">
+                                                <div class="form-group">                                                  
+                                                    <label  for="">Unit</label>
+                                                    <select class="form-control" id="product_category_id" name="unit">
+                                                        {!! $units_dropdown !!}
+                                                    </select>                                                    
+                                                    <div class="invalid-feedback">Example invalid custom select feedback</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-8 mb-0">
                                                 <div class="form-group">                                    
                                                     <label  for="">Description</label>
                                                     <textarea name="description" class="form-control" rows="5" cols="5"></textarea>

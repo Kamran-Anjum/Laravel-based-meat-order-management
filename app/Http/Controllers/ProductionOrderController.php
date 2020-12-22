@@ -81,7 +81,7 @@ class ProductionOrderController extends Controller
 
                 return redirect('production/view-orders')->with('flash_message_success','Sale Order successfully Added!');
     	}
-    	$authorizedRoles = ['internal customer', 'external customer', 'private customer','workforce'];
+    	$authorizedRoles = ['internal-customer', 'external-customer', 'private-customer','workforce'];
 
 		$customers = User::whereHas('roles', static function ($query) use ($authorizedRoles) {
                     return $query->whereIn('name', $authorizedRoles);

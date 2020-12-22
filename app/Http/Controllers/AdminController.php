@@ -26,8 +26,31 @@ class AdminController extends Controller
                 /*
                 Session::put('adminSession',$data['email']);
                 */
+                    $users = Auth::User();
 
-    				return redirect('admin/dashboard');
+                    $user = User::where(['id'=> $users->id])->with('roles')->first();
+
+                    $role_name = $user->roles->first()->name;
+                    //dd($role_name);
+                    if($role_name == "super-admin"){
+                        return redirect('admin/dashboard');
+                    }
+    				elseif ($role_name == "production-admin") {
+                        return redirect('production/dashboard');
+                    }
+                    elseif ($role_name == "packing-admin") {
+                        return redirect('packing/dashboard');
+                    }
+                    elseif ($role_name == "transport-admin") {
+                        return redirect('transport/dashboard');
+                    }
+                    elseif ($role_name == "finance-admin") {
+                        return redirect('finance/dashboard');
+                    }
+                    else{
+                        Session::flush();
+                        return redirect('/admin')->with('flash_message_error','You do not have Rights to Access');
+                    }
     			}
     			else{
                     return redirect('/admin')->with('flash_message_error','Invalid Username or Password');

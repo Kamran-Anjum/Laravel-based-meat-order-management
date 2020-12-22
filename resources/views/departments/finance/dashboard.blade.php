@@ -36,7 +36,7 @@
                 <!-- First Cards Row  -->
                 <!-- ============================================================== -->
                 <div class="row">
-                    <div class="col-md-3 col-lg-3">
+                    <div class="col-md-6 col-lg-6">
                         <div class="card">
                             <div class="card-body">
                                 <h5 class="card-title text-uppercase">Total Sales</h5>
@@ -51,13 +51,13 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-3 col-lg-3">
+                    <div class="col-md-6 col-lg-6">
                         <div class="card">
                             <div class="card-body">
-                                <h5 class="card-title text-uppercase">Total Purchases</h5>
+                                <h5 class="card-title text-uppercase">Website Sales</h5>
                                 <div class="text-right">
-                                    <span class="text-muted">Total Purchases Amount</span>
-                                    <h2 class="mt-2 display-7"><sup><i class="ti-arrow-down text-danger"></i></sup>${{number_format($today_purchase)}}</h2>
+                                    <span class="text-muted">Total Website Sales Amount</span>
+                                    <h2 class="mt-2 display-7"><sup><i class="ti-arrow-up text-success"></i></sup>${{number_format($wp_total_sales)}}</h2>
                                 </div>
                                 <!-- <span class="text-success">30%</span>
                                 <div class="progress">
@@ -66,7 +66,9 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-3 col-lg-3">
+                </div>
+                <div class="row">
+                    <div class="col-md-4 col-lg-4">
                         <div class="card">
                             <div class="card-body">
                                 <h5 class="card-title text-uppercase">Total Expences</h5>
@@ -81,12 +83,12 @@
                             </div>
                         </div>
                     </div> 
-                    <div class="col-md-3 col-lg-3">
+                    <div class="col-md-4 col-lg-4">
                         <div class="card">
                             <div class="card-body">
-                                <h5 class="card-title text-uppercase">Profit/Loss</h5>
+                                <h5 class="card-title text-uppercase">Total Purchases</h5>
                                 <div class="text-right">
-                                    <span class="text-muted">Profit/Loss</span>
+                                    <span class="text-muted">Total Purchases</span>
                                     <h2 class="mt-2 display-7"><sup><i class="ti-arrow-down text-danger"></i></sup>${{number_format($today_purchase)}}</h2>
                                 </div>
                                 <!-- <span class="text-success">30%</span>
@@ -96,6 +98,22 @@
                             </div>
                         </div>
                     </div>
+                    <div class="col-md-4 col-lg-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title text-uppercase">Profit/Loss</h5>
+                                <div class="text-right">
+                                    <span class="text-muted">Profit/Loss</span>
+                                    <h2 class="mt-2 display-7"><sup><i class="ti-arrow-down text-danger"></i></sup>${{number_format($profit_loss)}}</h2>
+                                </div>
+                                <!-- <span class="text-success">30%</span>
+                                <div class="progress">
+                                    <div class="progress-bar bg-danger" role="progressbar" style="width: 30%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
                     <!-- <div class="col-md-6 col-lg-3">
                         <div class="card">
@@ -127,7 +145,7 @@
                             </div>
                         </div>
                     </div> -->
-                </div>
+               
                 <div class="row">
                     <div class="col-md-3 col-lg-3">
                         <button style="width: 150px; height: 150px; background-color: #847b76; border-radius: 10px; border-color: #f2f2f2" type="button" class="btn btn-primary">

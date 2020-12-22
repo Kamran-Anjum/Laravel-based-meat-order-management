@@ -69,12 +69,13 @@
                                                 <th>Email</th>
                                                 <th>Cell No</th>
                                                 <!-- <th>Discount</th> -->
-                                                <th>Periority</th>
+                                                <!-- <th>Periority</th> -->
                                                 <th>Location</th>
                                                 <th>Status</th>
                                                 <th>Total Amount</th>
                                                 <th>Ordered By</th>
                                                 <th>Action</th>
+                                                <th>Invoice</th>
                                                 
                                             </tr>
                                         </thead>
@@ -86,19 +87,30 @@
                                                 <td>{{$order->email}}</td>
                                                 <td>{{$order->cell_no}}</td>
                                                 <!-- <td>${{$order->discount}}</td> -->
-                                                <td>{{$order->pr_status}}</td>
+                                                <!-- <td>{{$order->pr_status}}</td> -->
                                                 <td>{{$order->loc_status}}</td>
                                                 <td>{{$order->s_status}}</td>
                                                 <td>{{$order->total_amount}}</td>
                                                 <td>{{$order->order_by}}</td>
                                                 <td style="width: 12%">
                                                     <button type="button" class="btn waves-effect waves-light btn-info" data-toggle="modal" value="" data-target="#exampleModal" onclick="getSODetails({{ $order->id }})"><a class="text-white" href="#">View</a></button>
-                                                    @if($order->status == "1" || $order->status == "7" || $order->status == "12")
+                                                    @if($order->status == "1" || $order->status == "7" || $order->status == "12" || $order->status == "6")
                                                     <button type="button" class="btn waves-effect waves-light btn-primary"><a class="text-white" href="{{ url('production/edit-order/'.$order->id) }}">Edit</a></button>
                                                     @else
                                                     <button disabled type="button" class="btn waves-effect waves-light btn-primary">Edit</button>
                                                     @endif
 
+                                                </td>
+                                                <td>
+                                                     @if($order->fiken_invoice_id == "0")
+                                                        @if($order->delivery_status != "5")
+                                                        <button disabled type="button" class="btn waves-effect waves-light btn-primary">Create Invoice</button>
+                                                        @else
+                                                        <button type="button" class="btn waves-effect waves-light btn-primary">Create Invoice</button>
+                                                        @endif
+                                                    @else
+                                                        <button type="button" class="btn waves-effect waves-light btn-success"><a target="" class="text-white" href="{{$order->invoice_url}}">View Invoice</a></button>
+                                                    @endif
                                                 </td>
                                             </tr>
                                             @endforeach
@@ -110,12 +122,13 @@
                                                 <th>Email</th>
                                                 <th>Cell No</th>
                                                 <!-- <th>Discount</th> -->
-                                                <th>Periority</th>
+                                                <!-- <th>Periority</th> -->
                                                 <th>Location</th>
                                                 <th>Status</th>
                                                 <th>Total Amount</th>
                                                 <th>Ordered By</th>
                                                 <th>Action</th>
+                                                th>Invoice</th>
                                             </tr>
                                         </tfoot>
                                     </table>

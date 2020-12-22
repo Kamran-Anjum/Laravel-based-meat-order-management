@@ -428,7 +428,7 @@ $('#product_id').on('change', function() {
                 $('#stocks').attr("value", data[0]);
                 /*$('#stocks').value = data[0];*/
                 $("#stocks").prop("readonly", true);
-                $('#sale_price').attr("value", data[1]);
+                $('#sale_price').attr("value",  Math.round(data[1]));
                 /*$('#sale_price').value = data[1];*/
                 $("#sale_price").prop("readonly", true);
                 /*alert(data[0]);
@@ -453,7 +453,7 @@ $('#product_id').on('change', function() {
         var saleprice = document.getElementById("sale_price").value;
         var quantity = document.getElementById("qty").value;
 
-        var discount_amount = saleprice * quantity / 100 * percent;
+        var discount_amount = Math.round(saleprice * quantity / 100 * percent);
 
         document.getElementById("discount_amount").value = discount_amount;
         document.getElementById("sub_total").value = quantity * saleprice - discount_amount;

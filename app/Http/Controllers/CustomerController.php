@@ -151,8 +151,8 @@ class CustomerController extends Controller
             ]);
         return redirect('/admin/view-customers')->with('flash_message_success','Customer has been Updated Successfully!'); 
         }
-
-        $authorizedRoles = ['internal customer', 'external customer', 'private customer','workforce'];
+ 
+        $authorizedRoles = ['internal-customer', 'external-customer', 'private-customer','workforce'];
 
         $users = User::whereHas('roles', static function ($query) use ($authorizedRoles) {
                     return $query->whereIn('name', $authorizedRoles);
@@ -162,7 +162,7 @@ class CustomerController extends Controller
         //session::put('oldrole', $oldrole);
         //dd($oldrole);
         $customer_details = DB::table('customer_details')->where(['user_id'=>$id])->first();
-
+        //dd($customer_details);
         $roles = DB::table('roles')->whereNotIn('id',[1,2,3,4,10,11])->get();
 
         $roles_dropdown = "<option value=''>Select Role</option>";

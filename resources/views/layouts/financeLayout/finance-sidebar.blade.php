@@ -15,7 +15,7 @@
                             </a>
                             <ul aria-expanded="false" class="collapse  first-level">
                                 <li class="sidebar-item">
-                                    <a href="{{ url('/logout') }}" class="sidebar-link">
+                                    <a href="{{ url('/finance-logout') }}" class="sidebar-link">
                                         <i class="fas fa-power-off"></i>
                                         <span class="hide-menu"> Logout </span>
                                     </a>
@@ -23,7 +23,7 @@
                             </ul>
                         </li>
                         <li class="sidebar-item">
-                            <a href="{{ url('/admin/dashboard')}}" class="sidebar-link">
+                            <a href="{{ url('/finance/dashboard')}}" class="sidebar-link">
                                 <i class="mdi mdi-av-timer"></i>
                                 <span class="hide-menu">Finance Dashboard</span>
                             </a>
@@ -44,7 +44,7 @@
                                     </a>
                                 </li>
                                 <li class="sidebar-item">
-                                    <a href="#" class="sidebar-link">
+                                    <a href="{{ url('finance/view-wp-orders') }}" class="sidebar-link">
                                         <i class="mdi mdi-adjust"></i>
                                         <span class="hide-menu">View Wordpress Sales Orders</span>
                                     </a>

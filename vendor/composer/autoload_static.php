@@ -746,6 +746,8 @@ class ComposerStaticInitd6241ce7417791fd7a44aae8301addd0
         'App\\Models\\Supplierproducts' => __DIR__ . '/../..' . '/app/Models/Supplierproducts.php',
         'App\\Models\\User' => __DIR__ . '/../..' . '/app/Models/User.php',
         'App\\Models\\WpOrder' => __DIR__ . '/../..' . '/app/Models/WpOrder.php',
+        'App\\Models\\WpOrderAssign' => __DIR__ . '/../..' . '/app/Models/WpOrderAssign.php',
+        'App\\Models\\WpOrderDetail' => __DIR__ . '/../..' . '/app/Models/WpOrderDetail.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
         'App\\Providers\\AuthServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AuthServiceProvider.php',
         'App\\Providers\\BroadcastServiceProvider' => __DIR__ . '/../..' . '/app/Providers/BroadcastServiceProvider.php',

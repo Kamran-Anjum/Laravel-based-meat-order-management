@@ -81,6 +81,8 @@ return array(
     'App\\Models\\Supplierproducts' => $baseDir . '/app/Models/Supplierproducts.php',
     'App\\Models\\User' => $baseDir . '/app/Models/User.php',
     'App\\Models\\WpOrder' => $baseDir . '/app/Models/WpOrder.php',
+    'App\\Models\\WpOrderAssign' => $baseDir . '/app/Models/WpOrderAssign.php',
+    'App\\Models\\WpOrderDetail' => $baseDir . '/app/Models/WpOrderDetail.php',
     'App\\Providers\\AppServiceProvider' => $baseDir . '/app/Providers/AppServiceProvider.php',
     'App\\Providers\\AuthServiceProvider' => $baseDir . '/app/Providers/AuthServiceProvider.php',
     'App\\Providers\\BroadcastServiceProvider' => $baseDir . '/app/Providers/BroadcastServiceProvider.php',

@@ -44,7 +44,7 @@
                                     </a>
                                 </li>
                                 <li class="sidebar-item">
-                                    <a href="#" class="sidebar-link">
+                                    <a href="{{ url('production/view-wp-orders') }}" class="sidebar-link">
                                         <i class="mdi mdi-adjust"></i>
                                         <span class="hide-menu">View Wordpress Sales Orders</span>
                                     </a>

@@ -88,7 +88,7 @@
                                                 <td>{{$order->pr_status}}</td>
                                                 <td>{{$order->loc_status}}</td>
                                                 <td>{{$order->s_status}}</td>
-                                                <td>{{$order->delivery_status}}</td>
+                                                <td>{{$order->delivery_statuss}}</td>
                                                 <td>{{$order->total_amount}}</td>
                                                 <td style="width: 12%">
                                                     <button type="button" class="btn waves-effect waves-light btn-info" data-toggle="modal" value="" data-target="#exampleModal" onclick="getSODetails({{ $order->id }})"><a class="text-white" href="#">View</a></button>
@@ -96,7 +96,11 @@
                                                 </td>
                                                 <td style="width: 12%">
                                                     @if($order->is_assign == '1')
-                                                    <button type="button" class="btn waves-effect waves-light btn-primary"><a class="text-white" href="{{ url('transport/deliver-order/'.$order->id) }}">Invoice</a></button>
+                                                        @if($order->delivery_status == '15')
+                                                    <button type="button" class="btn waves-effect waves-light btn-primary"><a class="text-white" href="{{ url('transport/complete-order/'.$order->id) }}">Complete?</a></button>
+                                                        @else
+                                                    <button type="button" class="btn waves-effect waves-light btn-primary"><a class="text-white" href="{{ url('transport/delivered-partial-order/'.$order->id) }}">Remain</a></button>
+                                                        @endif
                                                     @else
                                                     <button type="button" class="btn waves-effect waves-light btn-primary"><a class="text-white" href="{{ url('transport/deliver-order/'.$order->id) }}">Deliver</a></button>
                                                     @endif

@@ -74,7 +74,7 @@ $('#product_id_user').on('change', function() {
                 $('#stocks').attr("value", data[0]);
                 /*$('#stocks').value = data[0];*/
                 $("#stocks").prop("readonly", true);
-                $('#sale_price').attr("value", data[1]);
+                $('#sale_price').attr("value", Math.round(data[1]));
                 /*$('#sale_price').value = data[1];*/
                 $("#sale_price").prop("readonly", true);
                 /*alert(data[0]);

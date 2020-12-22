@@ -92,7 +92,7 @@
                                                 <td>{{$product->name}}</td>
                                                 <td>{{$product->catname}}</td>
                                                 <td>{{$product->name}}</td>
-                                                <td>Rs.{{$product->base_price}}</td>
+                                                <td>kr.{{$product->base_price}}</td>
                                                 <td><img width="50" height="50" src=" {{ asset('/images/backend-images/halalmeat/products/tiny/'.$product->image ) }}"></td>
                                                 <td>{{$product->userName}}</td>
                                                 @if($product->is_active == '1')

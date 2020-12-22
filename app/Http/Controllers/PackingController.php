@@ -58,7 +58,7 @@ class PackingController extends Controller
 
     public function logout(){
         Session::flush();
-        return redirect('/packing')->with('flash_message_success','Logged out Successfully');
+        return redirect('/admin')->with('flash_message_success','Logged out Successfully');
     }
 
     /*starts order controlling functions*/

@@ -24,13 +24,13 @@
                         </nav>
                     </div>
                 </div>
-                <div class="row">
+                <!-- <div class="row">
                     <div class="col-12">
                         <div class="button-group">
                         <button type="button" class="btn waves-effect waves-light btn-success"><a class="text-white" href="{{ url('production/create-order') }}">Add New</a></button>
                     </div>
                     </div>
-                </div>
+                </div> -->
                 @if(Session::has('flash_message_error'))
                     <div class="alert alert-error alert-danger alert-block">
                         <button type="button" class="close" data-dismiss="alert">×</button>
@@ -91,12 +91,18 @@
                                                 <td>{{$order->s_status}}</td>
                                                 <td>{{$order->total_amount}}</td>
                                                 <td>{{$order->order_by}}</td>
-                                                <td style="width: 12%">
+                                                <td style="width: 20%">
                                                     <button type="button" class="btn waves-effect waves-light btn-info" data-toggle="modal" value="" data-target="#exampleModal" onclick="getSODetails({{ $order->id }})"><a class="text-white" href="#">View</a></button>
                                                     @if($order->status == "1" || $order->status == "7" || $order->status == "12")
-                                                    <button type="button" class="btn waves-effect waves-light btn-primary"><a class="text-white" href="{{ url('production/edit-order/'.$order->id) }}">Edit</a></button>
+                                                    <button type="button" disabled="" class="btn waves-effect waves-light btn-primary">Invoice</button>
                                                     @else
-                                                    <button disabled type="button" class="btn waves-effect waves-light btn-primary">Edit</button>
+                                                        @if(!empty($order->fiken_invoice_id))
+                                                        <button type="button" class="btn waves-effect waves-light btn-primary"><a class="text-white" href="{{ url('finance/get-order-invoice/'.$order->id) }}" target="_blank">Get Invoice</a></button>
+                                                        <!-- <button type="button" class="btn waves-effect waves-light btn-primary"><a class="text-white" href="{{ $order->invoice_url }}" target="_blank">Invoice</a></button> -->
+                                                        @elseif($order->status == "5")
+                                                        <button type="button" class="btn waves-effect waves-light btn-primary"><a class="text-white" href="{{ url('finance/order-invoice/'.$order->id) }}">Cerate Invoice</a></button>
+                                                        @endif
+
                                                     @endif
 
                                                 </td>

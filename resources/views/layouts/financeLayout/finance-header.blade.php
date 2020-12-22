@@ -317,7 +317,7 @@
                                 <a class="dropdown-item" href="javascript:void(0)"><i class="ti-settings mr-1 ml-1"></i> Account Setting</a>
                                 <a class="dropdown-item" href="{{ url('/admin-change-pwd') }}"><i class="ti-settings mr-1 ml-1"></i>Change Password</a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="{{ url('/logout') }}"><i class="fa fa-power-off mr-1 ml-1"></i> Logout</a>
+                                <a class="dropdown-item" href="{{ url('/finance-logout') }}"><i class="fa fa-power-off mr-1 ml-1"></i> Logout</a>
                             </div>
                         </li>
                         <!-- ============================================================== -->

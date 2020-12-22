@@ -22,6 +22,7 @@ class ProductController extends Controller
 
     	$products = DB::table('products as p')
         ->join('categories as c','p.category_id','=','c.id')
+        /*->join('subcategories as sc','p.category_id','=','c.id')*/
     	->join('users as u','p.created_by', '=', 'u.id')
     	->select('p.*','u.name as userName','c.name as catname')
     	->get();
@@ -66,6 +67,7 @@ class ProductController extends Controller
     		$product->sku_number = $data['sku_number'];
             $product->name = $data['product_name'];
             $product->base_price     = $data['base_price'];
+            $product->unit     = $data['unit'];
             $product->description = $data['description'];
     		$product->created_by = $user->id;
             $product->is_active = $data['is_active'];
@@ -134,13 +136,20 @@ class ProductController extends Controller
     		return redirect('admin/view-products')->with('flash_message_success','Product successfully Added!');
     	}
 
+        $units = DB::table('product_unit')->get();
+        $units_dropdown = "<option disabled selected > Select Unit</option>";
+
+        foreach ($units as $unit) {
+            $units_dropdown .="<option value='".$unit->id."'>".$unit->name . "</option>";
+        }
+
     	$categories = DB::table('categories')->get();
     	$category_dropdown = "<option disabled selected > Select Category</option>";
 
     	foreach ($categories as $category) {
     		$category_dropdown .="<option value='".$category->id."'>".$category->name . "</option>";
     	}
-    	return view('admin.products.create-product')->with(compact('category_dropdown'));
+    	return view('admin.products.create-product')->with(compact('category_dropdown','units_dropdown'));
     }
 
     public function editProduct(Request $request, $id =null)

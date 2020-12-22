@@ -68,10 +68,13 @@
                                                 <th>Wp Order ID</th>
                                                 <th>Name</th>
                                                 <th>Email</th>
-                                                <th>Cell No</th>
+                                                <!-- <th>Cell No</th> -->
                                                 <th>Total Amount</th>
                                                 <th>Status</th>
+                                                <th>Department</th>
+                                                <th>Delivery Status</th>
                                                 <th>Action</th>
+                                                <th></th>
                                                 
                                             </tr>
                                         </thead>
@@ -83,15 +86,22 @@
                                                 <td>{{$order->wp_order_id}}</td>
                                                 <td>{{$order->customer_name}}</td>
                                                 <td>{{$order->customer_email}}</td>
-                                                <td>{{$order->customer_cell}}</td>
+                                                <!-- <td>{{$order->customer_cell}}</td> -->
                                                 <td>{{$order->total_amount}}</td>
                                                 <td>{{$order->status}}</td>
+                                                <td>{{$order->locatin_name}}</td>
+                                                <td>{{$order->delivery_status}}</td>
                                                 
-                                                <td style="width: 12%">
+                                                <td style="width: 25%">
                                                     <button type="button" class="btn waves-effect waves-light btn-info" data-toggle="modal" value="" data-target="#exampleModal" onclick="getSODetails({{ $order->id }})"><a class="text-white" href="#">View</a></button>
-                                                    <button type="button" class="btn waves-effect waves-light btn-primary"><a class="text-white" href="{{ url('admin/edit-order/'.$order->id) }}">Edit</a></button>
-
+                                                    @if($order->location_status != 1)
+                                                    <button type="button" disabled class="btn waves-effect waves-light btn-primary"><a class="text-white">Forward</a></button>
+                                                    @else
+                                                    <button type="button" class="btn waves-effect waves-light btn-primary"><a class="text-white" href="{{ url('admin/forward-wp-order/'.$order->id) }}">Forward</a></button>
+                                                    @endif
+ 
                                                 </td>
+                                                <td><button type="button" class="btn waves-effect waves-light btn-primary"><a class="text-white" href="{{ url('admin/update-wp-order/'.$order->wp_order_id) }}">Update</a></button></td>
                                             </tr>
                                             <?php $i = $i+1; ?>
                                             @endforeach
@@ -102,10 +112,13 @@
                                                 <th>Wp Order ID</th>
                                                 <th>Name</th>
                                                 <th>Email</th>
-                                                <th>Cell No</th>
+                                                <!-- <th>Cell No</th> -->
                                                 <th>Total Amount</th>
                                                 <th>Status</th>
+                                                <th>Department</th>
+                                                <th>Delivery Status</th>
                                                 <th>Action</th>
+                                                <th></th>
                                             </tr>
                                         </tfoot>
                                     </table>

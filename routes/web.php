@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+ 
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -188,13 +188,15 @@ Route::get('/admin/comming-soon/',[App\Http\Controllers\CustomerController::clas
 
 //Woocommerce Controller
 Route::get('/admin/view-wp-orders', [App\Http\Controllers\WoocommerceController::class,'ViewWoocommerce']);
+Route::match(['get','post'],'admin/forward-wp-order/{id}', [App\Http\Controllers\WoocommerceController::class,'editOrderAdmin']);
+Route::match(['get','post'],'admin/update-wp-order/{id}', [App\Http\Controllers\WoocommerceController::class,'updateOrderAdmin']);
 
 
 
 });
 
 //Ajax Routes
-Route::group(['middleware' => ['role: |super-admin|production-admin|packing-admin|transport-admin']], function () {
+Route::group(['middleware' => ['role: |super-admin|production-admin|packing-admin|transport-admin|finance-admin']], function () {
 
 	//Product Ajax Routes
 Route::get('/admin/getproductsubcategories/{id}',[App\Http\Controllers\AjaxRequestController::class,'getsubcategoriesdropdown']);
@@ -234,6 +236,9 @@ Route::get('production/export-excel-view/{from}/{to}/{role}/{customer}',[App\Htt
 
 //Order Controllers Route
 Route::get('/production/view-orders',[App\Http\Controllers\ProductionOrderController::class,'viewOrders']);
+Route::get('/production/view-wp-orders',[App\Http\Controllers\WoocommerceController::class,'ViewWoocommerceProduction']);
+Route::match(['get','post'],'production/forward-order/{id}', [App\Http\Controllers\WoocommerceController::class,'editOrderProduction']);
+
 Route::match(['get','post'],'/production/create-order',[App\Http\Controllers\ProductionOrderController::class,'createOrder']);
 Route::match(['get','post'],'production/edit-order/{id}', [App\Http\Controllers\ProductionOrderController::class,'editOrder']);
 });
@@ -246,7 +251,12 @@ Route::get('/packing/dashboard',[App\Http\Controllers\PackingController::class,'
 
 //Order Controllers Route
 Route::get('/packing/view-orders',[App\Http\Controllers\PackingController::class,'viewOrders']);
+
+Route::get('/packing/view-wp-orders',[App\Http\Controllers\WoocommerceController::class,'ViewWoocommercePacking']);
+Route::match(['get','post'],'packing/forward-order/{id}', [App\Http\Controllers\WoocommerceController::class,'editOrderPacking']);
+
 Route::match(['get','post'],'packing/edit-order/{id}', [App\Http\Controllers\PackingController::class,'editOrder']);
+
 //Purchase Order Packing
 Route::get('/packing/view-pruchase-orders',[App\Http\Controllers\PackingController::class,'viewPurchaseOrders']);
 Route::match(['get','post'],'/packing/recieve-pruchase-orders/', [App\Http\Controllers\PackingController::class,'recievePurchaseOrders']);
@@ -260,7 +270,14 @@ Route::get('/transport/dashboard',[App\Http\Controllers\TransportController::cla
 
 //Order Controllers Route
 Route::get('/transport/view-orders',[App\Http\Controllers\TransportController::class,'viewOrders']);
+Route::get('/transport/view-wp-orders',[App\Http\Controllers\WoocommerceController::class,'ViewWoocommerceTransport']);
+Route::match(['get','post'],'transport/assign-order/{id}', [App\Http\Controllers\WoocommerceController::class,'editOrderTransport']);
+
+Route::match(['get','post'],'transport/complete-wp-order/{id}', [App\Http\Controllers\WoocommerceController::class,'completeOrderTransport']);
+
 Route::match(['get','post'],'transport/deliver-order/{id}', [App\Http\Controllers\TransportController::class,'editOrder']);
+Route::match(['get','post'],'transport/complete-order/{id}', [App\Http\Controllers\TransportController::class,'completeOrder']);
+Route::match(['get','post'],'transport/delivered-partial-order/{id}', [App\Http\Controllers\TransportController::class,'partialOrder']);
 //Vehicle
 Route::get('/transport/vehicles',[App\Http\Controllers\TransportController::class,'viewVehicles']);
 Route::get('/transport/riders',[App\Http\Controllers\TransportController::class,'viewRider']);
@@ -273,9 +290,12 @@ Route::group(['middleware' => ['role: |finance-admin']], function () {
 Route::get('/finance/dashboard',[App\Http\Controllers\FinanceController::class,'dashboard']);
 
 Route::get('/finance/view-expence',[App\Http\Controllers\FinanceController::class,'viewExpences']);
+Route::get('/finance/order-invoice/{id}',[App\Http\Controllers\FinanceController::class,'createInvoice']);
+Route::get('/finance/get-order-invoice/{id}',[App\Http\Controllers\FinanceController::class,'viewInvoice']);
 Route::match(['get','post'],'/admin/add-expence',[App\Http\Controllers\FinanceController::class,'addExpence']);
-Route::get('/finance/view-pruchase-orders',[App\Http\Controllers\FinanceController::class,'commingsoon']);
+Route::get('/finance/view-pruchase-orders',[App\Http\Controllers\FinanceController::class,'viewPurchaseOrders']);
 Route::get('/finance/view-orders',[App\Http\Controllers\FinanceController::class,'viewOrders']);
+Route::get('/finance/view-wp-orders',[App\Http\Controllers\WoocommerceController::class,'ViewWoocommerceFinance']);
 Route::get('/finance/view-orders-summary',[App\Http\Controllers\FinanceController::class,'commingsoon']);
 
 

@@ -43,6 +43,12 @@
                                         <span class="hide-menu">View Sales Orders</span>
                                     </a>
                                 </li>
+                                <li class="sidebar-item">
+                                    <a href="{{ url('/transport/view-wp-orders') }}" class="sidebar-link">
+                                        <i class="mdi mdi-adjust"></i>
+                                        <span class="hide-menu">View Wordpress Sales Orders</span>
+                                    </a>
+                                </li>
 
                             </ul>
                         </li>
