@@ -115,6 +115,22 @@
                                             </div>
                                         </div>
                                         <div class="row">
+                                             <div class="col-md-4 mb-0">
+                                                <div class="form-group">                                                  
+                                                    <label  for="">Organization No.</label>
+                                                    <input required value="{{$customer_details->organization_no}}" type="text" class="form-control" name="o_number">
+                                                    <div class="invalid-feedback">Example invalid custom select feedback</div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4 mb-0">
+                                                <div class="form-group">                                                  
+                                                    <label  for="">Contact Person Name</label>
+                                                    <input required value="{{$customer_details->contact_person_name}}" type="text" class="form-control" name="c_p_name">
+                                                    <div class="invalid-feedback">Example invalid custom select feedback</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
                                             <div class="col-md-4 mb-0">
                                                 <div class="form-group">                                                  
                                                     <label  for="">Address</label>
@@ -125,7 +141,7 @@
                                             <div class="col-md-4 mb-0">
                                                 <div class="form-group">                                    
                                                     <label  for="">Cell No</label>
-                                                    <input value="{{$customer_details->cell_no}}" required type="text" name="customer_cell" class="form-control" >
+                                                    <input value="{{$customer_details->cell_no}}" required type="number" name="customer_cell" class="form-control" >
                                                    
                                                     <div class="invalid-feedback">Example invalid custom select feedback</div>
                                                 </div>

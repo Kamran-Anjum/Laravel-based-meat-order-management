@@ -1,0 +1,198 @@
+@extends('layouts.adminLayout.admin-design')
+@section('content')
+        <!-- ============================================================== -->
+        <!-- Page wrapper  -->
+        <!-- ============================================================== -->
+        <div class="page-wrapper">
+            <!-- ============================================================== -->
+            <!-- Bread crumb and right sidebar toggle -->
+            <!-- ============================================================== -->
+            <div class="page-breadcrumb">
+                <div class="row">
+                    <div class="col-lg-4 col-md-4 col-xs-12 align-self-center">
+                        <h5 class="font-medium text-uppercase mb-0">List Fabrics</h5>
+
+                    </div>
+                    <div class="col-lg-8 col-md-4 col-xs-12 align-self-center">
+                        <!-- <button class="btn btn-danger text-white float-right ml-3 d-none d-md-block">Buy Ample
+                            Admin</button> -->
+                        <nav aria-label="breadcrumb" class="mt-2 float-md-right float-left">
+                            <ol class="breadcrumb mb-0 justify-content-end p-0">
+                                <li class="breadcrumb-item"><a href="{{ url('admin/dashboard') }}">Home</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">List Fabrics</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                    	<div class="button-group">
+					    <a href="{{ url('admin/create-fabric') }}"><button type="button" class="btn waves-effect waves-light btn-success">Add New</button></a>
+					</div>
+                    </div>
+                </div>
+                @if(Session::has('flash_message_error'))
+                    <div class="alert alert-error alert-block">
+                        <button type="button" class="close" data-dismiss="alert">×</button>
+                        <strong>{!! session('flash_message_error') !!}</strong>
+                    </div>
+
+                @endif
+                @if(Session::has('flash_message_success'))
+                    <div class="alert alert-success alert-block">
+                        <button type="button" class="close" data-dismiss="alert">×</button>
+                        <strong>{!! session('flash_message_success') !!}</strong>
+                    </div>
+                @endif
+            </div>
+            <!-- ============================================================== -->
+            <!-- End Bread crumb and right sidebar toggle -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- Container fluid  -->
+            <!-- ============================================================== -->
+            <div class="page-content container-fluid">
+                <!-- ============================================================== -->
+                <!-- Start Page Content -->
+                <!-- ============================================================== -->
+                <!-- basic table -->
+                <div class="row">
+                    <div class="col-12">
+                        <div class="material-card card">
+                            <div class="card-body">
+<!--                                 <h4 class="card-title">Zero Configuration</h4>
+                                <h6 class="card-subtitle">DataTables has most features enabled by default, so all you
+                                    need to do to use it with your own tables is to call the construction
+                                    function:<code> $().DataTable();</code>. You can refer full documentation from here
+                                    <a href="https://datatables.net/">Datatables</a></h6> -->
+                                <div class="table-responsive">
+                                    <table id="zero_config" class="table table-striped border">
+                                        <thead>
+                                            <tr> 
+                                                <th>Code</th>
+                                                <th>Name</th>
+                                                <th>Quantity</th>
+                                                <th>Color</th>
+                                                <th>Button Color</th>
+                                                <th>Image</th>
+                                                <th>Category</th>
+                                                <th>Created On</th>
+                                                <th>Added By</th>
+                                                <th>Action</th>
+                                            </tr> 
+                                        </thead>
+                                        <tbody>
+                                        <?php $i = 0; ?>
+                                        @foreach($fabrics as $fabric)
+                                            <tr>
+
+                                                <td>{{$fabric->code}}</td>
+                                                <td>{{$fabric->name}}</td>
+						<td>{{ $fabricquantity[$i] }}</td>
+                                                <td>
+                                                @foreach($fabricattributes as $fabcat)
+
+                                                    @if($fabcat->fabrics_id == $fabric->id)
+                                                {{$fabcat->color}}
+{{--                                                @else--}}
+{{--                                                <td></td>--}}
+                                                    @endif
+                                                @endforeach
+                                                </td>
+                                                <td>{{$fabric->button_color}}</td>
+                                                              <td>
+                    @if(!empty($fabric->image))
+
+                    <img src=" {{ asset('/images/backend-images/liburtiimages/attributes/tiny/'.$fabric->image ) }}">
+                    @endif
+                  </td>
+                                                <td>{{$fabric->fabric_cat}}</td>
+                                                <td>{{$fabric->created_at}}</td>
+                                                <td>{{$fabric->userName}}</td>
+                                                <!-- <td>$320,800</td> -->
+                                                <td>
+                                                	<div class="button-group">
+{{--														<button type="button" class="btn waves-effect waves-light btn-info">View</button>--}}
+{{--														<a href=" {{ url('admin/edit-fabric/'.$fabric->id) }}" type="button" class="btn waves-effect waves-light btn-primary">Edit</a>--}}
+{{--														<a param-id="{{ $fabric->id }}" param-route="delete-fabric" href="javascript:" type="button" class="btn waves-effect waves-light btn-danger sa-confirm-delete">Remove</a>--}}
+
+                                                        <button type="button" class="btn waves-effect waves-light btn-info"><a class="text-white" href="{{ url('/admin/view-fabrics')}}">View</a></button>
+                                                        <button type="button" class="btn waves-effect waves-light btn-primary"><a class="text-white" href="{{ url('admin/edit-fabric/'.$fabric->id) }}">Edit</a></button>
+                                                        <button type="button" class="btn waves-effect waves-light btn-danger"><a class="text-white sa-confirm-delete" param-id="{{ $fabric->id }}" param-route="delete-fabric" href="javascript:">Remove</a></button>
+
+                                                    </div>
+												</td>
+
+                                            </tr>
+                                            <?php $i = $i+1; ?>
+                                        @endforeach
+                                             <!-- <tr>
+                                                <td>6079</td>
+                                                <td>Blue</td>
+                                                <td>Dark Bluish</td>
+                                                <td>2012/08/28</td>
+                                                <td>Admin</td>
+                                                                                                <td>
+                                                	<div class="button-group">
+														<button type="button" class="btn waves-effect waves-light btn-info">View</button>
+														<button type="button" class="btn waves-effect waves-light btn-primary">Edit</button>
+														<button type="button" class="btn waves-effect waves-light btn-danger">Remove</button>
+													</div>
+												</td>
+                                            </tr>
+                                            <tr>
+                                                <td>4568</td>
+                                                <td>Black</td>
+                                                <td>Hot look</td>
+                                                <td>2015/07/11</td>
+                                                <td>Admin</td>
+                                                <td>
+                                                	<div class="button-group">
+														<button type="button" class="btn waves-effect waves-light btn-info">View</button>
+														<a href="{{ url('admin/edit-colors') }}"><button type="button" class="btn waves-effect waves-light btn-primary">Edit</button></a>
+														<button id="sa-confirm" type="button" class="btn waves-effect waves-light btn-danger">Remove</button>
+													</div>
+												</td>
+                                            </tr>  -->
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <th>Code</th>
+                                                <th>Name</th>
+                                                <th>Quantity</th>
+                                                <th>Color</th>
+                                                <th>Button Color</th>
+                                                <th>Image</th>
+                                                <th>Category</th>
+                                                <th>Created On</th>
+                                                <th>Added By</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ============================================================== -->
+                <!-- End PAge Content -->
+                <!-- ============================================================== -->
+                <!-- ============================================================== -->
+                <!-- Right sidebar -->
+                <!-- ============================================================== -->
+                <!-- .right-sidebar -->
+                <!-- ============================================================== -->
+                <!-- End Right sidebar -->
+                <!-- ============================================================== -->
+            </div>
+            <!-- ============================================================== -->
+            <!-- End Container fluid  -->
+            <!-- ============================================================== -->
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Page wrapper  -->
+        <!-- ============================================================== -->
+
+@endsection

@@ -68,7 +68,7 @@
                                 </div>
                                 <div class="col-md-2 mb-0">
                                     <div class="form-group">
-                                        <button onclick="getReportSortP()" style="top: 29px;" class="btn btn-success">Search</button>
+                                        <button onclick="getReportSort()" style="top: 29px;" class="btn btn-success">Search</button>
                                     </div>    
                                 </div>
                             </div>
@@ -110,13 +110,13 @@
                                     <div class="col-7">
                                         <h3>You can Download your reports as PDF or Excel Format</h3>
                                     </div>
-                                    <div class="col-1"><button style="width: 100%;" class="btn btn-success" onclick="reportPDFP()">PDF</button>
+                                    <div class="col-1"><button style="width: 100%;" class="btn btn-success" onclick="reportPDF()">PDF</button>
                                     </div>
                                     <div class="col-2">
-                                        <button class="btn btn-success" style="width: 100%;" onclick="reportExcelviewP()">View Excel</button>
+                                        <button class="btn btn-success" style="width: 100%;" onclick="reportExcelview()">View Excel</button>
                                     </div>
                                     <div class="col-2">
-                                        <button class="btn btn-success" style="width: 100%;" onclick="reportExcelP()">Download Excel</button>
+                                        <button class="btn btn-success" style="width: 100%;" onclick="reportExcel()">Download Excel</button>
                                     </div>
                                 </div>
                                 
@@ -140,9 +140,9 @@
                                                 <th>Order No.</th>
                                                 <th>Date</th>
                                                 <th>Customer</th>
-                                                <th>Total Quantity</th>
                                                 <th>Total Amount</th>
                                                 <th>Status</th>
+                                                <th>Action</th>
                                                 
                                             </tr>
                                         </thead>
@@ -155,8 +155,12 @@
                                                 <td>{{$order->created_at}}</td>
                                                 <td>{{$order->customerName}}</td>
                                                 <td>{{$order->total_amount}}</td>
-                                                <td>{{$order->total_amount}}</td>
                                                 <td>{{$order->s_status}}</td>
+                                                <td style="width: 12%">
+                                                    <button type="button" class="btn waves-effect waves-light btn-info" data-toggle="modal" value="" data-target="#exampleModal" onclick="getSODetails({{ $order->id }})"><a class="text-white" href="#">View</a></button>
+                                                    
+
+                                                </td>
                                             </tr>
                                             <?php $i = $i+1; ?>
                                             @endforeach
@@ -167,9 +171,9 @@
                                                 <th>Order No.</th>
                                                 <th>Date</th>
                                                 <th>Customer</th>
-                                                <th>Total Quantity</th>
                                                 <th>Total Amount</th>
                                                 <th>Status</th>
+                                                <th>Action</th>
                                             </tr>
                                         </tfoot>
                                     </table>

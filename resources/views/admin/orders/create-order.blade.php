@@ -146,8 +146,8 @@
                                                     </select> 
                                                  
                                          		</td>
-                                         		<td style="width: 5%">
-                                                 <input required id="unit" type="text" readonly value="KG" class="form-control" placeholder="">  
+                                         		<td style="width: 8%">
+                                                 <input required id="unit" type="text" readonly class="form-control" placeholder="">  
                                          		</td>
                                          		<td style="width: 7%">
                                                  <input required readonly id="stocks" type="number" class="form-control" placeholder="">  
@@ -159,10 +159,10 @@
                                                  <input required readonly id="sale_price" type="number" class="form-control" placeholder="">  
                                          		</td>
                                                 <td style="width: 5%">
-                                                 <input  id="discount" type="number" class="form-control" placeholder="">  
+                                                 <input value="0" min="0"  id="discount" type="number" class="form-control" placeholder="">  
                                                 </td>
                                                 <td>
-                                                 <input readonly id="discount_amount" type="number" class="form-control" placeholder="">  
+                                                 <input value="0" min="0" readonly id="discount_amount" type="number" class="form-control" placeholder="">  
                                                 </td>
                                          		<td>
                                                  <input required readonly value="0" id="sub_total" type="number" class="form-control" placeholder="">  
@@ -304,27 +304,27 @@
                                         <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label class="control-label">Name</label>
-                                                     <input required type="text" name="shipping_name" class="form-control" name="">
+                                                     <input readonly="" type="text" name="shipping_name" id="shipping_name" class="form-control" name="">
                                             </div>
                                         </div>
                                             <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label class="control-label">Email</label>
-                                                    <input required type="Email" name="shipping_email" class="form-control" name="">
+                                                    <input readonly="" type="Email" name="shipping_email" id="shipping_email" class="form-control" name="">
                                                     
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label class="control-label">Cell No</label>
-                                                    <input required="" type="text" name="shipping_cell" class="form-control" name="">
+                                                    <input required="" type="text" name="shipping_cell" id="shipping_cell" class="form-control" name="">
                                                     
                                             </div>
                                         </div>
                                             <div class="col-md-8">
                                                 <div class="form-group">
                                                     <label class="control-label">Address</label>
-                                                    <input required type="text" name="shipping_address" class="form-control" >
+                                                    <input required type="text" name="shipping_address" id="shipping_address" class="form-control" >
                                                 </div>
                                             </div>
                                             <div class="col-md-2">

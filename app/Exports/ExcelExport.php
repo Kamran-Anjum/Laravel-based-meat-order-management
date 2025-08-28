@@ -66,7 +66,7 @@ class ExcelExport implements FromCollection,WithHeadings
     		
     	}
     	else{
-    		$sortorders = DB::table('orders as o')->whereBetween(['o.created_at', $this->$fromdate, $this->todate])
+    		$sortorders = DB::table('orders as o')->whereBetween('o.created_at', [$this->fromdate, $this->todate])
     		->where(['o.user_id'=> $this->user])
     		->join('users as u','o.user_id', '=', 'u.id')
     		->join('purchase_order_status as ps','o.status','=','ps.id')

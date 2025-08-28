@@ -112,12 +112,12 @@
                                                 <th>Sub-Category</th>
                                                 <th>Product</th>                                     
                                                 <th>Unit</th>
-                                                <th>Stock</th>
+                                                
                                                 <th>Qty</th>
                                                 <th>Sale Price</th>
-                                                <th>Amount</th>
                                                 <th>SubTotal</th>
                                                 <th></th>
+                                                
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -141,11 +141,11 @@
                                          		<td style="width: 5%">
                                                  <input required id="unit" type="text" readonly value="KG" class="form-control" placeholder="">  
                                          		</td>
-                                         		<td style="width: 7%">
+                                         		<!--<td style="width: 7%">
                                                  <input required readonly id="stocks" type="number" class="form-control" placeholder="">  
-                                         		</td>
+                                         		</td>-->
                                          		<td style="width: 6%">
-                                                 <input  id="qty" type="number" class="form-control" placeholder="">  
+                                                 <input  id="qty" type="number" min="0" class="form-control" placeholder="">  
                                          		</td>
                                          		<td>
                                                  <input required readonly id="sale_price" type="number" class="form-control" placeholder="">  
@@ -186,7 +186,7 @@
                                                 <th>Qty</th>
                                                 <th>Sale Price</th>
                                                 
-                                                <th>Amount</th>
+                                                
                                                 <th>SubTotal</th>
                                                 <th></th>
                                             </tr>

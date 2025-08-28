@@ -67,9 +67,10 @@
                                                 <th>S.No</th>
                                                 <th>Oder No.</th>
                                                 <th>Name</th>
-                                                <th>Status</th>
-                                                <th>Total Amount</th>
                                                 <th>Order Date</th>
+                                                <th>Status</th>
+                                                <th>Last Updated At</th>
+                                                <th>Total Amount</th>
                                                 <th>Ordered By</th>
                                                 <th>Action</th>
                                                 
@@ -82,9 +83,10 @@
                                                 <td>{{$i}}</td>
                                                 <td>{{$order->id}}</td>
                                                 <td>{{$order->name}}</td>
+                                                <td>{{$order->order_date}}</td>
                                                 <td>{{$order->s_status}}</td>
-                                                <td>${{$order->total_amount}}</td>
-                                                <td>{{$order->created_at}}</td>
+                                                <td>{{$order->updated_at}}</td>
+                                                <td>Kr.{{$order->total_amount}}</td>
                                                 <td>{{$order->order_by}}</td>
                                                 <td style="width: 12%">
                                                     <button type="button" class="btn waves-effect waves-light btn-info" data-toggle="modal" value="" data-target="#exampleModal" onclick="getSODetails({{ $order->id }})"><a class="text-white" href="#">View</a></button>
@@ -100,9 +102,10 @@
                                                 <th>S.No</th>
                                                 <th>Oder No.</th>
                                                 <th>Name</th>
-                                                <th>Status</th>
-                                                <th>Total Amount</th>
                                                 <th>Order Date</th>
+                                                <th>Status</th>
+                                                <th>Last Updated At</th>
+                                                <th>Total Amount</th>
                                                 <th>Ordered By</th>
                                                 <th>Action</th>
                                             </tr>

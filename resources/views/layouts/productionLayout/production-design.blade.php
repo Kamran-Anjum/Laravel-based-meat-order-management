@@ -10,7 +10,7 @@
     <meta name="author" content="">
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('images/backend-images/favicon.png ') }}">
-    <title>Liburti</title>
+    <title>HalalMeat</title>
 	<link rel="canonical" href="#" />
     <!-- This Page CSS -->
     <link href=" {{ asset('css/backend-css/assets/libs/chartist/dist/chartist.min.css') }}" rel="stylesheet">

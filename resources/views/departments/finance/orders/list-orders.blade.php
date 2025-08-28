@@ -66,12 +66,15 @@
                                             <tr>
                                                 <th>S.No</th>
                                                 <th>Name</th>
-                                                <th>Email</th>
-                                                <th>Cell No</th>
+                                                <!-- <th>Email</th>
+                                                <th>Cell No</th> -->
                                                 <!-- <th>Discount</th> -->
                                                 <th>Periority</th>
                                                 <th>Location</th>
-                                                <th>Status</th>
+                                                <th>Order Date</th>
+                                                <th>Order Status</th>
+                                                <th>Invoice Status</th>
+                                                <th>Last Updated At</th>
                                                 <th>Total Amount</th>
                                                 <th>Ordered By</th>
                                                 <th>Action</th>
@@ -83,12 +86,21 @@
                                             <tr>
                                                 <td>{{$order->id}}</td>
                                                 <td>{{$order->name}}</td>
-                                                <td>{{$order->email}}</td>
-                                                <td>{{$order->cell_no}}</td>
+                                                <!-- <td>{{$order->email}}</td>
+                                                <td>{{$order->cell_no}}</td> -->
                                                 <!-- <td>${{$order->discount}}</td> -->
                                                 <td>{{$order->pr_status}}</td>
                                                 <td>{{$order->loc_status}}</td>
+                                                <td>{{$order->order_date}}</td>
                                                 <td>{{$order->s_status}}</td>
+                                                <td>
+                                                    @if($order->is_paid == 0)
+                                                        Unpaid
+                                                    @else
+                                                        Paid
+                                                    @endif
+                                                </td>
+                                                <td>{{$order->updated_at}}</td>
                                                 <td>{{$order->total_amount}}</td>
                                                 <td>{{$order->order_by}}</td>
                                                 <td style="width: 20%">
@@ -104,7 +116,12 @@
                                                         @endif
 
                                                     @endif
-
+                                                    @if($order->is_paid == 0)
+                                                        <button type="button" class="btn waves-effect waves-light btn-success"><a class="text-white" href="{{ url('finance/order-invoice-pay/'.$order->id) }}">Pay</a></button>
+                                                    @else
+                                                        <button type="button" class="btn waves-effect waves-light btn-success" disabled="">Paid</button>
+                                                    @endif
+                                                    
                                                 </td>
                                             </tr>
                                             @endforeach
@@ -113,12 +130,15 @@
                                             <tr>
                                                 <th>S.No</th>
                                                 <th>Name</th>
-                                                <th>Email</th>
-                                                <th>Cell No</th>
+                                                <!-- <th>Email</th>
+                                                <th>Cell No</th> -->
                                                 <!-- <th>Discount</th> -->
                                                 <th>Periority</th>
                                                 <th>Location</th>
-                                                <th>Status</th>
+                                                <th>Order Date</th>
+                                                <th>Order Status</th>
+                                                <th>Invoice Status</th>
+                                                <th>Last Updated At</th>
                                                 <th>Total Amount</th>
                                                 <th>Ordered By</th>
                                                 <th>Action</th>

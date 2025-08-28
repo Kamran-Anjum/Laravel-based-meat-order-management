@@ -140,9 +140,9 @@
                                                 <th>Order No.</th>
                                                 <th>Date</th>
                                                 <th>Customer</th>
-                                                <th>Total Quantity</th>
                                                 <th>Total Amount</th>
                                                 <th>Status</th>
+                                                <th>Action</th>
                                                 
                                             </tr>
                                         </thead>
@@ -155,8 +155,12 @@
                                                 <td>{{$order->created_at}}</td>
                                                 <td>{{$order->customerName}}</td>
                                                 <td>{{$order->total_amount}}</td>
-                                                <td>{{$order->total_amount}}</td>
                                                 <td>{{$order->s_status}}</td>
+                                                <td style="width: 12%">
+                                                    <button type="button" class="btn waves-effect waves-light btn-info" data-toggle="modal" value="" data-target="#exampleModal" onclick="getSODetails({{ $order->id }})"><a class="text-white" href="#">View</a></button>
+                                                    
+
+                                                </td>
                                             </tr>
                                             <?php $i = $i+1; ?>
                                             @endforeach
@@ -167,9 +171,9 @@
                                                 <th>Order No.</th>
                                                 <th>Date</th>
                                                 <th>Customer</th>
-                                                <th>Total Quantity</th>
                                                 <th>Total Amount</th>
                                                 <th>Status</th>
+                                                <th>Action</th>
                                             </tr>
                                         </tfoot>
                                     </table>

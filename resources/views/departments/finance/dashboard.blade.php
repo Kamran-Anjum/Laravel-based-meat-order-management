@@ -42,7 +42,7 @@
                                 <h5 class="card-title text-uppercase">Total Sales</h5>
                                 <div class="text-right">
                                     <span class="text-muted">Total Sales Amount</span>
-                                    <h2 class="mt-2 display-7"><sup><i class="ti-arrow-up text-success"></i></sup>${{number_format($today_sales)}}</h2>
+                                    <h2 class="mt-2 display-7"><sup><i class="ti-arrow-up text-success"></i></sup>Kr.{{number_format($today_sales)}}</h2>
                                 </div>
                                 <!-- <span class="text-success">20%</span>
                                 <div class="progress">
@@ -57,7 +57,7 @@
                                 <h5 class="card-title text-uppercase">Website Sales</h5>
                                 <div class="text-right">
                                     <span class="text-muted">Total Website Sales Amount</span>
-                                    <h2 class="mt-2 display-7"><sup><i class="ti-arrow-up text-success"></i></sup>${{number_format($wp_total_sales)}}</h2>
+                                    <h2 class="mt-2 display-7"><sup><i class="ti-arrow-up text-success"></i></sup>Kr.{{number_format($wp_total_sales)}}</h2>
                                 </div>
                                 <!-- <span class="text-success">30%</span>
                                 <div class="progress">
@@ -74,7 +74,7 @@
                                 <h5 class="card-title text-uppercase">Total Expences</h5>
                                 <div class="text-right">
                                     <span class="text-muted">Total Expences</span>
-                                    <h2 class="mt-2 display-7"><sup><i class="ti-arrow-down text-danger"></i></sup>${{number_format($today_expence)}}</h2>
+                                    <h2 class="mt-2 display-7"><sup><i class="ti-arrow-down text-danger"></i></sup>Kr.{{number_format($today_expence)}}</h2>
                                 </div>
                                 <!-- <span class="text-success">30%</span>
                                 <div class="progress">
@@ -89,7 +89,7 @@
                                 <h5 class="card-title text-uppercase">Total Purchases</h5>
                                 <div class="text-right">
                                     <span class="text-muted">Total Purchases</span>
-                                    <h2 class="mt-2 display-7"><sup><i class="ti-arrow-down text-danger"></i></sup>${{number_format($today_purchase)}}</h2>
+                                    <h2 class="mt-2 display-7"><sup><i class="ti-arrow-down text-danger"></i></sup>Kr.{{number_format($today_purchase)}}</h2>
                                 </div>
                                 <!-- <span class="text-success">30%</span>
                                 <div class="progress">
@@ -104,7 +104,7 @@
                                 <h5 class="card-title text-uppercase">Profit/Loss</h5>
                                 <div class="text-right">
                                     <span class="text-muted">Profit/Loss</span>
-                                    <h2 class="mt-2 display-7"><sup><i class="ti-arrow-down text-danger"></i></sup>${{number_format($profit_loss)}}</h2>
+                                    <h2 class="mt-2 display-7"><sup><i class="ti-arrow-down text-danger"></i></sup>Kr.{{number_format($profit_loss)}}</h2>
                                 </div>
                                 <!-- <span class="text-success">30%</span>
                                 <div class="progress">
@@ -146,14 +146,14 @@
                         </div>
                     </div> -->
                
-                <div class="row">
+                <!--<div class="row">
                     <div class="col-md-3 col-lg-3">
                         <button style="width: 150px; height: 150px; background-color: #847b76; border-radius: 10px; border-color: #f2f2f2" type="button" class="btn btn-primary">
                             <i style="font-size: 70px;color: #000;" class="mdi mdi-speedometer"></i><br /><p style="color: #000;">View Sales</p>
                         </button>
                     </div>
                 </div>
-            </div>
+            </div>-->
             <!-- ============================================================== -->
             <!-- End Container fluid  -->
             <!-- ============================================================== -->

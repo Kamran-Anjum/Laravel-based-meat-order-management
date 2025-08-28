@@ -70,6 +70,7 @@
                                         <thead>
                                             <tr>
                                                 <th>S.No</th>
+                                                <th>Customer ID</th>
                                                 <th>Name</th>
                                                 <th>Email</th>
                                                 <th>Role</th>
@@ -84,6 +85,7 @@
                                             
                                                
                                                 <td>{{$i}}</td>
+                                                <td>{{$user->id}}</td>
                                                 <td>{{$user->name}}</td>
                                                 <td>{{$user->email}}</td>
                                                 <td>{{$user->roles->first()->name}}</td>
@@ -109,6 +111,7 @@
                                         <tfoot>
                                             <tr>
                                                 <th>S.No</th>
+                                                <th>Customer ID</th>
                                                 <th>Name</th>
                                                 <th>Email</th>
                                                 <th>Role</th>

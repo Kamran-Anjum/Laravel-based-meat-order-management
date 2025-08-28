@@ -21,6 +21,19 @@
                             </ol>
                         </nav>
                     </div>
+                    @if(Session::has('flash_message_error'))
+                    <div class="alert alert-danger alert-block">
+                        <button type="button" class="close" data-dismiss="alert">×</button>
+                        <strong>{!! session('flash_message_error') !!}</strong>
+                    </div>
+
+                @endif
+                @if(Session::has('flash_message_success'))
+                    <div class="alert alert-success alert-block">
+                        <button type="button" class="close" data-dismiss="alert">×</button>
+                        <strong>{!! session('flash_message_success') !!}</strong>
+                    </div>
+                @endif
                 </div>
             </div>
             <!-- ============================================================== -->
@@ -126,7 +139,7 @@
                                             <div class="col-md-4 mb-0">
                                                 <div class="form-group">                                                  
                                                     <label  for="">Base Price</label>
-                                                    <input value="{{$products->base_price}}" type="number" class="form-control" name="base_price">
+                                                    <input value="{{$products->base_price}}" type="number" step="0.01" class="form-control" name="base_price">
                                                     <div class="invalid-feedback">Example invalid custom select feedback</div>
                                                 </div>
                                             </div>
@@ -152,7 +165,7 @@
                                             </div>
                                             <div class="col-md-6">
                                         <div class="form-group">
-                                            <button type="button" class="btn waves-effect waves-light btn-danger"><a class="text-white sa-confirm-delete" param-id="{{$products->id}}" param-route="delete-supplier-image" href="javascript:">Remove</a></button>
+                                            <button type="button" class="btn waves-effect waves-light btn-danger"><a class="text-white sa-confirm-delete" param-id="{{$products->id}}" param-route="delete-product-image" href="javascript:">Remove</a></button>
 {{--                                            <button type="button" class="btn waves-effect waves-light btn-danger"><a class="text-white sa-confirm-deletes" param-id="{{$products->id}}" param-route="delete-product-image" href="javascript:">Remove</a></button>--}}
                                             <input name="galleryimage" type="hidden" name="" value="">
                                             <input type="hidden" name="current_image" value="{{ $products->image }}">

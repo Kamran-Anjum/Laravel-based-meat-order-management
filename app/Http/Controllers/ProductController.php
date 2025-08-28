@@ -62,6 +62,12 @@ class ProductController extends Controller
     	if($request->isMethod('post')){
     		$data = $request->all();
             //dd($data);
+            $product_count = Product::where(['sku_number'=>$data['sku_number']])->count();
+            if($product_count>0)
+            {               
+                return redirect()->back()->with('flash_message_error', 'SKU Number <strong>('.$data['sku_number'].')</strong> Already Exist');
+            }
+    		else{
     		$product = new Product();
     		$product->category_id = $data['product_category_id'];
     		$product->sku_number = $data['sku_number'];
@@ -134,6 +140,7 @@ class ProductController extends Controller
                 }
 
     		return redirect('admin/view-products')->with('flash_message_success','Product successfully Added!');
+    		}
     	}
 
         $units = DB::table('product_unit')->get();
@@ -161,6 +168,15 @@ class ProductController extends Controller
         if($request->isMethod('post')){
             $data = $request->all();
             //dd($data);
+            $current_product = DB::table('products')->where(['id'=>$id])->first();
+            $product_count = DB::table('products')
+            ->where(['sku_number'=>$data['sku_number']])
+            ->whereNotIn('sku_number',[$current_product->sku_number])
+            ->count();
+            if($current_product->sku_number != $data['sku_number'] && $product_count>0){
+                return redirect()->back()->with('flash_message_error', 'Cannot Change SKU Number To <strong>('.$data['sku_number'].')</strong> already Exist');
+            }
+            else{
             if($request->hasFile('image')){
 
                 $image_tmp = $request->image;
@@ -232,10 +248,11 @@ class ProductController extends Controller
             }
             else{
 
-                $this->editProductSubCategory($data['subcategorytypeedit'],$id);
+                $this->editProductSubCategory($data['subcategory'],$id);
             }
 
-        return redirect('/admin/view-products')->with('flash_message_success','Product has been Updated Successfully!'); 
+        return redirect('/admin/view-products')->with('flash_message_success','Product has been Updated Successfully!');
+            }
         }
         $products = DB::table('products as p')
         ->where(['p.id'=>$id])

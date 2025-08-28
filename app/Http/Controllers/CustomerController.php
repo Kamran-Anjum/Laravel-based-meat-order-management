@@ -56,6 +56,7 @@ class CustomerController extends Controller
                 $user->name = $data['customer_name'];
                 $user->email = $data['customer_email'];
                 $user->admin = 1;
+                 $user->is_assign  = 0;
                 $user->is_active = $data['is_active'];
                 $user->password = bcrypt($data['password']);
                 $user->save();
@@ -66,6 +67,8 @@ class CustomerController extends Controller
                 $customer_detail->user_id = $userid;
                 $customer_detail->address = $data['customer_address'];
                 $customer_detail->cell_no = $data['customer_cell'];
+                $customer_detail->organization_no = $data['o_number'];
+                $customer_detail->contact_person_name = $data['c_p_name'];
                 if($request->hasFile('customer_image')){
 
                 $image_tmp = $request->customer_image;
@@ -90,7 +93,7 @@ class CustomerController extends Controller
         }
         else
         {
-            $roles = DB::table('roles')->whereNotIn('id',[1,2,3,4,10,11])->get();
+            $roles = DB::table('roles')->whereIn('id',[5,6,7,9])->get();
             $roles_dropdown = "<option disabled selected > Select Role</option>";
             foreach ($roles as $role) {
                 $roles_dropdown .= "<option value='".$role->name."'>".$role->name . "</option>";
@@ -147,6 +150,8 @@ class CustomerController extends Controller
             ([
                 'address' => $data['customer_address'],
                 'cell_no' => $data['customer_cell'],
+                'organization_no' => $data['o_number'],
+                'contact_person_name' => $data['c_p_name'],
                 'profile_image' => $filename
             ]);
         return redirect('/admin/view-customers')->with('flash_message_success','Customer has been Updated Successfully!'); 
@@ -163,7 +168,7 @@ class CustomerController extends Controller
         //dd($oldrole);
         $customer_details = DB::table('customer_details')->where(['user_id'=>$id])->first();
         //dd($customer_details);
-        $roles = DB::table('roles')->whereNotIn('id',[1,2,3,4,10,11])->get();
+        $roles = DB::table('roles')->whereIn('id',[5,6,7,9])->get();
 
         $roles_dropdown = "<option value=''>Select Role</option>";
          foreach($roles as $role){

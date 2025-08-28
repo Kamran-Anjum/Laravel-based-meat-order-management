@@ -32,14 +32,16 @@ Route::group(['middleware' => ['role: |super-admin']], function () {
 // Admin Logout
 Route::get('/logout',[App\Http\Controllers\AdminController::class,'logout']);
 // Admin Change Password
-Route::match(['get','post'],'admin-change-pwd',[App\Http\Controllers\AdminController::class,'changepassword']);
+Route::match(['get','post'],'/admin/change-pwd',[App\Http\Controllers\AdminController::class,'changepassword']);
 
 // Admin Home/Dashboard
 Route::get('/admin/dashboard',[App\Http\Controllers\AdminController::class,'dashboard']);
 // Expences Routes
 Route::get('/admin/view-expences',[App\Http\Controllers\AdminController::class,'viewExpences']);
 Route::match(['get','post'],'/admin/add-expence',[App\Http\Controllers\AdminController::class,'addExpence']);
-Route::match(['get','post'],'/admin/edit-category/{id}',[App\Http\Controllers\CategoryController::class,'editCategory']);
+Route::match(['get','post'],'/admin/edit-expence/{id}',[App\Http\Controllers\AdminController::class,'editExpence']);
+
+Route::get('/admin/delete-expence-image/{id}',[App\Http\Controllers\AdminController::class,'deleteexpenceimage']);
 Route::get('/admin/delete-category/{id}',[App\Http\Controllers\CategoryController::class,'deleteCategory']);
 
 
@@ -129,10 +131,6 @@ Route::get('/admin/delete-country/{id}',[App\Http\Controllers\CountryController:
 //Sales Order Summary Controllers
 
 Route::get('/admin/view-orders-summary',[App\Http\Controllers\SalesOrderSummaryController::class,'viewOrdersSummary']);
-Route::get('admin/getsoreport/{from}/{to}/{role}/{customer}',[App\Http\Controllers\SalesOrderSummaryController::class,'SortReport']);
-Route::get('admin/getsorpdf/{from}/{to}/{role}/{customer}',[App\Http\Controllers\SalesOrderSummaryController::class,'pdfreport']);
-Route::get('admin/export-excel/{from}/{to}/{role}/{customer}',[App\Http\Controllers\SalesOrderSummaryController::class,'export']);
-Route::get('admin/export-excel-view/{from}/{to}/{role}/{customer}',[App\Http\Controllers\SalesOrderSummaryController::class,'excelview']);
 
 // Vehicle controller
 Route::get('/admin/view-vehicles', [App\Http\Controllers\VehicleController::class,'viewVehicles']);
@@ -199,6 +197,17 @@ Route::match(['get','post'],'admin/update-wp-order/{id}', [App\Http\Controllers\
 Route::group(['middleware' => ['role: |super-admin|production-admin|packing-admin|transport-admin|finance-admin']], function () {
 
 	//Product Ajax Routes
+	Route::get('production/getsoreport/{from}/{to}/{role}/{customer}',[App\Http\Controllers\ProductionOrderSummaryController::class,'SortReport']);
+Route::get('production/getsorpdf/{from}/{to}/{role}/{customer}',[App\Http\Controllers\ProductionOrderSummaryController::class,'pdfreport']);
+Route::get('production/export-excel/{from}/{to}/{role}/{customer}',[App\Http\Controllers\ProductionOrderSummaryController::class,'export']);
+Route::get('production/export-excel-view/{from}/{to}/{role}/{customer}',[App\Http\Controllers\ProductionOrderSummaryController::class,'excelview']);
+
+Route::get('admin/getsoreport/{from}/{to}/{role}/{customer}',[App\Http\Controllers\SalesOrderSummaryController::class,'SortReport']);
+Route::get('admin/getsorpdf/{from}/{to}/{role}/{customer}',[App\Http\Controllers\SalesOrderSummaryController::class,'pdfreport']);
+Route::get('admin/export-excel/{from}/{to}/{role}/{customer}',[App\Http\Controllers\SalesOrderSummaryController::class,'export']);
+Route::get('admin/export-excel-view/{from}/{to}/{role}/{customer}',[App\Http\Controllers\SalesOrderSummaryController::class,'excelview']);
+
+
 Route::get('/admin/getproductsubcategories/{id}',[App\Http\Controllers\AjaxRequestController::class,'getsubcategoriesdropdown']);
 Route::get('/admin/getassetsubcategories/{id}',[App\Http\Controllers\AjaxRequestController::class,'getassetsubcategoriesdropdown']);
 
@@ -219,7 +228,10 @@ Route::get('admin/getpoproductdata/{id}/{poid}',[App\Http\Controllers\AjaxReques
 Route::get('admin/getsummary/{from}/{to}',[App\Http\Controllers\AjaxRequestController::class,'getSummary']);
 Route::get('admin/getsummary/{from}/{to}',[App\Http\Controllers\AjaxRequestController::class,'getSummary']);
 
+Route::get('/admin/getcustomerdetailsnyId/{id}',[App\Http\Controllers\AjaxRequestController::class,'getcustomerdetailsnyIdform']);
+
 Route::get('/admin/getforwardStockSO/{id}',[App\Http\Controllers\AjaxRequestController::class,'ForwardStockSO']);
+Route::get('/admin/getcustomerbyrolename/{rolename}',[App\Http\Controllers\AjaxRequestController::class,'CustomerByRolename']);
 });
 //Production Routes
 Route::group(['middleware' => ['role: |production-admin']], function () {
@@ -229,13 +241,11 @@ Route::get('/production/dashboard',[App\Http\Controllers\ProductionController::c
 
 //Sales Order Summary Controllers
 Route::get('/production/view-orders-summary',[App\Http\Controllers\ProductionOrderSummaryController::class,'viewOrdersSummary']);
-Route::get('production/getsoreport/{from}/{to}/{role}/{customer}',[App\Http\Controllers\ProductionOrderSummaryController::class,'SortReport']);
-Route::get('production/getsorpdf/{from}/{to}/{role}/{customer}',[App\Http\Controllers\ProductionOrderSummaryController::class,'pdfreport']);
-Route::get('production/export-excel/{from}/{to}/{role}/{customer}',[App\Http\Controllers\ProductionOrderSummaryController::class,'export']);
-Route::get('production/export-excel-view/{from}/{to}/{role}/{customer}',[App\Http\Controllers\ProductionOrderSummaryController::class,'excelview']);
+
 
 //Order Controllers Route
 Route::get('/production/view-orders',[App\Http\Controllers\ProductionOrderController::class,'viewOrders']);
+Route::get('/production/view-orders-history',[App\Http\Controllers\ProductionOrderController::class,'viewOrdersHistory']);
 Route::get('/production/view-wp-orders',[App\Http\Controllers\WoocommerceController::class,'ViewWoocommerceProduction']);
 Route::match(['get','post'],'production/forward-order/{id}', [App\Http\Controllers\WoocommerceController::class,'editOrderProduction']);
 
@@ -292,12 +302,12 @@ Route::get('/finance/dashboard',[App\Http\Controllers\FinanceController::class,'
 Route::get('/finance/view-expence',[App\Http\Controllers\FinanceController::class,'viewExpences']);
 Route::get('/finance/order-invoice/{id}',[App\Http\Controllers\FinanceController::class,'createInvoice']);
 Route::get('/finance/get-order-invoice/{id}',[App\Http\Controllers\FinanceController::class,'viewInvoice']);
-Route::match(['get','post'],'/admin/add-expence',[App\Http\Controllers\FinanceController::class,'addExpence']);
+Route::match(['get','post'],'/finance/add-expence',[App\Http\Controllers\FinanceController::class,'addExpence']);
 Route::get('/finance/view-pruchase-orders',[App\Http\Controllers\FinanceController::class,'viewPurchaseOrders']);
 Route::get('/finance/view-orders',[App\Http\Controllers\FinanceController::class,'viewOrders']);
 Route::get('/finance/view-wp-orders',[App\Http\Controllers\WoocommerceController::class,'ViewWoocommerceFinance']);
-Route::get('/finance/view-orders-summary',[App\Http\Controllers\FinanceController::class,'commingsoon']);
-
+Route::get('/finance/view-orders-summary',[App\Http\Controllers\FinanceController::class,'viewOrdersSummary']);
+Route::get('/finance/order-invoice-pay/{id}',[App\Http\Controllers\FinanceController::class,'orderinvoicepay']);
 
 
 });
@@ -313,6 +323,7 @@ Route::match(['get','post'], '/user/edit-profile/{id}', [App\Http\Controllers\Fr
 
 Route::get('/user/delete-customer-image/{id}',[App\Http\Controllers\FrontCustomerController::class,'deletecustomerimage']);
 
+Route::get('/user/getsodetail/{id}',[App\Http\Controllers\AjaxRequestController::class,'getSODetail']);
 Route::get('/user/getsubcategoryproducts/{id}',[App\Http\Controllers\FrontCustomerController::class,'getproductsdropdown']);
 Route::get('/user/getproductsubcategories/{id}',[App\Http\Controllers\FrontCustomerController::class,'getsubcategoriesdropdown']);
 Route::get('/user/getproduct-stock-price/{id}/{cusid}',[App\Http\Controllers\FrontCustomerController::class,'getproductstockprice']);

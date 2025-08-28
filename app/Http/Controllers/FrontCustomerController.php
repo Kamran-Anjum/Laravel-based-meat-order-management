@@ -30,7 +30,7 @@ class FrontCustomerController extends Controller
                 Session::put('adminSession',$data['email']);
                 */
 
-    				return redirect('user/dashboard');
+    				return redirect('/user/dashboard');
     			}
     			else{
                     return redirect('/')->with('flash_message_error','Invalid Username or Password');
@@ -44,6 +44,10 @@ class FrontCustomerController extends Controller
         return view('customers.dashboard');
     }
 
+    public function logout(){
+        Session::flush();
+        return redirect('/')->with('flash_message_success','Logged out Successfully');
+    }
     public function viewOrders()
     {
     	$user = Auth::User();

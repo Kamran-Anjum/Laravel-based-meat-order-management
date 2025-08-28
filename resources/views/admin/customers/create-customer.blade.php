@@ -114,6 +114,22 @@
                                             </div>
                                         </div>
                                         <div class="row">
+                                             <div class="col-md-4 mb-0">
+                                                <div class="form-group">                                                  
+                                                    <label  for="">Organization No.</label>
+                                                    <input required type="text" class="form-control" name="o_number">
+                                                    <div class="invalid-feedback">Example invalid custom select feedback</div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4 mb-0">
+                                                <div class="form-group">                                                  
+                                                    <label  for="">Contact Person Name</label>
+                                                    <input required type="text" class="form-control" name="c_p_name">
+                                                    <div class="invalid-feedback">Example invalid custom select feedback</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
                                             <div class="col-md-4 mb-0">
                                                 <div class="form-group">                                                  
                                                     <label  for="">Address</label>
@@ -124,7 +140,7 @@
                                             <div class="col-md-4 mb-0">
                                                 <div class="form-group">                                    
                                                     <label  for="">Cell No</label>
-                                                    <input required type="text" name="customer_cell" class="form-control" >
+                                                    <input required type="number" name="customer_cell" class="form-control" >
                                                    
                                                     <div class="invalid-feedback">Example invalid custom select feedback</div>
                                                 </div>
@@ -155,14 +171,14 @@
                                               <div class="col-md-4 mb-0">
                                                 <div class="form-group">                                                  
                                                     <label  for="">Password</label>
-                                                    <input required type="text" class="form-control" name="password">                                                    
+                                                    <input required type="password" class="form-control" name="password">                                                    
                                                     <div class="invalid-feedback">Example invalid custom select feedback</div>
                                                 </div>
                                             </div>
                                              <div class="col-md-4 mb-0">
                                                 <div class="form-group">                                                  
                                                     <label  for="">Confirm Password</label>
-                                                    <input required type="text" class="form-control" name="cpassword">
+                                                    <input required type="password" class="form-control" name="cpassword">
                                                     <div class="invalid-feedback">Example invalid custom select feedback</div>
                                                 </div>
                                             </div>

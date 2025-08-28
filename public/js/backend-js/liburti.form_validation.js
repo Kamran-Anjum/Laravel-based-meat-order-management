@@ -64,13 +64,16 @@ $('#supplierPO').on('change', function() {
 //production status woking start
 $('#dept_status').on('change', function() { 
    var status_id = $(this).val();
+   // forwardedRow();
    //alert(status_id);
    if(status_id == 3)
    {
-    $("#ross").removeClass("hidden");
+    // $("#ross").removeClass("hidden");
+    forwardedRow();
    }
    else{
-    $("#ross").addClass("hidden");
+    $("#forwardrow").addClass("hidden");
+    $("#ffqty").prop("disabled", true);
    }
 });
 
@@ -362,6 +365,22 @@ $('#ponumber').on('change', function() {
 });
 
 $('#customer_id').on('change', function() { 
+
+    var customer_id = $(this).val();
+ 
+   $.ajax({
+            url: '/admin/getcustomerdetailsnyId/'+customer_id,
+            success: data => {
+
+                document.getElementById("shipping_name").value = data[0];
+                document.getElementById("shipping_email").value = data[1];
+                document.getElementById("shipping_address").value = data[2];
+                document.getElementById("shipping_cell").value = data[3];
+                console.log(data);
+            }
+
+        });
+
     $("#category").prop("disabled", false);
    
 });
@@ -392,6 +411,9 @@ $('#category').on('change', function() {
                 var citydd = $("#sub_category").html('');
                 $('#sub_category').append(data);
                 $("#sub_category").prop("disabled", false);
+                
+                var citydd = $("#product_id").html('');
+                $("#product_id").prop("disabled", true);
                 console.log(data);
             }
 
@@ -428,9 +450,12 @@ $('#product_id').on('change', function() {
                 $('#stocks').attr("value", data[0]);
                 /*$('#stocks').value = data[0];*/
                 $("#stocks").prop("readonly", true);
-                $('#sale_price').attr("value",  Math.round(data[1]));
+                $('#sale_price').attr("value",  data[1].toFixed(2));
                 /*$('#sale_price').value = data[1];*/
                 $("#sale_price").prop("readonly", true);
+                $('#unit').attr("value",  data[2]);
+                /*$('#sale_price').value = data[1];*/
+                $("#unit").prop("readonly", true);
                 /*alert(data[0]);
                 alert(data[1]);*/
             }
@@ -441,8 +466,9 @@ $('#product_id').on('change', function() {
  $('#qty').on('change keyup', function() {
         var quantity = $(this).val();
         var saleprice = document.getElementById("sale_price").value;
-
-        document.getElementById("sub_total").value = quantity * saleprice;
+        var subtotall = quantity * saleprice;
+        subtotall = subtotall.toFixed(2);
+        document.getElementById("sub_total").value = subtotall;
         
         //alert(quantity * saleprice);
 
@@ -453,10 +479,14 @@ $('#product_id').on('change', function() {
         var saleprice = document.getElementById("sale_price").value;
         var quantity = document.getElementById("qty").value;
 
-        var discount_amount = Math.round(saleprice * quantity / 100 * percent);
+        var discount_amount = saleprice * quantity / 100 * percent;
 
+        discount_amount = discount_amount.toFixed(2);
+
+        var subtotald = quantity * saleprice - discount_amount;
+        subtotald = subtotald.toFixed(2);
         document.getElementById("discount_amount").value = discount_amount;
-        document.getElementById("sub_total").value = quantity * saleprice - discount_amount;
+        document.getElementById("sub_total").value = subtotald
         
         //alert(quantity * saleprice);
 
@@ -491,7 +521,7 @@ function getSupplierDetails(id){
             
             
             $('#ScheduleTable tbody').html(data);
-            $("#ScheduleTable").DataTable();
+            // $("#ScheduleTable").DataTable();
         }
     });
 }
@@ -507,7 +537,7 @@ function getAssetDetails(id){
             
             
             $('#ScheduleTable tbody').html(data);
-            $("#ScheduleTable").DataTable();
+            //$("#ScheduleTable").DataTable();
         }
     });
 }
@@ -523,7 +553,7 @@ function getCustomerDetails(id){
             
             
             $('#ScheduleTable tbody').html(data);
-            $("#ScheduleTable").DataTable();
+            //$("#ScheduleTable").DataTable();
         }
     });
 }
@@ -539,7 +569,7 @@ function getRiderDetails(id){
             
             
             $('#ScheduleTable tbody').html(data);
-            $("#ScheduleTable").DataTable();
+            //$("#ScheduleTable").DataTable();
         }
     });
 }
@@ -557,10 +587,10 @@ function getPODetails(id){
             
             
             $('#Suppinfo tbody').html(data[0]);
-            $("#Suppinfo").DataTable();
+            //$("#Suppinfo").DataTable();
 
             $('#productinfo tbody').html(data[1]);
-            $("#productinfo").DataTable();
+            //$("#productinfo").DataTable();
         }
     });
 }
@@ -578,13 +608,13 @@ function getSODetails(id){
             
             
             $('#Suppinfo tbody').html(data[0]);
-            $("#Suppinfo").DataTable();
+            //$("#Suppinfo").DataTable();
 
             $('#productinfo tbody').html(data[1]);
             $("#productinfo").DataTable();
 
             $('#forwardinfo tbody').html(data[2]);
-            $("#forwardinfo").DataTable();
+            //$("#forwardinfo").DataTable();
         }
     });
 }
@@ -640,8 +670,8 @@ document.getElementById('totalamount').value = sum;
     makerow();
     document.getElementById("qty").value = "";
     document.getElementById("sub_total").value = "";
-    document.getElementById("discount").value = "";
-    document.getElementById("discount_amount").value = "";
+    document.getElementById("discount").value = "0";
+    document.getElementById("discount_amount").value = "0";
     /*productnames[x] =  $('#product_id option:selected').toArray().map(item => item.text);
     //productid[x] = document.getElementById("product_id").value;
     unit[x] = document.getElementById("unit").value;
@@ -693,15 +723,16 @@ function makerow(){
        html +=list[i][5];
        html +='"> </td>'
        html +='<td><input required type="text" name="subtotal[]" class="form-control" value="'
-       html +=Math.trunc(list[i][6]);
+       html +=list[i][6];
        html +='"> </td>'
        html +='<td><button type="button" onclick="deletearray('
        html +=i;
-       html +=')" class="btn waves-effect waves-light btn-danger">delete</button></td>';
+       html +=')" class="btn waves-effect waves-light btn-danger">Delete</button></td>';
        html +='</tr>';
    }
    $('#dataTable2 tbody').html(html);
-   totalprice = totalprice+Math.trunc(list[y][6]); 
+   totalprice = totalprice+parseFloat(list[y][6]); 
+   //totalprice = totalprice.toFixed(2); 
    document.getElementById("total_price").value = totalprice;
    
     //alert(totalprice);
@@ -710,7 +741,7 @@ function makerow(){
 
 function deletearray(id) {
 
-    totalprice = totalprice-Math.trunc(list[id][6]);
+    totalprice = totalprice-list[id][6];
     list.splice(id,1);
     y--;
     makerow();
@@ -734,7 +765,7 @@ var html = '';
             html +='<h5 class="card-title text-uppercase">Sales</h5>'
             html +='<div class="text-right">'
             html +='<span class="text-muted">Sales</span>'
-            html +='<h2 class="mt-2 display-7"><sup><i class="ti-arrow-up text-success"></i></sup>$'+data[0]+'</h2>';
+            html +='<h2 class="mt-2 display-7"><sup><i class="ti-arrow-up text-success"></i></sup>Kr.'+data[0]+'</h2>';
             html +='</div>';
             html +='</div>';
             html +='</div>';
@@ -745,7 +776,7 @@ var html = '';
             html +='<h5 class="card-title text-uppercase">Purchases</h5>'
             html +='<div class="text-right">'
             html +='<span class="text-muted">Purchases</span>'
-            html +='<h2 class="mt-2 display-7"><sup><i class="ti-arrow-up text-success"></i></sup>$'+data[1]+'</h2>';
+            html +='<h2 class="mt-2 display-7"><sup><i class="ti-arrow-up text-success"></i></sup>Kr.'+data[1]+'</h2>';
             html +='</div>';
             html +='</div>';
             html +='</div>';
@@ -791,8 +822,8 @@ else{
                 html +='<td>'+item['created_at']+'</td>';
                 html +='<td>'+item['customerName']+'</td>';
                 html +='<td>'+item['total_amount']+'</td>';
-                html +='<td>'+item['total_amount']+'</td>';
                 html +='<td>'+item['s_status']+'</td>';
+                html +='<td><button type="button" class="btn waves-effect waves-light btn-info" data-toggle="modal" value="" data-target="#exampleModal" onclick="getSODetails('+item['id']+')"><a class="text-white" href="#">View</a></button></td>';
                 html += '</tr>';
                 i= i+1;
             });
@@ -828,14 +859,21 @@ else{
             var i = 1;
             data.forEach(function(item){
 
-                html += '<tr>';
+                if (item['is_paid'] == 0) {
+                    invoice_status = "Unpaid";
+                } else {
+                    invoice_status = "Paid";
+                }
+
+                 html += '<tr>';
                 html +='<td>'+i+'</td>';
                 html +='<td>'+item['id']+'</td>';
                 html +='<td>'+item['created_at']+'</td>';
                 html +='<td>'+item['customerName']+'</td>';
                 html +='<td>'+item['total_amount']+'</td>';
-                html +='<td>'+item['total_amount']+'</td>';
                 html +='<td>'+item['s_status']+'</td>';
+                html +='<td>'+invoice_status+'</td>';
+                html +='<td><button type="button" class="btn waves-effect waves-light btn-info" data-toggle="modal" value="" data-target="#exampleModal" onclick="getSODetails('+item['id']+')"><a class="text-white" href="#">View</a></button></td>';
                 html += '</tr>';
                 i= i+1;
             });

@@ -106,7 +106,7 @@
                                              <div class="col-md-4 mb-0">
                                                 <div class="form-group">                                                  
                                                     <label  for="">Cell No</label>
-                                                    <input value="{{$user_detail->cell_no}}" type="text" class="form-control" name="customer_cell">
+                                                    <input value="{{$user_detail->cell_no}}" type="number" class="form-control" name="customer_cell">
                                                     <div class="invalid-feedback">Example invalid custom select feedback</div>
                                                 </div>
                                             </div>

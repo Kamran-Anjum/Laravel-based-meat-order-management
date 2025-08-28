@@ -40,13 +40,13 @@
                                 <li class="sidebar-item">
                                     <a href="{{ url('finance/view-orders') }}" class="sidebar-link">
                                         <i class="mdi mdi-adjust"></i>
-                                        <span class="hide-menu">View Sales Orders</span>
+                                        <span class="hide-menu">View Kjottsentralen Orders</span>
                                     </a>
                                 </li>
                                 <li class="sidebar-item">
                                     <a href="{{ url('finance/view-wp-orders') }}" class="sidebar-link">
                                         <i class="mdi mdi-adjust"></i>
-                                        <span class="hide-menu">View Wordpress Sales Orders</span>
+                                        <span class="hide-menu">View Halalkjottbazar Orders</span>
                                     </a>
                                 </li>
                                 <li class="sidebar-item">

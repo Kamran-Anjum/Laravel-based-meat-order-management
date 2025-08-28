@@ -71,11 +71,13 @@
                                                 <!-- <th>Discount</th> -->
                                                 <!-- <th>Periority</th> -->
                                                 <th>Location</th>
+                                                <th>Order Date</th>
                                                 <th>Status</th>
+                                                <th>Last Updated At</th>
                                                 <th>Total Amount</th>
                                                 <th>Ordered By</th>
                                                 <th>Action</th>
-                                                <th>Invoice</th>
+                                                
                                                 
                                             </tr>
                                         </thead>
@@ -89,7 +91,9 @@
                                                 <!-- <td>${{$order->discount}}</td> -->
                                                 <!-- <td>{{$order->pr_status}}</td> -->
                                                 <td>{{$order->loc_status}}</td>
+                                                <td>{{$order->order_date}}</td>
                                                 <td>{{$order->s_status}}</td>
+                                                <td>{{$order->updated_at}}</td>
                                                 <td>{{$order->total_amount}}</td>
                                                 <td>{{$order->order_by}}</td>
                                                 <td style="width: 12%">
@@ -101,17 +105,7 @@
                                                     @endif
 
                                                 </td>
-                                                <td>
-                                                     @if($order->fiken_invoice_id == "0")
-                                                        @if($order->delivery_status != "5")
-                                                        <button disabled type="button" class="btn waves-effect waves-light btn-primary">Create Invoice</button>
-                                                        @else
-                                                        <button type="button" class="btn waves-effect waves-light btn-primary">Create Invoice</button>
-                                                        @endif
-                                                    @else
-                                                        <button type="button" class="btn waves-effect waves-light btn-success"><a target="" class="text-white" href="{{$order->invoice_url}}">View Invoice</a></button>
-                                                    @endif
-                                                </td>
+                                                
                                             </tr>
                                             @endforeach
                                         </tbody>
@@ -124,11 +118,12 @@
                                                 <!-- <th>Discount</th> -->
                                                 <!-- <th>Periority</th> -->
                                                 <th>Location</th>
+                                                <th>Order Date</th>
                                                 <th>Status</th>
+                                                <th>Last Updated At</th>
                                                 <th>Total Amount</th>
                                                 <th>Ordered By</th>
                                                 <th>Action</th>
-                                                th>Invoice</th>
                                             </tr>
                                         </tfoot>
                                     </table>

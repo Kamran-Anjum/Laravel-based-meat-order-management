@@ -38,7 +38,6 @@ class OrderController extends Controller
 
     		$order = new Order();
     		$order->user_id = $data['customer_id'];
-            $order->wp_order_id = 0;
     		$order->name = $data['shipping_name'];
     		$order->cell_no = $data['shipping_cell'];
     		$order->email = $data['shipping_email'];
@@ -120,8 +119,8 @@ class OrderController extends Controller
     public function editOrder(Request $request, $id =null)
     {
         if($request->isMethod('post')){
-            //$data = $request->all();
-            dd($data);
+            $data = $request->all();
+            //dd($data);
             Order::where(['id'=>$id])->update
             ([
                 'priority_status' => $data['pr_status'],

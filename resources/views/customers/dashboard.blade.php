@@ -42,7 +42,7 @@
                                 <h5 class="card-title text-uppercase">Total Sales</h5>
                                 <div class="text-right">
                                     <span class="text-muted">Total Sales Amount</span>
-                                    <h2 class="mt-2 display-7"><sup><i class="ti-arrow-up text-success"></i></sup>$12</h2>
+                                    <h2 class="mt-2 display-7"><sup><i class="ti-arrow-up text-success"></i></sup>Kr.12</h2>
                                 </div>
                                 <!-- <span class="text-success">20%</span>
                                 <div class="progress">
@@ -57,7 +57,7 @@
                                 <h5 class="card-title text-uppercase">Total Purchases</h5>
                                 <div class="text-right">
                                     <span class="text-muted">Total Purchases Amount</span>
-                                    <h2 class="mt-2 display-7"><sup><i class="ti-arrow-down text-danger"></i></sup>$12</h2>
+                                    <h2 class="mt-2 display-7"><sup><i class="ti-arrow-down text-danger"></i></sup>Kr.12</h2>
                                 </div>
                                 <!-- <span class="text-success">30%</span>
                                 <div class="progress">
@@ -72,7 +72,7 @@
                                 <h5 class="card-title text-uppercase">Total Expences</h5>
                                 <div class="text-right">
                                     <span class="text-muted">Total Expences</span>
-                                    <h2 class="mt-2 display-7"><sup><i class="ti-arrow-down text-danger"></i></sup>$12</h2>
+                                    <h2 class="mt-2 display-7"><sup><i class="ti-arrow-down text-danger"></i></sup>Kr.12</h2>
                                 </div>
                                 <!-- <span class="text-success">30%</span>
                                 <div class="progress">
@@ -87,7 +87,7 @@
                                 <h5 class="card-title text-uppercase">Profit/Loss</h5>
                                 <div class="text-right">
                                     <span class="text-muted">Profit/Loss</span>
-                                    <h2 class="mt-2 display-7"><sup><i class="ti-arrow-down text-danger"></i></sup>$12</h2>
+                                    <h2 class="mt-2 display-7"><sup><i class="ti-arrow-down text-danger"></i></sup>Kr.12</h2>
                                 </div>
                                 <!-- <span class="text-success">30%</span>
                                 <div class="progress">

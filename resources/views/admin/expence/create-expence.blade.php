@@ -80,7 +80,7 @@
                                     </div>
                                     <div class="form-actions mt-5">
                                         <button type="submit" class="btn btn-success"> <i class="fa fa-check"></i> Add</button>
-                                        <a href="{{ url('/admin/view-categories')}}"><button type="button" class="btn btn-dark">Cancel</button></a>
+                                        <a href="{{ url('/admin/view-expences')}}"><button type="button" class="btn btn-dark">Cancel</button></a>
                                     </div>
                                 </form>
                             </div>

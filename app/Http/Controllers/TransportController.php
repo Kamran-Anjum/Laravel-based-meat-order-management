@@ -59,7 +59,7 @@ class TransportController extends Controller
     public function viewOrders(){
 
     	$orders = DB::table('orders as o')
-    	->whereIn('status', [11,13,14,15])
+    	->whereIn('o.status', [11,13,14,15])
     	->join('po_priority_status as pos','o.priority_status','=','pos.id')
     	->join('purchase_order_status as ps','o.status','=','ps.id')
         ->join('purchase_order_status as pso','o.delivery_status','=','pso.id')

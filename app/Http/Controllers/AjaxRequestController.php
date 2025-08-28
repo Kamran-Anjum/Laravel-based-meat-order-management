@@ -65,6 +65,24 @@ class AjaxRequestController extends Controller
         return array($subcategories,$products_dropdown);
 
     }
+    
+    //Get gustomer Details
+    public function getcustomerdetailsnyIdform($id = null){
+
+        $customerDetail = DB::table('users as u')
+                ->where(['u.id'=>$id])
+                ->join('customer_details as c','u.id','=','c.user_id')
+                ->select('u.name as userName','u.email as userEmail','c.address as customerAddress','c.cell_no as cellNumber')
+                ->first();
+
+            $username = $customerDetail->userName;
+            $useremail = $customerDetail->userEmail;
+            $useraddress = $customerDetail->customerAddress;
+            $usercell = $customerDetail->cellNumber;
+        return array($username,$useremail,$useraddress,$usercell);
+
+    }
+    
     //Get Products Stock $ Sale Price for sales Order
     public function getproductstockprice($id, $cusid){
 
@@ -83,14 +101,20 @@ class AjaxRequestController extends Controller
         $customer_sale_price = DB::table('customer_price')
                                 ->where(['role_id'=>$role_id])
                                 ->first();
-        $products = DB::table('products')->where(['id'=>$id])->first();
+        $products = DB::table('products as p')
+        ->where(['p.id'=>$id])
+        ->join('product_unit as pu','p.unit','=','pu.id')
+        ->select('p.*','pu.name as unitName')
+        ->first();
 
         $base_price_percent = $products->base_price/100*$customer_sale_price->price_percent;
 
         $sales_price = $products->base_price + $base_price_percent;
+
+        $unit = $products->unitName;
         
         
-        return array($balance_stock,$sales_price);
+        return array($balance_stock,$sales_price,$unit);
 
     }
     //Get Supplier Product for Purchase Order
@@ -163,7 +187,7 @@ class AjaxRequestController extends Controller
 
     public function getCustomerDetail($id = null){
 
-        $authorizedRoles = ['internal customer', 'external customer', 'private customer','workforce','Rider'];
+        $authorizedRoles = ['internal-customer', 'external-customer', 'private-customer','workforce','Rider'];
 
         $users = User::whereHas('roles', static function ($query) use ($authorizedRoles) {
                     return $query->whereIn('name', $authorizedRoles);
@@ -171,7 +195,7 @@ class AjaxRequestController extends Controller
 
         $ud = DB::table('customer_details')->where(['user_id'=>$id])->first();
 
-            $user_detail = "<tr class='gradeX'><td><strong>Customer Name:  </strong>".$users->name."</td></tr><tr class='gradeX'><td><strong>Customer Email:  </strong>".$users->email."</td></tr><tr class='gradeX'><td><strong>Customer Role:  </strong>".$users->roles->first()->name."</td></tr><tr class='gradeX'><td><strong>Customer Cell No:  </strong>".$ud->cell_no."</td></tr><tr class='gradeX'><td><strong>Customer Address:  </strong>".$ud->address."</td></tr><tr class='gradeX'><td><strong>Profile Image:  </strong><img src='https://halalmeat.testit.live/images/backend-images/halalmeat/customer/tiny/".$ud->profile_image."'</td></tr>";
+            $user_detail = "<tr class='gradeX'><td><strong>Customer Name:  </strong>".$users->name."</td></tr><tr class='gradeX'><td><strong>Customer Email:  </strong>".$users->email."</td></tr><tr class='gradeX'><td><strong>Organization No:  </strong>".$ud->organization_no."</td></tr><tr class='gradeX'><td><strong>Contact Person Name:  </strong>".$ud->contact_person_name."</td></tr><tr class='gradeX'><td><strong>Customer Role:  </strong>".$users->roles->first()->name."</td></tr><tr class='gradeX'><td><strong>Customer Cell No:  </strong>".$ud->cell_no."</td></tr><tr class='gradeX'><td><strong>Customer Address:  </strong>".$ud->address."</td></tr><tr class='gradeX'><td><strong>Profile Image:  </strong><img src='https://halalmeat.testit.live/images/backend-images/halalmeat/customer/tiny/".$ud->profile_image."'</td></tr>";
         return $user_detail;
 
     }
@@ -238,7 +262,7 @@ class AjaxRequestController extends Controller
         ->select('od.*','p.name as productName')
         ->get();
 
-            $supp_detail = "<h3>SO # ".$id."</h3><h3>Sale Order Info</h3><tr class='gradeX'><td><strong>Customer Name:  </strong>".$sale_orders->customerName."</td><td><strong>Customer Eamil:  </strong>".$sale_orders->cusEmail."</td></tr><tr class='gradeX'><td><strong>Contact:  </strong>".$sale_orders->cell_no."</td><td><strong>Order Status:  </strong>".$sale_orders->s_status."</td></tr><tr class='gradeX'><td><strong>Shipp To:  </strong>".$sale_orders->shipping_address."</td><td><strong>Shipp From:  </strong>".$sale_orders->billing_address."</td></tr><tr class='gradeX'><td><strong>Priority:  </strong>".$sale_orders->pr_status."</td><td><strong>Location:  </strong>".$sale_orders->loc_status."</td></tr>";
+            $supp_detail = "<h3>SO # ".$id."</h3><h3>Sale Order Info</h3><tr class='gradeX'><td><strong>Customer Name:  </strong>".$sale_orders->customerName."</td><td><strong>Customer Eamil:  </strong>".$sale_orders->cusEmail."</td></tr><tr class='gradeX'><td><strong>Contact:  </strong>".$sale_orders->cell_no."</td><td><strong>Order Status:  </strong>".$sale_orders->s_status."</td></tr><tr class='gradeX'><td><strong>Shipp To:  </strong>".$sale_orders->shipping_address."</td><td><strong>Shipp From:  </strong>".$sale_orders->billing_address."</td></tr><tr class='gradeX'><td><strong>Priority:  </strong>".$sale_orders->pr_status."</td><td><strong>Location:  </strong>".$sale_orders->loc_status."</td></tr><tr class='gradeX'><td><strong>Total Amount:  </strong>".$sale_orders->total_amount."</td></tr>";
             $od_ids = [];
             $prod_detail = "<h3>ProductInfo<h3><tr><th>Name</th><th>Price</th><th>QTY</th><th>Discount</th><th>Amount</th><th>Sub Total</th></tr>";
 

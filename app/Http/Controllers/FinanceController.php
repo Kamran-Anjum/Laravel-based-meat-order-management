@@ -19,21 +19,21 @@ class FinanceController extends Controller
 {
     public function financelogin(Request $request)
     {
-    	if($request->isMethod('post')){
-    		$data = $request->input();
-    		
-    		if(Auth::attempt(['email'=>$data['email'],'password'=>$data['password'],'admin'=>'1'])){
+        if($request->isMethod('post')){
+            $data = $request->input();
+            
+            if(Auth::attempt(['email'=>$data['email'],'password'=>$data['password'],'admin'=>'1'])){
                 // Code: To set session
                 /*
                 Session::put('adminSession',$data['email']);
                 */
 
-    				return redirect('finance/dashboard');
-    			}
-    			else{
+                    return redirect('finance/dashboard');
+                }
+                else{
                     return redirect('/finance')->with('flash_message_error','Invalid Username or Password');
                 }
-    	}
+        }
         return view('departments.finance.finance-login');
     }
 
@@ -69,15 +69,34 @@ class FinanceController extends Controller
         return view('departments.finance.dashboard')->with(compact('today_sales','today_purchase','today_expence','wp_total_sales','profit_loss'));
     }
 
-    public function commingsoon()
-    {
-    	return view('admin.working.working');
+    // public function commingsoon()
+    // {
+    //  return view('admin.working.working');
+    // }
+
+    public function viewOrdersSummary(){
+
+        $orders = DB::table('orders as o')
+        ->whereIn('o.status',[5])
+        ->where(['is_paid'=> 1])
+        ->join('purchase_order_status as ps','o.status','=','ps.id')
+        ->join('users as u','o.user_id', '=', 'u.id')
+        ->select('o.*','u.name as customerName','ps.name as s_status')
+        ->get();
+
+        $roles = DB::table('roles')->whereNotIn('id',[1,2,3,4])->get();
+            $roles_dropdown = "<option value='0' readonly selected > Select Role</option>";
+            foreach ($roles as $role) {
+                $roles_dropdown .= "<option value='".$role->id."'>".$role->name . "</option>";
+            }
+        //dd($orders);
+        return view('departments.finance.ordersummary.list-orders')->with(compact('orders','roles_dropdown'));
     }
 
     public function viewOrders(){
 
         $orders = DB::table('orders as o')
-        ->where(['delivery_status'=> 5])
+        ->where(['delivery_status'=> 5, 'is_paid'=> 0])
         ->join('po_priority_status as pos','o.priority_status','=','pos.id')
         ->join('purchase_order_status as ps','o.status','=','ps.id')
         ->join('order_location_status as ols','o.location_status','=','ols.id')
@@ -86,6 +105,19 @@ class FinanceController extends Controller
         ->get();
         //dd($orders);
         return view('departments.finance.orders.list-orders')->with(compact('orders'));
+    }
+
+    public function orderinvoicepay($id)
+    {
+        if (!empty($id)){
+
+            Order::where(['id'=>$id])->update([
+                'is_paid' => 1
+            ]);
+
+            return redirect()->back()->with('flash_message_success','Invoice Paid..!');
+
+        }
     }
 
     public function viewExpences()
@@ -212,7 +244,8 @@ foreach ($order_products as $value) {
 }
 //dd($product_invoice);
 for ($i=0; $i <count($product_invoice) ; $i++) { 
-    $net_amount = $product_invoice[$i]["amount"]+$product_invoice[$i]["discount"];
+    $total_amount = $product_invoice[$i]["amount"]+$product_invoice[$i]["discount"];
+    $net_amount = $total_amount*100;
     $vat_amount = $net_amount*0.25;
     //dd($vat_amount,$net_amount);
 $sub_data[] =[
@@ -221,7 +254,7 @@ $sub_data[] =[
       "vatType"=> "HIGH",
       "gross"=> $net_amount+$vat_amount,
       //"vatInPercent"=> 0.2500000000,
-      "unitPrice"=> $product_invoice[$i]["price"],
+      "unitPrice"=> $product_invoice[$i]["price"]*100,
       "quantity"=> $product_invoice[$i]["quantity"],
       //"discount"=> 2,
       "productName"=> $product_invoice[$i]["name"],
@@ -231,7 +264,7 @@ $sub_data[] =[
       "incomeAccount"=> $product_invoice[$i]["code"]
     ];
 }
-  //dd($sub_data);
+  // dd($sub_data);
 $data = ["uuid"=> "123e4567-e89b-12d3-a456-426655440000",
     "issueDate"=> "2020-12-20",
     "dueDate"=> "2020-12-20",
@@ -256,23 +289,23 @@ $data = ["uuid"=> "123e4567-e89b-12d3-a456-426655440000",
                                 curl_setopt($chz, CURLOPT_POSTFIELDS, $data); 
                                 curl_setopt($chz, CURLOPT_FOLLOWLOCATION, false); 
                                 $resultz = curl_exec($chz); 
-                                //dd($resultz);
+                                // dd($resultz);
                                 
                                 $header_size = curl_getinfo($chz);
                                 $headers = substr($resultz, 0, $header_size["header_size"]); //split out header
-                                //dd($headers);
+                                // dd($headers);
 
                                 preg_match("!\r\n(?:location|URI): *(.*?) *\r\n!", $headers, $matches);
                                 $url = $matches[1];
-                                    
+                                    // dd($url);
                                
-                                //curl_close($chz);
+                                curl_close($chz);
                                 //dd($resultz);
                                 
 
                                 $array_url = explode('/',$url);
                                 $final_array = array_reverse($array_url);
-
+                                //dd($final_array);
                                 //Get Fiken Generated Inoice
                                 $curl = curl_init();
                                 curl_setopt_array($curl, array(
@@ -294,11 +327,13 @@ $data = ["uuid"=> "123e4567-e89b-12d3-a456-426655440000",
 
                                 $response = json_decode($response);
                                 //dd($response);
-
+                                //dd($response->invoicePdf->downloadUrl);
+                                $downloadURL = $response->invoicePdf->downloadUrl;
+                                //dd($downloadURL);
                                 $order = Order::where(['id'=>$id])->update
                                     ([
                                         'fiken_invoice_id' => $final_array[0],
-                                        'invoice_url'=> $response->invoicePdf->downloadUrl,
+                                        'invoice_url'=> $downloadURL,
             
                                     ]);
                                     //dd($final_array); 

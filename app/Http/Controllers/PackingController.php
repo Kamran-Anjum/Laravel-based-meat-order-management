@@ -86,6 +86,7 @@ class PackingController extends Controller
             ([
                 'location_status' => $data['dept_status'],
                 'status' => $data['status'],
+                'delivery_status' => $data['dept_status'],
             ]);
 
             return redirect('/packing/view-orders')->with('flash_message_success','Order Status has been Updated Successfully!');

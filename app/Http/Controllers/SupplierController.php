@@ -59,7 +59,7 @@ class SupplierController extends Controller
             return redirect('/admin/view-suppliers')->with('flash_message_success','Supplier Added Successfully!');
         }
         $countries = DB::table('cities')->get();
-    	$country_dropdown = "<option disabled selected > Select Category</option>";
+    	$country_dropdown = "<option disabled selected > Select City</option>";
 
     	foreach ($countries as $country) {
     		$country_dropdown .="<option value='".$country->id."'>".$country->name . "</option>";

@@ -92,7 +92,7 @@
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-body">
-                                <form enctype="multipart/form-data" method="post" action="{{ url('/admin/create-customer') }}" > {{ csrf_field() }}
+                                <form enctype="multipart/form-data" method="post" action="{{ url('/admin/create-rider') }}" > {{ csrf_field() }}
                                     <div class="form-body">
                                         <h5 class="card-title">Create Rider</h5>
                                         <hr>

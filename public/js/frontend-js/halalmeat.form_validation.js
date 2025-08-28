@@ -38,6 +38,9 @@ $('#category_user').on('change', function() {
                 var citydd = $("#sub_category_user").html('');
                 $('#sub_category_user').append(data);
                 $("#sub_category_user").prop("disabled", false);
+                
+                var citydd = $("#product_id_user").html('');
+                $("#product_id_user").prop("disabled", true);
                 console.log(data);
             }
 
@@ -74,7 +77,7 @@ $('#product_id_user').on('change', function() {
                 $('#stocks').attr("value", data[0]);
                 /*$('#stocks').value = data[0];*/
                 $("#stocks").prop("readonly", true);
-                $('#sale_price').attr("value", Math.round(data[1]));
+                $('#sale_price').attr("value",  data[1].toFixed(2));
                 /*$('#sale_price').value = data[1];*/
                 $("#sale_price").prop("readonly", true);
                 /*alert(data[0]);
@@ -87,8 +90,9 @@ $('#product_id_user').on('change', function() {
  $('#qty').on('change keyup', function() {
         var quantity = $(this).val();
         var saleprice = document.getElementById("sale_price").value;
-
-        document.getElementById("sub_total").value = quantity * saleprice;
+        var subtotall = quantity * saleprice;
+        subtotall = subtotall.toFixed(2);
+        document.getElementById("sub_total").value = subtotall;
         
         //alert(quantity * saleprice);
 
@@ -173,10 +177,10 @@ function getPODetails(id){
             
             
             $('#Suppinfo tbody').html(data[0]);
-            $("#Suppinfo").DataTable();
+            // $("#Suppinfo").DataTable();
 
             $('#productinfo tbody').html(data[1]);
-            $("#productinfo").DataTable();
+            // $("#productinfo").DataTable();
         }
     });
 }
@@ -185,7 +189,7 @@ function getSODetails(id){
     var id = id;
     //alert(id);
     $.ajax({
-        url: '/admin/getsodetail/'+id,
+        url: '/user/getsodetail/'+id,
         success: data => {
             console.log(data[1]);
 
@@ -194,13 +198,13 @@ function getSODetails(id){
             
             
             $('#Suppinfo tbody').html(data[0]);
-            $("#Suppinfo").DataTable();
+            // $("#Suppinfo").DataTable();
 
             $('#productinfo tbody').html(data[1]);
-            $("#productinfo").DataTable();
+            // $("#productinfo").DataTable();
 
             $('#forwardinfo tbody').html(data[2]);
-            $("#forwardinfo").DataTable();
+            // $("#forwardinfo").DataTable();
         }
     });
 }
@@ -301,15 +305,15 @@ function makerow(){
        html +=list[i][3];
        html +='"> </td>'
        html +='<td><input required type="text" name="subtotal[]" class="form-control" value="'
-       html +=Math.trunc(list[i][6]);
+       html +=list[i][6];
        html +='"> </td>'
        html +='<td><button type="button" onclick="deletearray('
        html +=i;
-       html +=')" class="btn waves-effect waves-light btn-danger">delete</button></td>';
+       html +=')" class="btn waves-effect waves-light btn-danger">Delete</button></td>';
        html +='</tr>';
    }
    $('#dataTable2 tbody').html(html);
-   totalprice = totalprice+Math.trunc(list[y][6]); 
+   totalprice = totalprice+parseFloat(list[y][6]); 
    document.getElementById("total_price").value = totalprice;
    
     //alert(totalprice);
@@ -318,7 +322,7 @@ function makerow(){
 
 function deletearray(id) {
 
-    totalprice = totalprice-Math.trunc(list[id][6]);
+    totalprice = totalprice-list[id][6];
     list.splice(id,1);
     y--;
     makerow();

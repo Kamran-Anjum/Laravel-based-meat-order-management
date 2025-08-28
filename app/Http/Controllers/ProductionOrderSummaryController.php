@@ -41,6 +41,7 @@ class ProductionOrderSummaryController extends Controller
     	if ($role == 0 && $user == 0) {
     		if ($fromdate == $todate) {
             	$sortorders = DB::table('orders as o')->whereDate('o.created_at',$fromdate)
+                ->whereIn('o.status',[5])
             	->join('users as u','o.user_id', '=', 'u.id')
     			->join('purchase_order_status as ps','o.status','=','ps.id')
     			->select('o.*','u.name as customerName','ps.name as s_status')
@@ -48,6 +49,7 @@ class ProductionOrderSummaryController extends Controller
             }
         	else{
             	$sortorders = DB::table('orders as o')->whereBetween('o.created_at', [$fromdate, $todate])
+                ->whereIn('o.status',[5])
             	->join('users as u','o.user_id', '=', 'u.id')
     			->join('purchase_order_status as ps','o.status','=','ps.id')
     			->select('o.*','u.name as customerName','ps.name as s_status')
@@ -64,6 +66,7 @@ class ProductionOrderSummaryController extends Controller
     		foreach ($users as $roless) {
     			$sortorders = DB::table('orders as o')->whereBetween('o.created_at', [$fromdate, $todate])
     			->where(['o.user_id'=> $roless->id])
+                ->whereIn('o.status',[5])
     			->join('users as u','o.user_id', '=', 'u.id')
     			->join('purchase_order_status as ps','o.status','=','ps.id')
     			->select('o.*','u.name as customerName','ps.name as s_status')
@@ -74,6 +77,7 @@ class ProductionOrderSummaryController extends Controller
     	else{
     		$sortorders = DB::table('orders as o')->whereBetween('o.created_at', [$fromdate, $todate])
     		->where(['o.user_id'=> $user])
+            ->whereIn('o.status',[5])
     		->join('users as u','o.user_id', '=', 'u.id')
     		->join('purchase_order_status as ps','o.status','=','ps.id')
     		->select('o.*','u.name as customerName','ps.name as s_status')
@@ -88,6 +92,7 @@ class ProductionOrderSummaryController extends Controller
         if ($role == 0 && $user == 0) {
     		if ($fromdate == $todate) {
             	$sortorders = DB::table('orders as o')->whereDate('o.created_at',$fromdate)
+                ->whereIn('o.status',[5])
             	->join('users as u','o.user_id', '=', 'u.id')
     			->join('purchase_order_status as ps','o.status','=','ps.id')
     			->select('o.*','u.name as customerName','ps.name as s_status')
@@ -95,6 +100,7 @@ class ProductionOrderSummaryController extends Controller
             }
         	else{
             	$sortorders = DB::table('orders as o')->whereBetween('o.created_at', [$fromdate, $todate])
+                ->whereIn('o.status',[5])
             	->join('users as u','o.user_id', '=', 'u.id')
     			->join('purchase_order_status as ps','o.status','=','ps.id')
     			->select('o.*','u.name as customerName','ps.name as s_status')
@@ -111,6 +117,7 @@ class ProductionOrderSummaryController extends Controller
     		foreach ($users as $roless) {
     			$sortorders = DB::table('orders as o')->whereBetween('o.created_at', [$fromdate, $todate])
     			->where(['o.user_id'=> $roless->id])
+                ->whereIn('o.status',[5])
     			->join('users as u','o.user_id', '=', 'u.id')
     			->join('purchase_order_status as ps','o.status','=','ps.id')
     			->select('o.*','u.name as customerName','ps.name as s_status')
@@ -121,6 +128,7 @@ class ProductionOrderSummaryController extends Controller
     	else{
     		$sortorders = DB::table('orders as o')->whereBetween('o.created_at', [$fromdate, $todate])
     		->where(['o.user_id'=> $user])
+            ->whereIn('o.status',[5])
     		->join('users as u','o.user_id', '=', 'u.id')
     		->join('purchase_order_status as ps','o.status','=','ps.id')
     		->select('o.*','u.name as customerName','ps.name as s_status')
@@ -143,6 +151,7 @@ class ProductionOrderSummaryController extends Controller
         if ($role == 0 && $user == 0) {
     		if ($fromdate == $todate) {
             	$sortorders = DB::table('orders as o')->whereDate('o.created_at',$fromdate)
+                ->whereIn('o.status',[5])
             	->join('users as u','o.user_id', '=', 'u.id')
     			->join('purchase_order_status as ps','o.status','=','ps.id')
     			->select('o.*','u.name as customerName','ps.name as s_status')
@@ -150,6 +159,7 @@ class ProductionOrderSummaryController extends Controller
             }
         	else{
             	$sortorders = DB::table('orders as o')->whereBetween('o.created_at', [$fromdate, $todate])
+                ->whereIn('o.status',[5])
             	->join('users as u','o.user_id', '=', 'u.id')
     			->join('purchase_order_status as ps','o.status','=','ps.id')
     			->select('o.*','u.name as customerName','ps.name as s_status')
@@ -166,6 +176,7 @@ class ProductionOrderSummaryController extends Controller
     		foreach ($users as $roless) {
     			$sortorders = DB::table('orders as o')->whereBetween('o.created_at', [$fromdate, $todate])
     			->where(['o.user_id'=> $roless->id])
+                ->whereIn('o.status',[5])
     			->join('users as u','o.user_id', '=', 'u.id')
     			->join('purchase_order_status as ps','o.status','=','ps.id')
     			->select('o.*','u.name as customerName','ps.name as s_status')
@@ -176,6 +187,7 @@ class ProductionOrderSummaryController extends Controller
     	else{
     		$sortorders = DB::table('orders as o')->whereBetween('o.created_at', [$fromdate, $todate])
     		->where(['o.user_id'=> $user])
+            ->whereIn('o.status',[5])
     		->join('users as u','o.user_id', '=', 'u.id')
     		->join('purchase_order_status as ps','o.status','=','ps.id')
     		->select('o.*','u.name as customerName','ps.name as s_status')

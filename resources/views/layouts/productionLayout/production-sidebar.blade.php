@@ -23,7 +23,7 @@
                             </ul>
                         </li>
                         <li class="sidebar-item">
-                            <a href="{{ url('/admin/dashboard')}}" class="sidebar-link">
+                            <a href="{{ url('/production/dashboard')}}" class="sidebar-link">
                                 <i class="mdi mdi-av-timer"></i>
                                 <span class="hide-menu">Production Dashboard</span>
                             </a>
@@ -40,13 +40,20 @@
                                 <li class="sidebar-item">
                                     <a href="{{ url('production/view-orders') }}" class="sidebar-link">
                                         <i class="mdi mdi-adjust"></i>
-                                        <span class="hide-menu">View Sales Orders</span>
+                                        <span class="hide-menu">View Kjottsentralen Orders</span>
                                     </a>
                                 </li>
+                                
                                 <li class="sidebar-item">
                                     <a href="{{ url('production/view-wp-orders') }}" class="sidebar-link">
                                         <i class="mdi mdi-adjust"></i>
-                                        <span class="hide-menu">View Wordpress Sales Orders</span>
+                                        <span class="hide-menu">View Halalkjottbazar Orders</span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-item">
+                                    <a href="{{ url('production/view-orders-history') }}" class="sidebar-link">
+                                        <i class="mdi mdi-adjust"></i>
+                                        <span class="hide-menu">View Orders History</span>
                                     </a>
                                 </li>
                                 <li class="sidebar-item">

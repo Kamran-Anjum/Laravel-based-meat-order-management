@@ -81,7 +81,9 @@
                                                 <th>Total Amount</th>                                 
                                                 <th>Periority</th>
                                                 <th>Created By</th>
+                                                <th>Created At</th>
                                                 <th>Status</th>
+                                                <th>Last Update At</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
@@ -97,8 +99,9 @@
                                                 <td>{{$purchase_order->total_amount}}</td>
                                                 <td>{{$purchase_order->prStatus}}</td>
                                                 <td>{{$purchase_order->userName}}</td>
+                                                <td>{{$purchase_order->created_at}}</td>
                                                 <td>{{$purchase_order->sstatus}}</td>
-                                                
+                                                <td>{{$purchase_order->updated_at}}</td>
                                                 <td>
                                                     <div class="button-group">
                                                         
@@ -122,7 +125,9 @@
                                                 <th>Total Amount</th>                                 
                                                 <th>Periority</th>
                                                 <th>Created By</th>
+                                                <th>Created At</th>
                                                 <th>Status</th>
+                                                <th>Last Update At</th>
                                                 <th>Action</th>
                                             </tr>
                                         </tfoot>

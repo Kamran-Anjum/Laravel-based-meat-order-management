@@ -304,27 +304,27 @@
                                         <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label class="control-label">Name</label>
-                                                     <input type="text" name="shipping_name" class="form-control" name="">
+                                                     <input readonly="" type="text" name="shipping_name" id="shipping_name" class="form-control" name="">
                                             </div>
                                         </div>
                                             <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label class="control-label">Email</label>
-                                                    <input type="Email" name="shipping_email" class="form-control" name="">
+                                                    <input readonly="" type="Email" name="shipping_email" id="shipping_email" class="form-control" name="">
                                                     
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label class="control-label">Cell No</label>
-                                                    <input type="text" name="shipping_cell" class="form-control" name="">
+                                                    <input required="" type="text" name="shipping_cell" id="shipping_cell" class="form-control" name="">
                                                     
                                             </div>
                                         </div>
                                             <div class="col-md-8">
                                                 <div class="form-group">
                                                     <label class="control-label">Address</label>
-                                                    <input required type="text" name="shipping_address" class="form-control" >
+                                                    <input required type="text" name="shipping_address" id="shipping_address" class="form-control" >
                                                 </div>
                                             </div>
                                             <div class="col-md-2">
@@ -337,7 +337,7 @@
                                             <div class="col-md-2">
                                                 <div class="form-group">
                                                     <label class="control-label">City</label>
-                                                    <select name="shipping_city" class="form-control">
+                                                    <select required name="shipping_city" class="form-control">
                                                         {!! $city_dropdown !!}
                                                     </select>
                                                 </div>

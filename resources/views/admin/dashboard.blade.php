@@ -42,7 +42,7 @@
                                 <h5 class="card-title text-uppercase">Today's Sales</h5>
                                 <div class="text-right">
                                     <span class="text-muted">Today's Sales</span>
-                                    <h2 class="mt-2 display-7"><sup><i class="ti-arrow-up text-success"></i></sup>${{number_format($today_sales)}}</h2>
+                                    <h2 class="mt-2 display-7"><sup><i class="ti-arrow-up text-success"></i></sup>Kr.{{number_format($today_sales)}}</h2>
                                 </div>
                                 <!-- <span class="text-success">20%</span>
                                 <div class="progress">
@@ -57,7 +57,7 @@
                                 <h5 class="card-title text-uppercase">Today's Purchases</h5>
                                 <div class="text-right">
                                     <span class="text-muted">Today's Purchases</span>
-                                    <h2 class="mt-2 display-7"><sup><i class="ti-arrow-down text-danger"></i></sup>${{number_format($today_purchase)}}</h2>
+                                    <h2 class="mt-2 display-7"><sup><i class="ti-arrow-down text-danger"></i></sup>Kr.{{number_format($today_purchase)}}</h2>
                                 </div>
                                 <!-- <span class="text-success">30%</span>
                                 <div class="progress">

@@ -101,13 +101,7 @@
                                                 <!-- <td>$320,800</td> -->
                                                 <td>
                                                 	<div class="button-group">
-														
-                                                        <button type="button" class="btn waves-effect waves-light btn-info"><a class="text-white" href="{{ url('/admin/view-categories')}}">View</a></button>
-
-                                                        <button type="button" class="btn waves-effect waves-light btn-primary"><a class="text-white" href="{{ url('admin/edit-category/'.$expence->id) }}">Edit</a></button>
-
-                                                        <button type="button" class="btn waves-effect waves-light btn-danger"><a class="text-white sa-confirm-delete" param-id="{{ $expence->id }}" param-route="delete-category" href="javascript:">Remove</a></button>
-
+                                                        <button type="button" class="btn waves-effect waves-light btn-primary"><a class="text-white" href="{{ url('admin/edit-expence/'.$expence->id) }}">Edit</a></button>
                                                         
 													</div>
 												</td>

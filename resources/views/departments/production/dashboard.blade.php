@@ -35,19 +35,16 @@
                 <!-- ============================================================== -->
                 <!-- First Cards Row  -->
                 <!-- ============================================================== -->
-                <div class="row">
+                <!--<div class="row">
                     <div class="col-md-6 col-lg-6">
                         <div class="card">
                             <div class="card-body">
                                 <h5 class="card-title text-uppercase">Today's Sales</h5>
                                 <div class="text-right">
                                     <span class="text-muted">Today's Sales</span>
-                                    <h2 class="mt-2 display-7"><sup><i class="ti-arrow-up text-success"></i></sup>${{number_format($today_sales)}}</h2>
+                                    <h2 class="mt-2 display-7"><sup><i class="ti-arrow-up text-success"></i></sup>Kr.{{number_format($today_sales)}}</h2>
                                 </div>
-                                <!-- <span class="text-success">20%</span>
-                                <div class="progress">
-                                    <div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div> -->
+                                
                             </div>
                         </div>
                     </div>
@@ -57,47 +54,15 @@
                                 <h5 class="card-title text-uppercase">Today's Purchases</h5>
                                 <div class="text-right">
                                     <span class="text-muted">Today's Purchases</span>
-                                    <h2 class="mt-2 display-7"><sup><i class="ti-arrow-down text-danger"></i></sup>${{number_format($today_purchase)}}</h2>
+                                    <h2 class="mt-2 display-7"><sup><i class="ti-arrow-down text-danger"></i></sup>Kr.{{number_format($today_purchase)}}</h2>
                                 </div>
-                                <!-- <span class="text-success">30%</span>
-                                <div class="progress">
-                                    <div class="progress-bar bg-danger" role="progressbar" style="width: 30%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div> -->
+                                
                             </div>
                         </div>
                     </div>
 
-                    <!-- <div class="col-md-6 col-lg-3">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title text-uppercase">Monthly Sales</h5>
-                                <div class="text-right">
-                                    <span class="text-muted">Monthly Income</span>
-                                    <h2 class="mt-2 display-7"><sup><i class="ti-arrow-up text-info"></i></sup>$10,000</h2>
-                                </div>
-                                <span class="text-info">60%</span>
-                                <div class="progress">
-                                    <div class="progress-bar bg-info" role="progressbar" style="width: 60%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-3">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title text-uppercase">Yearly Sales</h5>
-                                <div class="text-right">
-                                    <span class="text-muted">Yearly Income</span>
-                                    <h2 class="mt-2 display-7"><sup><i class="ti-arrow-up text-inverse"></i></sup>$9,000</h2>
-                                </div>
-                                <span class="text-inverse">20%</span>
-                                <div class="progress">
-                                    <div class="progress-bar bg-inverse" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div> -->
-                </div>
+                    
+                </div>-->
                 <div class="row">
                     <!-- Column -->
                     <div class="col-lg-12">

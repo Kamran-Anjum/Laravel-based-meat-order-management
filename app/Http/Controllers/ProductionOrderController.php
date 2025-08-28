@@ -16,9 +16,10 @@ use App\Models\User;
 
 class ProductionOrderController extends Controller
 {
-    public function viewOrders(){
+   public function viewOrders(){
 
     	$orders = DB::table('orders as o')
+        ->where('o.status',[1,7,6,12])
     	->join('po_priority_status as pos','o.priority_status','=','pos.id')
     	->join('purchase_order_status as ps','o.status','=','ps.id')
     	->join('order_location_status as ols','o.location_status','=','ols.id')
@@ -27,6 +28,19 @@ class ProductionOrderController extends Controller
     	->get();
     	//dd($orders);
     	return view('departments.production.orders.list-orders')->with(compact('orders'));
+    }
+
+    public function viewOrdersHistory(){
+
+        $orders = DB::table('orders as o')
+        ->join('po_priority_status as pos','o.priority_status','=','pos.id')
+        ->join('purchase_order_status as ps','o.status','=','ps.id')
+        ->join('order_location_status as ols','o.location_status','=','ols.id')
+        ->join('users as u','o.created_by', '=', 'u.id')
+        ->select('o.*','u.name as order_by','pos.name as pr_status','ps.name as s_status','ols.name as loc_status')
+        ->get();
+        //dd($orders);
+        return view('departments.production.orders.list-orders-history')->with(compact('orders'));
     }
 
     public function createOrder(Request $request){

@@ -70,7 +70,9 @@
                                                 <!-- <th>Discount</th> -->
                                                 <th>Periority</th>
                                                 <th>Location</th>
+                                                <th>Order Date</th>
                                                 <th>Status</th>
+                                                <th>Last Updated At</th>
                                                 <th>Delivery Status</th>
                                                 <th>Total Amount</th>
                                                 <th>View</th>
@@ -87,7 +89,9 @@
                                                 <!-- <td>${{$order->discount}}</td> -->
                                                 <td>{{$order->pr_status}}</td>
                                                 <td>{{$order->loc_status}}</td>
+                                                <td>{{$order->order_date}}</td>
                                                 <td>{{$order->s_status}}</td>
+                                                <td>{{$order->updated_at}}</td>
                                                 <td>{{$order->delivery_statuss}}</td>
                                                 <td>{{$order->total_amount}}</td>
                                                 <td style="width: 12%">
@@ -97,7 +101,7 @@
                                                 <td style="width: 12%">
                                                     @if($order->is_assign == '1')
                                                         @if($order->delivery_status == '15')
-                                                    <button type="button" class="btn waves-effect waves-light btn-primary"><a class="text-white" href="{{ url('transport/complete-order/'.$order->id) }}">Complete?</a></button>
+                                                    <button type="button" class="btn waves-effect waves-light btn-primary"><a class="text-white" href="{{ url('transport/complete-order/'.$order->id) }}">Complete</a></button>
                                                         @else
                                                     <button type="button" class="btn waves-effect waves-light btn-primary"><a class="text-white" href="{{ url('transport/delivered-partial-order/'.$order->id) }}">Remain</a></button>
                                                         @endif
@@ -117,7 +121,9 @@
                                                 <!-- <th>Discount</th> -->
                                                 <th>Periority</th>
                                                 <th>Location</th>
+                                                <th>Order Date</th>
                                                 <th>Status</th>
+                                                <th>Last Updated At</th>
                                                 <th>Delivery Status</th>
                                                 <th>Total Amount</th>
                                                 <th>View</th>

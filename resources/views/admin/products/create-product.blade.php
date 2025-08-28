@@ -21,6 +21,19 @@
                             </ol>
                         </nav>
                     </div>
+                    @if(Session::has('flash_message_error'))
+                    <div class="alert alert-danger alert-block">
+                        <button type="button" class="close" data-dismiss="alert">×</button>
+                        <strong>{!! session('flash_message_error') !!}</strong>
+                    </div>
+
+                @endif
+                @if(Session::has('flash_message_success'))
+                    <div class="alert alert-success alert-block">
+                        <button type="button" class="close" data-dismiss="alert">×</button>
+                        <strong>{!! session('flash_message_success') !!}</strong>
+                    </div>
+                @endif
                 </div>
             </div>
             <!-- ============================================================== -->
@@ -125,7 +138,7 @@
                                             <div class="col-md-4 mb-0">
                                                 <div class="form-group">                                                  
                                                     <label  for="">Base Price</label>
-                                                    <input type="number" class="form-control" name="base_price">
+                                                    <input type="number" step="0.01" class="form-control" name="base_price">
                                                     <div class="invalid-feedback">Example invalid custom select feedback</div>
                                                 </div>
                                             </div>
